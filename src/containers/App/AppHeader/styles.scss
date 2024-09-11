@@ -1,0 +1,9 @@
+@import '../../../styles/tools';
+
+.floatingHeader {
+  position: sticky;
+  z-index: 11;
+  top: 0;
+  border: $kalakaar-color; // TODO: to be removed later after designing
+  border: 2px;
+}
