@@ -15,7 +15,7 @@ module.exports = {
   ],
   // Don't use the hashed in dev mode for better performance
   output: {
-    path: path.resolve(process.cwd(), 'dist'),
+    path: path.resolve(process.cwd(), 'dist'), //  TODO: Need to modify the path
     filename: "[name].js",
     chunkFilename: "[name].chunk.js",
     publicPath: '/',

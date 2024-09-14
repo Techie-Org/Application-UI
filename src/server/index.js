@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(express.static(path.join(__dirname, '../../dist'))); // TODO: need to modify the path
 
 
 // Start the server
