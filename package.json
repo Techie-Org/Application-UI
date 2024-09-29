@@ -22,10 +22,76 @@
     "*.js": "npm run lint:eslint"
   },
   "eslintConfig": {
+    "parser": "@babel/eslint-parser",
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+    "plugins": [
+      "redux-saga",
+      "react",
+      "jsx-a11y"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "no-restricted-properties": [
+        2,
+        {
+          "object": "window",
+          "message": "Do not use browser API calls directly, look into /utils or contact the Architect team"
+        },
+        {
+          "object": "document",
+          "message": "Don't need or manipulate the DOM, do it the React Way(tm)"
+        }
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          "message": "Do not use setGlobalStore",
+          "selector": "Identifier[name='setGlobalStore']"
+        },
+        {
+          "message": "Do not use getGlobalStoreAsyncInjectors",
+          "selector": "Identifier[name='getGlobalStoreAsyncInjectors']"
+        }
+      ],
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "dot-notation": [
+        "error",
+        {
+          "allowPattern": "^[a-z]+(__[a-z]+)?(--[a-z]+)?$"
+        }
+      ],
+      "eslint-plugin-import/imports-first": 0,
+      "eslint-plugin-import/newline-after-import": 0,
+      "eslint-plugin-import/no-dynamic-require": 0,
+      "eslint-plugin-import/no-extraneous-dependencies": 0,
+      "eslint-plugin-import/no-named-as-default": 0
+    }
   },
   "browserslist": {
     "production": [

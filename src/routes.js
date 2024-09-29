@@ -2,21 +2,24 @@
   * Component Import Helper
 */
 export const componentHelper = {
-  home: () => import('containers/Home'),
+  home: () => import("containers/Home"),
+  signIn: () => import("containers/SignIn"),
 };
 
 /* 
   * Reducer Import Helper
 */
 export const reducerHelper = {
-  home: () => import('containers/Home/reducer'),
+  home: () => import("containers/Home/reducer"),
+  signIn: () => import("containers/SignIn/reducer"),
 };
 
 /* 
   * Saga Import Helper
 */
 export const sagaHelper = {
-  home: () => import('containers/Home/sagas'),
+  home: () => import("containers/Home/sagas"),
+  signIn: () => import("containers/SignIn/sagas"),
 };
 
 /* 
@@ -24,6 +27,7 @@ export const sagaHelper = {
 */
 export const enabledRoutes = [
   'home',
+  'signIn', // Test purpose
 ];
 
 const homeRoutes = {
@@ -36,6 +40,17 @@ const homeRoutes = {
   },
 };
 
+const signInRoutes = {
+  signIn: {
+    path: '/signIn',
+    name: 'signIn',
+    reducers: ['signIn'],
+    sagas: ['signIn'],
+    config: {},
+  },
+};
+
 export const routes = {
   ...homeRoutes,
+  ...signInRoutes,
 };
