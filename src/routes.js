@@ -2,21 +2,21 @@
   * Component Import Helper
 */
 export const componentHelper = {
-  home: () => import('./containers/Home'),
+  home: () => import('containers/Home'),
 };
 
 /* 
   * Reducer Import Helper
 */
 export const reducerHelper = {
-  home: () => import('./containers/Home/reducer'),
+  home: () => import('containers/Home/reducer'),
 };
 
 /* 
   * Saga Import Helper
 */
 export const sagaHelper = {
-  home: () => import('./containers/Home/sagas'),
+  home: () => import('containers/Home/sagas'),
 };
 
 /* 

@@ -21,9 +21,9 @@ export const GlobalHeader = (props) => {
       {/* </ScreenReaderMessage> */}
       <a // TODO: Have a common link component to render throught the app
         className={styles.headerLinkLogo}
-        id='artistryLogo'
+        id="artistryLogo"
         href={HOMEPAGE_ROUTE}
-        role='presentation'
+        role="presentation"
         aria-label={intl.formatMessage(messages.logoAria)}
       >
         <img 
