@@ -9,13 +9,12 @@ const webpackConfig = require('../../webpack.config.js');
 const compiler = webpack(webpackConfig);
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js file as base
-const middleware = webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  stats: "errors-only",
-});
-
-app.use(middleware);
-
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: 'errors-only',
+  })
+);
 app.use(
   webpackHotMiddleware(compiler, {
     ignoreUnaccepted: false,
@@ -23,17 +22,6 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, '../../dist'))); // TODO: need to modify the path
-
-const fs = middleware.context.outputFileSystem;
-app.get('*', (req, res) => {
-  fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-    if (err) {
-      res.sendStatus(404);
-    } else {
-      res.send(file.toString());
-    }
-  })
-})
 
 
 // Start the server
