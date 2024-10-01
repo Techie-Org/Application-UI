@@ -2,9 +2,9 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import AppHeader from 'containers/App/AppHeader';
-import GlobalHeaderContainer from 'containers/GlobalHeaderContainer';
-import browserHistory, { history } from 'utils/browserHistory';
+import AppHeader from './containers/App/AppHeader';
+import GlobalHeaderContainer from './containers/GlobalHeaderContainer';
+import browserHistory, { history } from './utils/browserHistory';
 import configureStore from './store';
 import {
   routes as routeList,
