@@ -6,7 +6,7 @@ on:
       - pod-development/* # The branch you want to automatically merge pull request
       - epic/*
 jobs:
-  Run Actions:
+  Run_Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Automatically Merge PR
