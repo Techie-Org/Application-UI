@@ -4,19 +4,19 @@
   "private": true,
   "scripts": {
     "webpack:build": "webpack",
-    "start:server": "node ./src/server",
+    "start:server": "node server",
     "test": "npm run test:default -- --coverage",
     "test:fast": "npm run test:default",
     "test:default": "node --expose-gc ./node_modules/jest-cli/bin/jest.js",
     "eject": "react-scripts eject",
     "lint": "npm run lint:js",
-    "lint:css": "stylelint \"src/**/*.scss\" \"src/**/*.css\" --cache",
+    "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.css\" --cache",
     "lint:eslint": "eslint --quiet --cache --ignore-path .gitignore --ignore-pattern \"internals/scripts\" --ignore-pattern static --ignore-pattern \"static/*\"",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "verify-branch-naming": "node ./internals/scripts/verify-branch-naming",
     "prepare": "husky",
-    "extract-intl": "extract-messages -l=en -o ./src/translations -d en --flat true ./src/**/messages.js"
+    "extract-intl": "extract-messages -l=en -o ./app/translations -d en --flat true ./app/**/messages.js"
   },
   "lint-staged": {
     "*.js": "npm run lint:eslint"
