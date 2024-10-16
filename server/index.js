@@ -24,7 +24,9 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '../dist'))); // TODO: need to modify the path
 
+//Since webpackDevMiddleware uses memory-fs internally to store build artifacts, we use it instead
 const fs = middleware.context.outputFileSystem;
+
 app.get('*', (req, res) => {
   fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
     if (err) {

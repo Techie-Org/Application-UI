@@ -95,7 +95,7 @@ module.exports = {
       moment$: "moment/moment.js",
       config: path.join(
         process.cwd(),
-        `src/config/${process.env.APP_CONFIG}.js`
+        `app/config/${process.env.APP_CONFIG}.js`
       ),
     },
   },
