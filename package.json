@@ -4,40 +4,260 @@
   "private": true,
   "scripts": {
     "webpack:build": "webpack",
-    "start:server": "node ./src/server",
+    "start:server": "node server",
     "test": "npm run test:default -- --coverage",
     "test:fast": "npm run test:default",
     "test:default": "node --expose-gc ./node_modules/jest-cli/bin/jest.js",
     "eject": "react-scripts eject",
     "lint": "npm run lint:js",
-    "lint:css": "stylelint \"src/**/*.scss\" \"src/**/*.css\" --cache",
+    "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.css\" --cache",
     "lint:eslint": "eslint --quiet --cache --ignore-path .gitignore --ignore-pattern \"internals/scripts\" --ignore-pattern static --ignore-pattern \"static/*\"",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "verify-branch-naming": "node ./internals/scripts/verify-branch-naming",
     "prepare": "husky",
-    "extract-intl": "extract-messages -l=en -o ./src/translations -d en --flat true ./src/**/messages.js"
+    "extract-intl": "extract-messages -l=en -o ./app/translations -d en --flat true ./app/**/messages.js"
   },
   "lint-staged": {
     "*.js": "npm run lint:eslint"
   },
+  "pre-commit": "lint:staged",
   "eslintConfig": {
+    "parser": "@babel/eslint-parser",
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "airbnb"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+    "plugins": [
+      "redux-saga",
+      "react",
+      "jsx-a11y"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "no-restricted-properties": [
+        2,
+        {
+          "object": "window",
+          "message": "Do not use browser API calls directly, look into /utils or contact the Architect team"
+        },
+        {
+          "object": "document",
+          "message": "Don't need or manipulate the DOM, do it the React Way(tm)"
+        }
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          "message": "Do not use setGlobalStore",
+          "selector": "Identifier[name='setGlobalStore']"
+        },
+        {
+          "message": "Do not use getGlobalStoreAsyncInjectors",
+          "selector": "Identifier[name='getGlobalStoreAsyncInjectors']"
+        }
+      ],
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "dot-notation": [
+        "error",
+        {
+          "allowPattern": "^[a-z]+(__[a-z]+)?(--[a-z]+)?$"
+        }
+      ],
+      "import/imports-first": 0,
+      "import/newline-after-import": 0,
+      "import/no-dynamic-require": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/no-named-as-default": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "caseSensitive": true
+        }
+      ],
+      "import/prefer-default-export": 0,
+      "no-underscore-dangle": 0,
+      "import/no-cycle": [
+        2,
+        {
+          "maxDepth": 2
+        }
+      ],
+      "indent": [
+        2,
+        2,
+        {
+          "ignoredNodes": [
+            "JSXElement"
+          ],
+          "SwitchCase": 1
+        }
+      ],
+      "jsx-a11y/aria-props": 2,
+      "jsx-a11y/heading-has-content": 0,
+      "jsx-a11y/href-no-hash": 0,
+      "jsx-a11y/mouse-events-have-key-events": 2,
+      "jsx-a11y/role-supports-aria-props": 2,
+      "max-len": 0,
+      "newline-per-chained-call": 0,
+      "no-confusing-arrow": 0,
+      "no-console": 1,
+      "no-use-before-define": 0,
+      "no-unused-vars": 2,
+      "prefer-template": 2,
+      "class-methods-use-this": 0,
+      "react/forbid-prop-types": 0,
+      "react/jsx-first-prop-new-line": [
+        2,
+        "multiline"
+      ],
+      "react/jsx-filename-extension": 0,
+      "react/jsx-indent": [
+        2,
+        2
+      ],
+      "react/jsx-no-target-blank": 0,
+      "react/prefer-stateless-function": [
+        1,
+        {
+          "ignorePureComponents": true
+        }
+      ],
+      "react/require-extension": 0,
+      "react/self-closing-comp": 0,
+      "react/sort-comp": 0,
+      "redux-saga/no-yield-in-race": 2,
+      "require-yield": 0,
+      "import/no-webpack-loader-syntax": 0,
+      "______________AIRBNB_CONFIG_OVERRIDES_CHECK!_____________": 0,
+      "react/jsx-pascal-case": [
+        "error",
+        {
+          "allowAllCaps": true,
+          "allowNamespace": true,
+          "ignore": []
+        }
+      ],
+      "react/jsx-props-no-multi-spaces": [
+        "warn"
+      ],
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 2,
+          "maxBOF": 1,
+          "maxEOF": 0
+        }
+      ],
+      "function-paren-newline": [
+        "error",
+        "consistent"
+      ],
+      "default-param-last": [
+        "warn"
+      ],
+      "import/no-import-module-exports": [
+        "off"
+      ],
+      "no-import-assign": [
+        "off"
+      ],
+      "react/function-component-definition": [
+        "warn",
+        {
+          "namedComponents": "arrow-function",
+          "unnamedComponents": "arrow-function"
+        }
+      ],
+      "no-loss-of-precision": [
+        "warn"
+      ],
+      "no-unsafe-optional-chaining": [
+        "error",
+        {
+          "disallowArithmeticOperators": false
+        }
+      ],
+      "react/no-unused-class-component-methods": [
+        "warn"
+      ],
+      "react/jsx-no-useless-fragment": [
+        "warn"
+      ],
+      "no-promise-executor-return": [
+        "warn"
+      ],
+      "prefer-regex-literals": [
+        "warn",
+        {
+          "disallowRedundantWrapping": true
+        }
+      ],
+      "no-restricted-exports": [
+        "warn",
+        {
+          "restrictedNamedExports": [
+            "default",
+            "then"
+          ]
+        }
+      ],
+      "react/no-arrow-function-lifecycle": [
+        "warn"
+      ],
+      "______________TEMP_WARNINGS_TO_BE_SET_TO_ERROR_____________": 0,
+      "jsx-a11y/alt-text": 1,
+      "jsx-a11y/anchor-is-valid": 1,
+      "jsx-a11y/click-events-have-key-events": 1,
+      "jsx-a11y/control-has-associated-label": 1,
+      "jsx-a11y/label-has-associated-control": 1,
+      "jsx-a11y/no-interactive-element-to-noninteractive-role": 1,
+      "jsx-a11y/no-noninteractive-element-to-interactive-role": 1,
+      "jsx-a11y/no-noninteractive-element-interactions": 1,
+      "jsx-a11y/no-noninteractive-tabindex": 1,
+      "jsx-a11y/role-has-required-aria-props": 1,
+      "no-restricted-globals": 1,
+      "react/button-has-type": 1,
+      "react/no-array-index-key": 1,
+      "react/no-did-update-set-state": 1,
+      "______________TEMP_DISABLED_TO_BE_SET_TO_ERROR_____________": 0,
+      "object-curly-newline": 0,
+      "react/destructuring-assignment": 0,
+      "react/jsx-props-no-spreading": 0,
+      "react/no-unused-state": 0,
+      "react/state-in-constructor": 0,
+      "react/jsx-curly-brace-presence": 1
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx"],
+          "moduleDirectory": ["node_modules", "app"] 
+        }
+      }
+    }
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",
@@ -71,14 +291,16 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "babel-plugin-module-resolver": "^5.0.2",
     "css-loader": "^7.1.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
     "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-babel-module": "^5.3.2",
     "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react": "^7.35.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-redux-saga": "^1.3.2",
     "express": "^4.20.0",
     "extract-react-intl-messages": "^4.1.1",
