@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SignIn = ({ loadHome, homeData, tokenData }) => {
-  console.log("setup components/Home Home tokenData", tokenData);
-  console.log("setup components/Home Home homeData", homeData);
+  console.log('setup components/Home Home tokenData', tokenData);
+  console.log('setup components/Home Home homeData', homeData);
 
   const handleClick = () => {
     loadHome();
@@ -12,14 +12,19 @@ export const SignIn = ({ loadHome, homeData, tokenData }) => {
   return (
     <div>
       <p>Sign In Page rendered</p>
-      <button onClick={() => handleClick()}>Click me</button>
-      <p>homeData: {homeData}</p>
+      <button type="button" onClick={() => handleClick()}>Click me</button>
+      <p>
+        homeData:
+        {homeData}
+      </p>
     </div>
   );
 };
 
 SignIn.propTypes = {
   loadHome: PropTypes.func,
+  homeData: PropTypes.string,
+  tokenData: PropTypes.string,
 };
 
 SignIn.defaultProps = {

@@ -7,17 +7,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: [
     // Add hot reloading in development
     'webpack-hot-middleware/client?reload=true',
-    path.join(process.cwd(), "app/index.js"), // Start with app/index.js file & process can also be changed as __dirname
+    path.join(process.cwd(), 'app/index.js'), // Start with app/index.js file & process can also be changed as __dirname
   ],
   // Don't use the hashed in dev mode for better performance
   output: {
     path: path.resolve(process.cwd(), 'dist'), //  TODO: Need to modify the path
-    filename: "[name].js",
-    chunkFilename: "[name].chunk.js",
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
     publicPath: '/',
   },
   module: {
@@ -30,32 +30,32 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
-                mode: "local",
+                mode: 'local',
                 namedExport: false,
-                localIdentName: "[path][name]__[local]--[hash:base64:5]",
-                exportLocalsConvention: "camelCase",
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                exportLocalsConvention: 'camelCase',
               },
             },
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
                 quietDeps: true,
-                includePaths: ["src/styles"],
+                includePaths: ['src/styles'],
               },
             },
           },
@@ -63,23 +63,23 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|svg|gif|webp)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "[hash].[name][ext]",
+          filename: '[hash].[name][ext]',
         },
       },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         test: /manifest\.json$/, // Webpack v4 handles json automatically, but file-loader is needed for the manifest.json
-        type: "javascript/auto",
-        use: ["file-loader"],
+        type: 'javascript/auto',
+        use: ['file-loader'],
       },
       {
         test: /\.(mp4|webm)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: {
           limit: 10000,
         },
@@ -87,12 +87,12 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: ["app", "node_modules"],
+    modules: ['app', 'node_modules'],
     symlinks: false, // needed for npm link
-    extensions: [".js", ".jsx", ".react.js"],
+    extensions: ['.js', '.jsx', '.react.js'],
     alias: {
-      "@internals": path.resolve(__dirname, "./internals"),
-      moment$: "moment/moment.js",
+      '@internals': path.resolve(__dirname, './internals'),
+      moment$: 'moment/moment.js',
       config: path.join(
         process.cwd(),
         `app/config/${process.env.APP_CONFIG}.js`
@@ -107,6 +107,6 @@ module.exports = {
     }),
   ],
   // Emit a source map for easier debugging
-  devtool: "eval-cheap-module-source-map",
+  devtool: 'eval-cheap-module-source-map',
   target: 'web', // Make web variables accessible to webpack, e.g. window
 };

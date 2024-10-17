@@ -1,13 +1,13 @@
 import { createStructuredSelector } from 'reselect';
-import { loadHome as loadHomeAction } from './actions';
 import { connect } from 'react-redux';
 import SignIn from 'components/SignIn';
+import { loadHome as loadHomeAction } from './actions';
 import { makeSelectHomeResponse } from './selectors';
 
 
 const mapStateToProps = () => (
   createStructuredSelector({
-    tokenData: () => "1234", // sample data initially
+    tokenData: () => '1234', // sample data initially
     homeData: makeSelectHomeResponse(),
   })
 );
@@ -17,4 +17,3 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
-

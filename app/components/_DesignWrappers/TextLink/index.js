@@ -16,7 +16,7 @@ const TextLink = (props) => {
     ...other
   } = props;
 
-  const componentClassName = classnames(className, {})
+  const componentClassName = classnames(className, {});
 
   return (
     <A
@@ -28,7 +28,7 @@ const TextLink = (props) => {
     >
       {children}
     </A>
-  )
+  );
 };
 
 TextLink.propTypes = {
@@ -39,6 +39,6 @@ TextLink.propTypes = {
   variant: PropTypes.oneOf(['bold']),
   target: PropTypes.oneOf(['_blank', '_self', '_parent', '_top']),
   theme: PropTypes.oneOf(['inverted']),
-}
+};
 
 export default TextLink;
