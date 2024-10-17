@@ -25,7 +25,7 @@ const A = (props) => {
     >
       {children}
     </Link>
-  )
+  );
 };
 
 A.propTypes = {
@@ -34,7 +34,7 @@ A.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
-  intl: PropTypes.isRequired,
-}
+  intl: intlShape.isRequired,
+};
 
-export default A;
+export default injectIntl(A);

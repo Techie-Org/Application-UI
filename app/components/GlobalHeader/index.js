@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import classNames from 'classnames';
 
 
@@ -12,7 +12,7 @@ import styles from './styles.scss';
 
 
 export const GlobalHeader = (props) => {
-  const { openSignInModal, loading, intl } = props;
+  const { intl } = props;
 
   const renderLogo = () => (
     <div className={classNames(styles.headerLogoContainer)}>
@@ -26,7 +26,7 @@ export const GlobalHeader = (props) => {
         role="presentation"
         aria-label={intl.formatMessage(messages.logoAria)}
       >
-        <img 
+        <img
           alt={intl.formatMessage(messages.logoAria)}
           data-test-id="artistry-logo"
           role="presentation"
@@ -37,34 +37,33 @@ export const GlobalHeader = (props) => {
     </div>
   );
 
-  const renderNavbar= () => (
+  const renderNavbar = () => (
     <div className={styles.navbarContainer}>
       {renderLogo()}
       <p>Navbar need to render here</p>
-      {/* <NavbarItems 
+      {/* <NavbarItems
         menuData={'headerData'} // TODO: navbar data needs to be passed here
       /> */}
     </div>
   );
 
   return (
-    <>
-      <div className={styles.globalHeaderContainer}>
-        <section className={styles.globalHeaderNavbar}>
-          {renderNavbar()}
-        </section>
-      </div>
-    </>
-  )
-}
+    <div className={styles.globalHeaderContainer}>
+      <section className={styles.globalHeaderNavbar}>
+        {renderNavbar()}
+      </section>
+    </div>
+  );
+};
 
 GlobalHeader.propTypes = {
+  intl: intlShape,
   openSignInModal: PropTypes.func,
   loading: PropTypes.bool,
 };
 
-GlobalHeader.defaultProps= {
+GlobalHeader.defaultProps = {
   loading: false,
-}
+};
 
-export default GlobalHeader;
+export default injectIntl(GlobalHeader);

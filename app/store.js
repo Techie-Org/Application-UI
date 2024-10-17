@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import { combineReducers } from "redux-immutable";
-import { fromJS } from "immutable";
-import { routerMiddleware } from "react-router-redux";
+import { createStore, applyMiddleware, compose } from 'redux';
+import { combineReducers } from 'redux-immutable';
+import { fromJS } from 'immutable';
+import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -10,29 +10,28 @@ function createReducer(asyncReducers = {}) {
   return combineReducers({
     ...rootReducer,
     ...asyncReducers,
-  })
+  });
 }
 
 const sagaMiddleware = createSagaMiddleware();
 
 // runSaga is middleware.run functino
-//rootSaga is your root saga for static sagas
+// rootSaga is your root saga for static sagas
 function createSagaInjector(runSaga, commonSagas) {
   // Create a dictionary to keep track of injected sagas
   const injectedSagas = new Map();
 
   const isInjected = (key) => injectedSagas.has(key);
-  
+
   const injectSaga = (key, sagas) => {
     // We won't run saga if it is already injected
-    if(isInjected(key)) return;
+    if (isInjected(key)) return;
 
+    // eslint-disable-next-line no-unused-expressions
     !!sagas.length && sagas.forEach((saga) => {
-      // Sagas return task when they executed, which can be used to cancel them
-      const task = runSaga(saga);
-      
-      // Save the task if we want to cancel it in the future
-      injectedSagas.set(key, task);
+      const task = runSaga(saga); // Sagas return task when they executed, which can be used to cancel them
+
+      injectedSagas.set(key, task); // Save the task if we want to cancel it in the future
     });
   };
   // Inject the root saga as it is statically loaded file
@@ -63,34 +62,34 @@ export default function configureStore(initialState, history) {
     // eslint-disable-next-line no-restricted-properties
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       /* TODO Try to remove when 'react-router-redux' is out of beta,
-        LOCATION_CHANGE should not be fired more than once after hot reloading 
+        LOCATION_CHANGE should not be fired more than once after hot reloading
       */
       // Prevent recomputing reducers for `replaceReducers`
       shouldHotReload: false,
     })
     : compose;
 
-    const store = createStore(
-      createReducer({}),
-      fromJS(initialState),
-      componseEnhancers(...enhancers),
-    );
+  const store = createStore(
+    createReducer({}),
+    fromJS(initialState),
+    componseEnhancers(...enhancers),
+  );
 
-    // Add a dictionary to keep track of the registered async reducers
-    store.asyncReducers = {};
-    
-    // Create an inject reducer function
-    // This function adds the async reducer, and created a new combined reducer
-    store.injectReducer = (key, asyncReducer) => {
-      store.asyncReducers[key] = asyncReducer;
-      store.replaceReducer(createReducer(store.asyncReducers));
-    };
+  // Add a dictionary to keep track of the registered async reducers
+  store.asyncReducers = {};
 
-    // Add injectSaga method to our store
-    store.injectSaga = createSagaInjector(sagaMiddleware.run, rootSaga);
+  // Create an inject reducer function
+  // This function adds the async reducer, and created a new combined reducer
+  store.injectReducer = (key, asyncReducer) => {
+    store.asyncReducers[key] = asyncReducer;
+    store.replaceReducer(createReducer(store.asyncReducers));
+  };
 
-    store.history = history; // history
+  // Add injectSaga method to our store
+  store.injectSaga = createSagaInjector(sagaMiddleware.run, rootSaga);
 
-    // Return the modified store
-    return store;
+  store.history = history; // history
+
+  // Return the modified store
+  return store;
 }

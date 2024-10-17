@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
-import { createStructuredSelector } from "reselect";
+import { createStructuredSelector } from 'reselect';
 import { injectIntl } from 'react-intl';
-import GlobalHeader from "components/GlobalHeader";
+import GlobalHeader from 'components/GlobalHeader';
 // import { makeSelectHomeResponse } from "./selectors";
 import compose from 'lodash/fp/compose';
 import { openModal } from 'containers/LoginButtonContainer/actions';
 
-const mapStateToProps = (state) => createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
   loading: () => true, // need to pass a selector from selectors.js
 });
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    openSignInModal: () => dispatch(openModal()),
-  };
-}
+export const mapDispatchToProps = (dispatch) => ({
+  openSignInModal: () => dispatch(openModal()),
+});
 
 const GlobalHeaderContainer = compose(
   injectIntl,
@@ -22,4 +20,3 @@ const GlobalHeaderContainer = compose(
 )(GlobalHeader);
 
 export default GlobalHeaderContainer;
-
