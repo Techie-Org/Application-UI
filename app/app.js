@@ -14,7 +14,7 @@ import {
   sagaHelper,
 } from './routes';
 
-// import english from './translations/en.json';
+import english from './translations/en.json';
 
 const store = configureStore({}, browserHistory);
 
@@ -47,9 +47,9 @@ const createRoute = ({
 const routes = enabledRoutes.map((name) => routeList[name]);
 
 
-// const messages = {
-//   en: english,
-// }
+const messages = {
+  en: english,
+};
 
 export const App = () => {
   const locale = 'en';
@@ -59,12 +59,12 @@ export const App = () => {
   // eslint-disable-next-line no-restricted-properties
   window.onpopstate = () => {
     // eslint-disable-next-line no-restricted-properties
-    window.history.go(1);
+    // window.history.go(1);
   };
 
   return (
-    // <IntlProvider locale={locale} messages={messages[locale]}>
-    <IntlProvider locale={locale}>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      {/* <IntlProvider locale={locale}>   */}
       <Provider store={store}>
         <AppHeader>
           <GlobalHeaderContainer />

@@ -16,7 +16,9 @@
     "lint:staged": "lint-staged",
     "verify-branch-naming": "node ./internals/scripts/verify-branch-naming",
     "prepare": "husky",
-    "extract-intl": "extract-messages -l=en -o ./app/translations -d en --flat true ./app/**/messages.js"
+    "extract-intl": "extract-messages -l=en -o ./app/translations -d en --flat true ./app/**/messages.js",
+    "extract-formatjs-intl": "formatjs extract 'app/**/messages.js' --out-file app/translations/en.json --flatten --format ./internals/scripts/extract-messages.js"
+    
   },
   "lint-staged": {
     "*.js": "npm run lint:eslint"
@@ -267,6 +269,10 @@
     }
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.4",
+    "@mui/material": "^6.1.4",
     "@react-google-maps/api": "^2.19.3",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
@@ -298,6 +304,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@formatjs/cli": "^6.3.1",
     "css-loader": "^7.1.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
