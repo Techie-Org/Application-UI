@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, intlShape } from 'react-intl';
 import classNames from 'classnames';
-
+import TextLink from '../_DesignWrappers/TextLink';
 
 // import artistryLogo from './assets/artistryLogo.svg';
 import { HOMEPAGE_ROUTE } from './constants';
-// import NavbarItems from './NavbarItems';
+import NavbarItems from './NavbarItems';
 import messages from './messages';
 import styles from './styles.scss';
-
+import LoginSection from './LoginSection';
 
 export const GlobalHeader = (props) => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false); // TODO: Move this logic to redux store, get data from API
+
   const { intl } = props;
+
+  const menuData = [
+    { title: 'Home' },
+    { title: 'Products' },
+    { title: 'Artists' },
+    { title: 'Account' },
+  ];
 
   const renderLogo = () => (
     <div className={classNames(styles.headerLogoContainer)}>
       {/* <ScreenReaderMessage> */}
       <FormattedMessage {...messages.logoAria} />
       {/* </ScreenReaderMessage> */}
-      <a // TODO: Have a common link component to render throught the app
+      <TextLink // TODO: Have a common link component to render throught the app
         className={styles.headerLinkLogo}
         id="artistryLogo"
         href={HOMEPAGE_ROUTE}
@@ -28,22 +37,26 @@ export const GlobalHeader = (props) => {
       >
         <img
           alt={intl.formatMessage(messages.logoAria)}
-          data-test-id="artistry-logo"
+          data-test-id="airbnb-logo"
           role="presentation"
           // src={artistryLogo}
           aria-hidden
         />
-      </a>
+      </TextLink>
     </div>
   );
 
   const renderNavbar = () => (
     <div className={styles.navbarContainer}>
       {renderLogo()}
-      <p>Navbar need to render here</p>
-      {/* <NavbarItems
-        menuData={'headerData'} // TODO: navbar data needs to be passed here
-      /> */}
+      <NavbarItems
+        menuData={menuData} // TODO: navbar data needs to be passed here
+      />
+      <LoginSection
+        intl={intl}
+        userLoggedIn={userLoggedIn}
+        setUserLoggedIn={setUserLoggedIn}
+      />
     </div>
   );
 
@@ -57,7 +70,7 @@ export const GlobalHeader = (props) => {
 };
 
 GlobalHeader.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.shape(intlShape),
   openSignInModal: PropTypes.func,
   loading: PropTypes.bool,
 };
@@ -66,4 +79,4 @@ GlobalHeader.defaultProps = {
   loading: false,
 };
 
-export default injectIntl(GlobalHeader);
+export default GlobalHeader;

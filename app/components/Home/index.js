@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Alert, Button } from '@mui/material';
+import styles from './styles.scss';
 
 export const Home = ({ loadHome, homeData, tokenData }) => {
   console.log('setup components/Home Home tokenData', tokenData);
@@ -12,7 +14,8 @@ export const Home = ({ loadHome, homeData, tokenData }) => {
   return (
     <div>
       <p>New App Homepage</p>
-      <button type="button" onClick={() => handleClick()}>Click me</button>
+      <Button onClick={() => handleClick()}>Click me</Button>
+      <Alert className={styles.homeAlert}>This is an alert</Alert>
       <p>
         homeData:
         {homeData}

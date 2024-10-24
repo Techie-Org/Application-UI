@@ -3,6 +3,7 @@
 */
 export const componentHelper = {
   home: () => import('containers/Home'),
+  signIn: () => import('containers/SignIn'),
 };
 
 /*
@@ -10,6 +11,7 @@ export const componentHelper = {
 */
 export const reducerHelper = {
   home: () => import('containers/Home/reducer'),
+  signIn: () => import('containers/SignIn/reducer'),
 };
 
 /*
@@ -17,6 +19,7 @@ export const reducerHelper = {
 */
 export const sagaHelper = {
   home: () => import('containers/Home/sagas'),
+  signIn: () => import('containers/SignIn/sagas'),
 };
 
 /*
@@ -24,6 +27,7 @@ export const sagaHelper = {
 */
 export const enabledRoutes = [
   'home',
+  'signIn',
 ];
 
 const homeRoutes = {
@@ -32,6 +36,13 @@ const homeRoutes = {
     name: 'home',
     reducers: ['home'],
     sagas: ['home'],
+    config: {},
+  },
+  signIn: {
+    path: '/signIn',
+    name: 'signIn',
+    reducers: ['signIn'],
+    sagas: ['signIn'],
     config: {},
   },
 };

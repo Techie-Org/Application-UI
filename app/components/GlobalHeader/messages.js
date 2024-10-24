@@ -1,6 +1,6 @@
 /**
  * Homepage messages
- *
+ * 
  * This contains all the text for GlobalHeader component
  */
 import { defineMessages } from 'react-intl';

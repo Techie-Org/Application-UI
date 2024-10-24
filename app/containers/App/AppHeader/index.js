@@ -13,7 +13,7 @@ export const AppHeader = ({ children }) => (
   </header>
 );
 AppHeader.propTypes = {
-  // intl: intlShape,
+  // intl: PropTypes.shape(intlShape),
   children: PropTypes.any,
 };
 

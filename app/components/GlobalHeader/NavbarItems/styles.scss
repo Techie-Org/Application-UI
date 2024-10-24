@@ -1,0 +1,14 @@
+@import 'styles/tools.scss';
+
+.navBarItemsContainer {
+  display: flex;
+  padding: 0 10% 0 10%;
+}
+
+.navBarItems {
+  display: flex;
+}
+
+.renderItem {
+  padding: 10px;
+}
