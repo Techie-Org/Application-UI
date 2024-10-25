@@ -2,13 +2,13 @@ import axios from 'axios';
 import get from 'lodash/get';
 import { CANCEL } from 'redux-saga';
 
-const CANCEL_OPERATION = 'Operations canceled.'
+const CANCEL_OPERATION = 'Operations canceled.';
 
 export const CSL_ERROR_TYPE = 'CSL Error';
 
 export const throwCsl = (response, url, status = 503) => {
   // should not be in here if there is no error
-  if(!response || !response.CslErrorResponse || (status >= 0 && status < 300)) {
+  if (!response || !response.CslErrorResponse || (status >= 0 && status < 300)) {
     return;
   }
 
@@ -20,15 +20,15 @@ export const throwCsl = (response, url, status = 503) => {
   throw error;
 };
 
-/** 
+/**
  * Checks if a network request came back fine, and throws an error if not
- * 
+ *
  *  @param {object} response A reponse from a network request
- * 
+ *
  *  @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
-  if(response.status >= 200 && response.status < 300) {
+  if (response.status >= 200 && response.status < 300) {
     return response;
   }
   const error = new Error(response.statusText);
@@ -50,25 +50,25 @@ function handleError(error) {
 
 export const processCslErrors = (response, url) => {
   const { CslErrorResponse } = response;
-  if(CslErrorResponse) {
+  if (CslErrorResponse) {
     const status = 503;
     throwCsl(response, url, status);
   }
   return response;
-}
+};
 
 /**
  * Parses the JSON returned by a network request
- * 
+ *
  * @param {object} response A reponse from a network request
- * 
+ *
  * @return {object} Returns the parsed JSON from the request
  */
 function parseJSON(response) {
   const parsedResponse = response.data || {};
   const contentType = get(response, 'headers["content-type"]', '');
-  //IE doesn't support startsWith
-  if(contentType.indexOf('image/' === 0) || contentType.indexOf('application/pdf') > -1) {
+  // IE doesn't support startsWith
+  if (contentType.indexOf('image/' === 0) || contentType.indexOf('application/pdf') > -1) {
     return parsedResponse;
   }
   parsedResponse.status = response.status;
@@ -77,11 +77,11 @@ function parseJSON(response) {
 
 /**
  * Requests a URL, returning a promise
- * 
+ *
  * @param {string} url The URL we want to request
- * 
+ *
  * @param {object} [options] The options we want to pass to 'fetch'
- * 
+ *
  * @return {object} Returns the response data
  */
 export default function request(url, options = {}) {
@@ -97,5 +97,5 @@ export default function request(url, options = {}) {
   promise[CANCEL] = () => {
     // cancel XHR request, called by redux-saga when a saga gets cancelled
     cancelTokenSource.cancel(CANCEL_OPERATION);
-  }
+  };
 }

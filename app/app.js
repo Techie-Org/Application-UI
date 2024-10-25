@@ -38,10 +38,10 @@ const createRoute = ({
       key={name}
       path={path}
       name={name}
-      element={<Element />} 
+      element={<Element />}
     />
-  )
-}
+  );
+};
 
 // enabledRoutes is static so we don't need to generate  it on every render
 const routes = enabledRoutes.map((name) => routeList[name]);
@@ -60,7 +60,7 @@ export const App = () => {
   window.onpopstate = () => {
     // eslint-disable-next-line no-restricted-properties
     window.history.go(1);
-  }
+  };
 
   return (
     // <IntlProvider locale={locale} messages={messages[locale]}>
@@ -69,11 +69,11 @@ export const App = () => {
         <AppHeader>
           <GlobalHeaderContainer />
         </AppHeader>
-        <div className='relativePosition'>
+        <div className="relativePosition">
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {routes?.map((route) => createRoute(route))}
-              <Route path='*' element={<div><p>No Route</p></div>} />
+              <Route path="*" element={<div><p>No Route</p></div>} />
             </Routes>
           </Suspense>
           {/* <AppFooter /> */}
@@ -82,13 +82,13 @@ export const App = () => {
       </Provider>
 
 
-    <div className="App">
-      <header className="App-header">
-        New App
-      </header>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          New App
+        </header>
+      </div>
     </IntlProvider>
   );
-}
+};
 
 export default App;

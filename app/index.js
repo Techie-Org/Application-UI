@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 // eslint-disable-next-line no-restricted-properties
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
-  <BrowserRouter basename='/'>
+  <BrowserRouter basename="/">
     <App />
   </BrowserRouter>
 );

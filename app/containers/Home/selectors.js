@@ -4,5 +4,5 @@ export const homeState = (state) => state.get('home');
 
 export const makeSelectHomeResponse = () => createSelector(
   homeState,
-  (state) => state?.getIn(["homeResponse", "data"]),
+  (state) => state?.getIn(['homeResponse', 'data']),
 );
