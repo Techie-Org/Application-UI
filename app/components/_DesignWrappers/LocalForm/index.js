@@ -1,30 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+import { reduxForm, Form } from 'redux-form/immutable';
 
 const LocalForm = (props) => {
   const {
     className,
     children,
     onSubmit,
+    handleSubmit,
+    ...other
   } = props;
+
+  // console.log('LocalForm props', props);
 
   const componentClassName = classnames(className, {});
 
-  const handleSubmit = (formData) => {
-    formData.preventDefault();
+  const handleLocalSubmit = (formData) => {
+    console.log('LocalForm FormData ', formData.toJS());
 
     onSubmit(formData);
   };
 
   return (
-    <form
+    <Form
       className={componentClassName}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleLocalSubmit)}
+      {...other}
     >
       {children}
-    </form>
+    </Form>
   );
 };
 
@@ -32,6 +37,7 @@ LocalForm.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   onSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
-export default LocalForm;
+export default reduxForm()(LocalForm);
