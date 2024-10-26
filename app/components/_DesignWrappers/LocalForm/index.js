@@ -4,18 +4,12 @@ import classnames from 'classnames';
 import { reduxForm, Form } from 'redux-form/immutable';
 
 const LocalForm = (props) => {
-  const {
-    className,
-    children,
-    onSubmit,
-    form,
-    handleSubmit,
-  } = props;
+  const { className, children, onSubmit, form, handleSubmit } = props;
 
   const componentClassName = classnames(className, {});
 
   const handleLocalSubmit = (formData) => {
-    onSubmit(formData);
+    onSubmit(formData.toJS());
   };
 
   // Binding form prop to the individual children, except button(must have type)

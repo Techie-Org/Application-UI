@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControlLabel, Radio, TextField } from '@mui/material';
+import { FormControlLabel, Checkbox, Radio, TextField } from '@mui/material';
 
 const InputField = (props) => {
   const {
     input: { value: inputValue, onChange: inputChange },
+    meta,
     ...other
   } = props;
 
@@ -13,10 +14,15 @@ const InputField = (props) => {
   };
 
   const renderInputField = () => {
-    const { type } = props;
+    const { type = '', label = '', input: { name = '' } = {} } = props;
     if (type === 'text') {
       return (
-        <TextField value={inputValue} onChange={handleChange} {...other} />
+        <TextField
+          margin="dense"
+          value={inputValue}
+          onChange={handleChange}
+          {...other}
+        />
       );
     }
     if (type === 'radio') {
@@ -25,6 +31,17 @@ const InputField = (props) => {
           value={inputValue}
           control={<Radio />}
           onChange={handleChange}
+          {...other}
+        />
+      );
+    }
+    if (type === 'checkbox') {
+      return (
+        <FormControlLabel
+          model="Terms"
+          control={<Checkbox name={name} />}
+          label={label}
+          type="checkbox"
           {...other}
         />
       );
