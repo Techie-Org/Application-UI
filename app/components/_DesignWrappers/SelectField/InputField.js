@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField } from '@mui/material';
+import {
+  FormControlLabel,
+  Radio,
+} from '@mui/material';
 
 const InputField = (props) => {
   const {
@@ -12,7 +15,14 @@ const InputField = (props) => {
     inputChange(event);
   };
 
-  return <TextField value={inputValue} onChange={handleChange} {...other} />;
+  return (
+    <FormControlLabel
+      value={inputValue}
+      control={<Radio />}
+      onChange={handleChange}
+      {...other}
+    />
+  );
 };
 
 InputField.propTypes = {
