@@ -25,16 +25,16 @@ const A = (props) => {
     >
       {children}
     </Link>
-  )
+  );
 };
 
 A.propTypes = {
   // isForceReload: PropTypes.bool,
+  intl: PropTypes.shape(intlShape),
   href: PropTypes.any.isRequired,
   ariaLabel: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
-  intl: PropTypes.isRequired,
-}
+};
 
-export default A;
+export default injectIntl(A);

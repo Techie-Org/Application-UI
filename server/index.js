@@ -5,13 +5,13 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const app = express();
-const webpackConfig = require('../webpack.config.js');
+const webpackConfig = require('../webpack.config');
 const compiler = webpack(webpackConfig);
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js file as base
 const middleware = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
-  stats: "errors-only",
+  stats: 'errors-only',
 });
 
 app.use(middleware);
@@ -24,7 +24,7 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '../dist'))); // TODO: need to modify the path
 
-//Since webpackDevMiddleware uses memory-fs internally to store build artifacts, we use it instead
+// Since webpackDevMiddleware uses memory-fs internally to store build artifacts, we use it instead
 const fs = middleware.context.outputFileSystem;
 
 app.get('*', (req, res) => {
@@ -34,8 +34,8 @@ app.get('*', (req, res) => {
     } else {
       res.send(file.toString());
     }
-  })
-})
+  });
+});
 
 
 // Start the server
