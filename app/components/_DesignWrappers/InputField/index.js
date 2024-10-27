@@ -5,6 +5,7 @@ import { FormControlLabel, Checkbox, Radio, TextField } from '@mui/material';
 const InputField = (props) => {
   const {
     input: { value: inputValue, onChange: inputChange },
+    checkboxValue,
     meta,
     ...other
   } = props;
@@ -14,8 +15,8 @@ const InputField = (props) => {
   };
 
   const renderInputField = () => {
-    const { type = '', label = '', input: { name = '' } = {} } = props;
-    if (type === 'text') {
+    const { type = '' } = props;
+    if (type === 'text' || type === 'password') {
       return (
         <TextField
           margin="dense"
@@ -38,10 +39,8 @@ const InputField = (props) => {
     if (type === 'checkbox') {
       return (
         <FormControlLabel
-          model="Terms"
-          control={<Checkbox name={name} />}
-          label={label}
-          type="checkbox"
+          control={<Checkbox name={checkboxValue} />}
+          onChange={handleChange}
           {...other}
         />
       );
