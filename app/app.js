@@ -78,15 +78,7 @@ export const App = () => {
           </Suspense>
           {/* <AppFooter /> */}
         </div>
-
       </Provider>
-
-
-      <div className="App">
-        <header className="App-header">
-          New App
-        </header>
-      </div>
     </IntlProvider>
   );
 };
