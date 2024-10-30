@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import classNames from 'classnames';
-
+import TextLink from 'components/_DesignWrappers/TextLink';
 
 // import artistryLogo from './assets/artistryLogo.svg';
 import { HOMEPAGE_ROUTE } from './constants';
@@ -19,7 +19,7 @@ export const GlobalHeader = (props) => {
       {/* <ScreenReaderMessage> */}
       <FormattedMessage {...messages.logoAria} />
       {/* </ScreenReaderMessage> */}
-      <a // TODO: Have a common link component to render throught the app
+      <TextLink
         className={styles.headerLinkLogo}
         id="artistryLogo"
         href={HOMEPAGE_ROUTE}
@@ -33,7 +33,7 @@ export const GlobalHeader = (props) => {
           // src={artistryLogo}
           aria-hidden
         />
-      </a>
+      </TextLink>
     </div>
   );
 

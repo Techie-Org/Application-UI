@@ -18,7 +18,7 @@ const Button = (props) => {
       className={componentClassName}
       {...other}
     >
-      {children}
+      {children || props.text}
     </MUIButton>
   );
 };
@@ -26,6 +26,7 @@ const Button = (props) => {
 Button.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
+  text: PropTypes.string,
 };
 
 export default Button;
