@@ -30,11 +30,11 @@ const A = (props) => {
 
 A.propTypes = {
   // isForceReload: PropTypes.bool,
+  intl: PropTypes.shape(intlShape),
   href: PropTypes.any.isRequired,
   ariaLabel: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(A);

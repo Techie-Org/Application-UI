@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import A from '../A';
+import A from './A';
 
 
 const TextLink = (props) => {
