@@ -8,6 +8,10 @@ export const isRequiredValidator = (message) => (val) =>
 export const isBlankValidator = (message) => (string) =>
   !isString(string) || string?.trim().length === 0 ? message : '';
 
+export const confirmPasswordValidator =
+  (message) => (val, formValues, instanceRef) =>
+    val === formValues.get(instanceRef.form).toJS().password ? '' : message;
+
 export const NAME_PATTERN = ENGLISH_LETTERS_PATTERN;
 
 export const EMAIL_ALLOWED_PATTERNS = EMAIL_ADDRESS_ALLOWED_CHARS;

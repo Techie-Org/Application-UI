@@ -80,6 +80,10 @@ export default defineMessages({
     id: `${scope}.blankConfirmPasswordError`,
     defaultMessage: 'Please confirm your password',
   },
+  passwordMatchError: {
+    id: `${scope}.passwordMatchError`,
+    defaultMessage: 'Password does not match',
+  },
   termsConditionCheckboxValue: {
     id: `${scope}.termsConditionCheckboxValue`,
     defaultMessage: 'checkedA',

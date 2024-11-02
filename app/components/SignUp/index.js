@@ -14,6 +14,7 @@ import messages from './messages';
 import styles from './styles.scss';
 import {
   isBlankValidator,
+  confirmPasswordValidator,
   NAME_PATTERN,
   EMAIL_ALLOWED_PATTERNS,
   PHONE_NUMBER_PATTERN,
@@ -97,9 +98,14 @@ const SignUp = (props) => {
               placeholder={intl.formatMessage(
                 messages.confirmPasswordPlaceholder
               )}
-              validators={isBlankValidator(
-                intl.formatMessage(messages.blankConfirmPasswordError)
-              )}
+              validators={[
+                isBlankValidator(
+                  intl.formatMessage(messages.blankConfirmPasswordError)
+                ),
+                confirmPasswordValidator(
+                  intl.formatMessage(messages.passwordMatchError)
+                ),
+              ]}
               fullWidth
               isPassword
             />
