@@ -12,6 +12,12 @@ import TextLink from 'components/_DesignWrappers/TextLink';
 import { GENDER_FIELD_ITEMS } from './constants';
 import messages from './messages';
 import styles from './styles.scss';
+import {
+  isBlankValidator,
+  NAME_PATTERN,
+  EMAIL_ALLOWED_PATTERNS,
+  PHONE_NUMBER_PATTERN,
+} from 'components/Form/Validators';
 
 const SignUp = (props) => {
   const { intl } = props;
@@ -43,12 +49,21 @@ const SignUp = (props) => {
               fullWidth
               label={intl.formatMessage(messages.nameLabel)}
               placeholder={intl.formatMessage(messages.namePlaceholder)}
+              allowPattern={NAME_PATTERN}
+              validators={isBlankValidator(
+                intl.formatMessage(messages.blankNameError)
+              )}
             />
             <TextField
               model=".email"
               fullWidth
               label={intl.formatMessage(messages.emailLabel)}
               placeholder={intl.formatMessage(messages.emailPlaceholder)}
+              allowPattern={EMAIL_ALLOWED_PATTERNS}
+              validators={isBlankValidator(
+                intl.formatMessage(messages.blankEmailError)
+              )}
+              validateOn="blur"
             />
             <RadioField
               model=".gender"
@@ -61,11 +76,18 @@ const SignUp = (props) => {
               fullWidth
               label={intl.formatMessage(messages.phoneLabel)}
               placeholder={intl.formatMessage(messages.phonePlaceholder)}
+              allowPattern={PHONE_NUMBER_PATTERN}
+              validators={isBlankValidator(
+                intl.formatMessage(messages.blankPhoneError)
+              )}
             />
             <TextField
               model=".password"
               label={intl.formatMessage(messages.passwordLabel)}
               placeholder={intl.formatMessage(messages.passwordPlaceholder)}
+              validators={isBlankValidator(
+                intl.formatMessage(messages.blankPasswordError)
+              )}
               fullWidth
               isPassword
             />
@@ -74,6 +96,9 @@ const SignUp = (props) => {
               label={intl.formatMessage(messages.confirmPasswordLabel)}
               placeholder={intl.formatMessage(
                 messages.confirmPasswordPlaceholder
+              )}
+              validators={isBlankValidator(
+                intl.formatMessage(messages.blankConfirmPasswordError)
               )}
               fullWidth
               isPassword

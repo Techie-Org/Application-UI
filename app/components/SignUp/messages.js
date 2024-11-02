@@ -24,6 +24,10 @@ export default defineMessages({
     id: `${scope}.namePlaceholder`,
     defaultMessage: 'Enter your name',
   },
+  blankNameError: {
+    id: `${scope}.blankNameError`,
+    defaultMessage: 'Name is required',
+  },
   emailLabel: {
     id: `${scope}.emailLabel`,
     defaultMessage: 'Email',
@@ -31,6 +35,10 @@ export default defineMessages({
   emailPlaceholder: {
     id: `${scope}.emailPlaceholder`,
     defaultMessage: 'Enter your email',
+  },
+  blankEmailError: {
+    id: `${scope}.blankEmailError`,
+    defaultMessage: 'Email is required',
   },
   genderLabel: {
     id: `${scope}.genderLabel`,
@@ -44,6 +52,10 @@ export default defineMessages({
     id: `${scope}.phonePlaceholder`,
     defaultMessage: 'Enter your phone number',
   },
+  blankPhoneError: {
+    id: `${scope}.blankPhoneError`,
+    defaultMessage: 'Phone number is required',
+  },
   passwordLabel: {
     id: `${scope}.passwordLabel`,
     defaultMessage: 'Password',
@@ -52,6 +64,10 @@ export default defineMessages({
     id: `${scope}.passwordPlaceholder`,
     defaultMessage: 'Enter your password',
   },
+  blankPasswordError: {
+    id: `${scope}.blankPasswordError`,
+    defaultMessage: 'Please enter a password',
+  },
   confirmPasswordLabel: {
     id: `${scope}.confirmPasswordLabel`,
     defaultMessage: 'Confirm Password',
@@ -59,6 +75,10 @@ export default defineMessages({
   confirmPasswordPlaceholder: {
     id: `${scope}.confirmPasswordPlaceholder`,
     defaultMessage: 'Confirm your password',
+  },
+  blankConfirmPasswordError: {
+    id: `${scope}.blankConfirmPasswordError`,
+    defaultMessage: 'Please confirm your password',
   },
   termsConditionCheckboxValue: {
     id: `${scope}.termsConditionCheckboxValue`,
