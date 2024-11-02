@@ -12,13 +12,17 @@ export default defineMessages({
     id: `${scope}.signIn`,
     defaultMessage: 'Sign In',
   },
-  usernameLabel: {
-    id: `${scope}.usernameLabel`,
-    defaultMessage: 'Username',
+  emailLabel: {
+    id: `${scope}.emailLabel`,
+    defaultMessage: 'Email',
   },
-  usernamePlaceholder: {
-    id: `${scope}.usernamePlaceholder`,
-    defaultMessage: 'Enter username',
+  emailPlaceholder: {
+    id: `${scope}.emailPlaceholder`,
+    defaultMessage: 'Enter email address',
+  },
+  emailError: {
+    id: `${scope}.emailError`,
+    defaultMessage: 'Email is required',
   },
   passwordLabel: {
     id: `${scope}.passwordLabel`,
@@ -27,6 +31,10 @@ export default defineMessages({
   passwordPlaceholder: {
     id: `${scope}.passwordPlaceholder`,
     defaultMessage: 'Enter password',
+  },
+  passwordError: {
+    id: `${scope}.passwordError`,
+    defaultMessage: 'Password is required',
   },
   rememberMeLabel: {
     id: `${scope}.rememberMeLabel`,
@@ -50,6 +58,6 @@ export default defineMessages({
   },
   accountExistText: {
     id: `${scope}.accountExistText`,
-    defaultMessage: 'Don\'t have an account? ',
+    defaultMessage: "Don't have an account? ",
   },
 });

@@ -8,6 +8,7 @@ import TextField from 'components/_DesignWrappers/TextField';
 import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
 import TextLink from 'components/_DesignWrappers/TextLink';
 import Button from 'components/_DesignWrappers/Button';
+import { isBlankValidator } from 'components/Form/Validators';
 import messages from './messages';
 import styles from './styles.scss';
 
@@ -29,20 +30,24 @@ const SignIn = (props) => {
         </Grid2>
         <LocalForm form="SignInForm" onSubmit={handleSignInSubmit}>
           <TextField
-            model=".username"
-            label={intl.formatMessage(messages.usernameLabel)}
-            placeholder={intl.formatMessage(messages.usernamePlaceholder)}
+            model=".email"
+            label={intl.formatMessage(messages.emailLabel)}
+            placeholder={intl.formatMessage(messages.emailPlaceholder)}
+            validators={isBlankValidator(
+              intl.formatMessage(messages.emailError)
+            )}
             fullWidth
-            required
           />
           <TextField
             model=".password"
             className={styles.passwordField}
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
+            validators={isBlankValidator(
+              intl.formatMessage(messages.passwordError)
+            )}
             isPassword
             fullWidth
-            required
           />
           <CheckBoxField
             model=".rememberLogin"

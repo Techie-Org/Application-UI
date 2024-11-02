@@ -64,7 +64,6 @@ const SignUp = (props) => {
               validators={isBlankValidator(
                 intl.formatMessage(messages.blankEmailError)
               )}
-              validateOn="blur"
             />
             <RadioField
               model=".gender"
