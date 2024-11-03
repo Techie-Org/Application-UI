@@ -10,6 +10,7 @@ const TextField = (props) => {
     className,
     model,
     form,
+    isPassword,
     ...other
   } = props;
 
@@ -20,7 +21,7 @@ const TextField = (props) => {
       name={`${form}${model}`}
       className={componentClassName}
       component={InputField}
-      type="text"
+      type={isPassword ? 'password' : 'text'}
       {...other}
     />
   );
@@ -30,6 +31,7 @@ TextField.propTypes = {
   className: PropTypes.string,
   model: PropTypes.string,
   form: PropTypes.string,
+  isPassword: PropTypes.bool,
 };
 
 export default TextField;

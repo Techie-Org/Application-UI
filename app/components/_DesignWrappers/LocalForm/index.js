@@ -9,7 +9,7 @@ const LocalForm = (props) => {
   const componentClassName = classnames(className, {});
 
   const handleLocalSubmit = (formData) => {
-    onSubmit(formData.toJS());
+    onSubmit(formData.toJS()?.[form]);
   };
 
   // Binding form prop to the individual children, except button(must have type)
