@@ -4,49 +4,72 @@ import { FormControlLabel, Checkbox, Radio, TextField } from '@mui/material';
 
 const InputField = (props) => {
   const {
-    input: { value: inputValue, onChange: inputChange },
+    input,
+    checkboxValue,
     meta,
+    errors,
+    allowPattern = null,
     ...other
   } = props;
 
   const handleChange = (event) => {
-    inputChange(event);
+    const { onChange } = input;
+
+    if (allowPattern) {
+      const regex = new RegExp(allowPattern);
+      if (!regex.test(event.target.value)) {
+        event.target.value = input.value;
+      }
+    }
+
+    onChange(event);
   };
 
+  const generateFieldLevelErrorMessage = () => {
+    const { error, submitFailed, invalid, valid } = meta;
+    return error && submitFailed && invalid && !valid ? error : '';
+  };
+
+  const checkError = () =>
+    meta.error && meta.invalid && !meta.valid && meta.submitFailed;
+
   const renderInputField = () => {
-    const { type = '', label = '', input: { name = '' } = {} } = props;
-    if (type === 'text') {
-      return (
-        <TextField
-          margin="dense"
-          value={inputValue}
-          onChange={handleChange}
-          {...other}
-        />
-      );
+    switch (props.type) {
+      case 'text':
+      case 'password':
+        return (
+          <TextField
+            {...props.input}
+            error={checkError()}
+            margin="dense"
+            onChange={handleChange}
+            helperText={generateFieldLevelErrorMessage()}
+            {...other}
+          />
+        );
+      case 'radio':
+        return (
+          <FormControlLabel
+            {...props.input}
+            error={checkError()}
+            control={<Radio />}
+            onChange={handleChange}
+            {...other}
+          />
+        );
+      case 'checkbox':
+        return (
+          <FormControlLabel
+            {...props.input}
+            error={checkError()}
+            control={<Checkbox name={checkboxValue} />}
+            onChange={handleChange}
+            {...other}
+          />
+        );
+      default:
+        return null;
     }
-    if (type === 'radio') {
-      return (
-        <FormControlLabel
-          value={inputValue}
-          control={<Radio />}
-          onChange={handleChange}
-          {...other}
-        />
-      );
-    }
-    if (type === 'checkbox') {
-      return (
-        <FormControlLabel
-          model="Terms"
-          control={<Checkbox name={name} />}
-          label={label}
-          type="checkbox"
-          {...other}
-        />
-      );
-    }
-    return null;
   };
 
   return renderInputField();
