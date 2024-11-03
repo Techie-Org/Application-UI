@@ -4,15 +4,8 @@ import classnames from 'classnames';
 import { Field } from 'redux-form/immutable';
 import InputField from '../InputField';
 
-
 const TextField = (props) => {
-  const {
-    className,
-    model,
-    form,
-    isPassword,
-    ...other
-  } = props;
+  const { className, model, form, isPassword, validators, ...other } = props;
 
   const componentClassName = classnames(className, {});
 
@@ -22,6 +15,7 @@ const TextField = (props) => {
       className={componentClassName}
       component={InputField}
       type={isPassword ? 'password' : 'text'}
+      validate={validators}
       {...other}
     />
   );

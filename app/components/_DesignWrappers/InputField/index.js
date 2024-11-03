@@ -4,15 +4,34 @@ import { FormControlLabel, Checkbox, Radio, TextField } from '@mui/material';
 
 const InputField = (props) => {
   const {
-    input: { value: inputValue, onChange: inputChange },
+    input,
     checkboxValue,
     meta,
+    errors,
+    allowPattern = null,
     ...other
   } = props;
 
   const handleChange = (event) => {
-    inputChange(event);
+    const { onChange } = input;
+
+    if (allowPattern) {
+      const regex = new RegExp(allowPattern);
+      if (!regex.test(event.target.value)) {
+        event.target.value = input.value;
+      }
+    }
+
+    onChange(event);
   };
+
+  const generateFieldLevelErrorMessage = () => {
+    const { error, submitFailed, invalid, valid } = meta;
+    return error && submitFailed && invalid && !valid ? error : '';
+  };
+
+  const checkError = () =>
+    meta.error && meta.invalid && !meta.valid && meta.submitFailed;
 
   const renderInputField = () => {
     switch (props.type) {
@@ -20,16 +39,19 @@ const InputField = (props) => {
       case 'password':
         return (
           <TextField
+            {...props.input}
+            error={checkError()}
             margin="dense"
-            value={inputValue}
             onChange={handleChange}
+            helperText={generateFieldLevelErrorMessage()}
             {...other}
           />
         );
       case 'radio':
         return (
           <FormControlLabel
-            value={inputValue}
+            {...props.input}
+            error={checkError()}
             control={<Radio />}
             onChange={handleChange}
             {...other}
@@ -38,7 +60,8 @@ const InputField = (props) => {
       case 'checkbox':
         return (
           <FormControlLabel
-            value={inputValue}
+            {...props.input}
+            error={checkError()}
             control={<Checkbox name={checkboxValue} />}
             onChange={handleChange}
             {...other}
