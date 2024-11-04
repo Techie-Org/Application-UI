@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form/immutable';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -10,6 +11,7 @@ function createReducer(asyncReducers = {}) {
   return combineReducers({
     ...rootReducer,
     ...asyncReducers,
+    form: formReducer,
   });
 }
 

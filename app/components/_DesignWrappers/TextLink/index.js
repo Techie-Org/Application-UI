@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import A from '../A';
+import A from './A';
+import './styles.css';
 
 
 const TextLink = (props) => {
@@ -16,7 +17,7 @@ const TextLink = (props) => {
     ...other
   } = props;
 
-  const componentClassName = classnames(className, {});
+  const componentClassName = classnames(className, 'lc-textlink');
 
   return (
     <A
