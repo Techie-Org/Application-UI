@@ -21,14 +21,17 @@ import {
 } from 'components/Form/Validators';
 
 const SignUp = (props) => {
-  const { intl } = props;
+  const { intl,registrationStatus,registrationSuccessful,signUpData,signUpFormData } = props;
 
   const [termsAgreed, setTermsAgreed] = useState(false);
 
   const handleSignUpSubmit = (formData) => {
     console.log('SignUp FormData ', formData);
+    registrationSuccessful();
+    signUpFormData(formData);
   };
-
+console.log("register",registrationStatus);
+console.log("signUpData",signUpData)
   return (
     <Grid2>
       <Paper className={styles.signUpPaper}>

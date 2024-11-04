@@ -1,8 +1,12 @@
 import { createSelector } from 'reselect';
 
-export const homeState = (state) => state.get('home');
+export const signUpState = (state) => state.get('signUp');
 
-export const makeSelectHomeResponse = () => createSelector(
-  homeState,
-  (state) => state?.getIn(['homeResponse', 'data']),
+export const makeSelectRegistrationStatus = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['signUpData', 'registrationStatus']),
+);
+export const makeSelectSignUpFormData = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['signUpData', 'formData']),
 );

@@ -1,2 +1,2 @@
-export const LOAD_HOME = 'artistry/Home/LOAD_HOME';
-export const LOAD_HOME_SUCCESS = 'artistry/Home/LOAD_HOME_SUCCESS';
+export const REGISTRATION_SUCCESSFUL='artistry/SIGNUP_REGISTRATION_SUCCESSFUL';
+export const SIGNUP_FORM_DATA='artistry/SIGNUP_FORM_DATA'

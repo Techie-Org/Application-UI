@@ -1,28 +1,25 @@
 import { fromJS } from 'immutable';
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import {REGISTRATION_SUCCESSFUL,SIGNUP_FORM_DATA } from './constants';
 
 const initialState = fromJS({
-  homeResponse: {
-    data: null,
-    loading: null,
-    loaded: null,
+  signUpData: {
+    registrationStatus:false,
+    formData:{}
   },
 });
 
-function home(state = initialState, action) {
+function signUp(state = initialState, action) {
   switch (action.type) {
-    case LOAD_HOME:
-      return state
-        .setIn(['homeResponse', 'loading'], true)
-        .setIn(['homeResponse', 'loaded'], false);
-    case LOAD_HOME_SUCCESS:
-      return state
-        .setIn(['homeResponse', 'loading'], false)
-        .setIn(['homeResponse', 'loaded'], true)
-        .setIn(['homeResponse', 'data'], action.data);
+      case REGISTRATION_SUCCESSFUL:
+        return state
+         .setIn(['signUpData','registrationStatus'],true);
+         case SIGNUP_FORM_DATA:
+         return state
+          .setIn(['signUpData','formData'],action.payload);
+
     default:
       return state;
   }
 }
 
-export default home;
+export default signUp;
