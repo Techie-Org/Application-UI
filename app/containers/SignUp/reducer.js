@@ -1,28 +1,39 @@
 import { fromJS } from 'immutable';
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import { REGISTER_USER, REGISTER_USER_SUCCESS } from './constants';
 
 const initialState = fromJS({
-  homeResponse: {
-    data: null,
-    loading: null,
-    loaded: null,
+  formData: {
+    name: '',
+    email: '',
+    gender: '',
+    phone: '',
+    password: '',
+  },
+  registerUser: {
+    loading: false,
+    loaded: false,
+    error: false,
+    data: {},
   },
 });
 
-function home(state = initialState, action) {
+function signUp(state = initialState, action) {
   switch (action.type) {
-    case LOAD_HOME:
+    case REGISTER_USER:
       return state
-        .setIn(['homeResponse', 'loading'], true)
-        .setIn(['homeResponse', 'loaded'], false);
-    case LOAD_HOME_SUCCESS:
+        .setIn(['registerUser', 'loading'], true)
+        .setIn(['registerUser', 'loaded'], false)
+        .setIn(['registerUser', 'error'], false)
+        .set(['formData'], action.formData);
+    case REGISTER_USER_SUCCESS:
       return state
-        .setIn(['homeResponse', 'loading'], false)
-        .setIn(['homeResponse', 'loaded'], true)
-        .setIn(['homeResponse', 'data'], action.data);
+        .setIn(['registerUser', 'loading'], false)
+        .setIn(['registerUser', 'loaded'], true)
+        .setIn(['registerUser', 'error'], false)
+        .setIn(['registerUser', 'data'], action.data);
     default:
       return state;
   }
 }
 
-export default home;
+export default signUp;
