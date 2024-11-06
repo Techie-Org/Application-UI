@@ -1,8 +1,18 @@
 import { createSelector } from 'reselect';
 
-export const homeState = (state) => state.get('home');
+export const signUpState = (state) => state.get('signUp');
 
-export const makeSelectHomeResponse = () => createSelector(
-  homeState,
-  (state) => state?.getIn(['homeResponse', 'data']),
+export const makeSelectRegisterUserLoading = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['registerUser', 'loading']) ?? false,
 );
+
+export const makeSelectRegisterUserLoaded = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['registerUser', 'loaded']) ?? false,
+);
+
+export const makeSelectRegisterUserData = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['registerUser', 'data']) ?? {},
+)
