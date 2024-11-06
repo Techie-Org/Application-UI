@@ -21,17 +21,15 @@ import {
 } from 'components/Form/Validators';
 
 const SignUp = (props) => {
-  const { intl,registrationStatus,registrationSuccessful,signUpData,signUpFormData } = props;
-
+  const { intl, registerUser } = props;
+  
   const [termsAgreed, setTermsAgreed] = useState(false);
 
   const handleSignUpSubmit = (formData) => {
     console.log('SignUp FormData ', formData);
-    registrationSuccessful();
-    signUpFormData(formData);
+    registerUser(formData);
   };
-console.log("register",registrationStatus);
-console.log("signUpData",signUpData)
+
   return (
     <Grid2>
       <Paper className={styles.signUpPaper}>
@@ -143,6 +141,7 @@ console.log("signUpData",signUpData)
 
 SignUp.propTypes = {
   intl: PropTypes.shape(intlShape),
+  registerUser: PropTypes.func,
 };
 
 export default SignUp;

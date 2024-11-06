@@ -1,15 +1,21 @@
-import { REGISTRATION_SUCCESSFUL,SIGNUP_FORM_DATA } from './constants';
 import { parseFormData } from './utils';
-export function registrationSuccessful() {
-  console.log('setup containers/SignUp registrationSuccessful action called');
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+} from './constants';
+
+export function registerUser(signUpFormData) {
+  console.log('setup containers/SignUp registerUser action called signUpFormData', signUpFormData);
   return {
-    type: REGISTRATION_SUCCESSFUL,
+    type: REGISTER_USER,
+    formData: parseFormData(signUpFormData),
   };
 }
-export function signUpFormData(formData) {
-  console.log('setup containers/SignUp form data action called');
+
+export function registerUserSuccess(data) {
+  console.log('setup containers/SignUp registerUserSuccess action called data', data);
   return {
-    type: SIGNUP_FORM_DATA,
-    payload:parseFormData(formData)
+    type: REGISTER_USER_SUCCESS,
+    data: data,
   };
 }

@@ -1,2 +1,3 @@
-export const REGISTRATION_SUCCESSFUL='artistry/SIGNUP_REGISTRATION_SUCCESSFUL';
-export const SIGNUP_FORM_DATA='artistry/SIGNUP_FORM_DATA'
+// SignUp actions
+export const REGISTER_USER = 'artistry/SignUp/REGISTER_USER';
+export const REGISTER_USER_SUCCESS = 'artistry/SignUp/REGISTER_USER_SUCCESS';
