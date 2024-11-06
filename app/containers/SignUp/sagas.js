@@ -1,9 +1,8 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
-import { loadHomeSuccess, registerUserSuccess } from './actions';
+import { registerUserSuccess } from './actions';
 import {
-  LOAD_HOME,
   REGISTER_USER_API_URL,
   REGISTER_USER,
   TIMEOUT,
