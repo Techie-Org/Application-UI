@@ -16,6 +16,6 @@ export function registerUserSuccess(data) {
   console.log('setup containers/SignUp registerUserSuccess action called data', data);
   return {
     type: REGISTER_USER_SUCCESS,
-    data: data,
+    data,
   };
 }

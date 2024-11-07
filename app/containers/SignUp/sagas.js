@@ -2,6 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { registerUserSuccess } from './actions';
+import { makeSelectSignUpFormData } from './selectors';
 import {
   REGISTER_USER_API_URL,
   REGISTER_USER,
@@ -11,18 +12,11 @@ import {
 export function* registerUserSaga() {
   try {
     const requestUrl = REGISTER_USER_API_URL;
-    const data = yield select(() => {
-      return {
-        name: 'abc',
-        phone: '12341234',
-        email: 'acd@gmail.com',
-        password: 'asdfasdf',
-      };
-    }); // needs userData here entered in form
+    const formData = yield select(makeSelectSignUpFormData());
 
     const response = yield call(request, requestUrl, {
       method: 'POST',
-      data: data,
+      data: formData,
       timeout: TIMEOUT,
       headers: getHeaders(),
     });

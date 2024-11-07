@@ -21,4 +21,4 @@ export const makeSelectSignUpFormData = () => createSelector(
 export const makeSelectRegisterUserData = () => createSelector(
   signUpState,
   (state) => state?.getIn(['registerUser', 'data']) ?? {},
-)
+);
