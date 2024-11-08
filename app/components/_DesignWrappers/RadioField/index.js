@@ -22,11 +22,13 @@ const RadioField = (props) => {
         aria-label={model}
         style={{ display: variant === 'inline' ? 'initial' : 'inherit' }}
       >
-        {items?.map((item) => (
+        {items?.map((item, index) => (
           <Field
-            component={InputField}
             name={`${form}${model}`}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`RadioField-item-${index}`}
             type="radio"
+            component={InputField}
             {...item}
           />
         ))}
@@ -39,12 +41,9 @@ RadioField.propTypes = {
   className: PropTypes.string,
   model: PropTypes.string,
   form: PropTypes.string,
-  legend: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    defaulMessage: PropTypes.string.isRequired,
-  }),
+  legend: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
-  variant: PropTypes.oneOf(['inline, vertical']),
+  variant: PropTypes.oneOf(['inline', 'vertical']),
 };
 
 export default RadioField;
