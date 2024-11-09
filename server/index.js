@@ -9,6 +9,8 @@ const app = express();
 const webpackConfig = require('../webpack.config');
 const compiler = webpack(webpackConfig);
 
+const pxhost = process.env.PROXY_HOST || 'http://localhost:5000';
+
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js file as base
 const middleware = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -41,7 +43,7 @@ app.get('*', (req, res) => {
 app.use(
   '/',
   createProxyMiddleware({
-    target: 'http://localhost:5000',
+    target: `${pxhost}`,
     changeOrigin: true,
     secure: true,
     pathRewrite: { '^/api': '/api' },
