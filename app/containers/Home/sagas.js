@@ -5,6 +5,7 @@ import { LOAD_HOME } from './constants';
 export function* loadHome() {
   console.log('setup containers/Home loadHome saga called');
   yield put(loadHomeSuccess('Home data loaded'));
+  yield put(loadHomeSuccess('Home data loaded'));
 }
 
 export function* loadHomeDaemon() {
