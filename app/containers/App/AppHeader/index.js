@@ -1,19 +1,20 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import styles from './styles.scss';
 
-export const AppHeader = ({ children }) => {
-  const intl = useIntl();
+export const AppHeader = ({ children }) => (
+// const intl = useIntl();
+  <header
+    className={styles.floatingHeader}
+    role="banner"
+  >
+    {children}
+  </header>
+);
+AppHeader.propTypes = {
+  // intl: intlShape,
+  children: PropTypes.any,
+};
 
-  return (
-    <header 
-      className={styles.floatingHeader} 
-      role='banner'
-    >
-      {children}
-    </header>
-  );
-}
-
-export default AppHeader;
-
+export default injectIntl(AppHeader);

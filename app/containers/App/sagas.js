@@ -1,28 +1,27 @@
-import { call, put, select, take, takeLatest } from "redux-saga/effects";
-import request from 'utils/request';
+// import { call, put, select, take, takeLatest } from 'redux-saga/effects';
+// import request from 'utils/request';
 
 
+// export function* getAnonTokenData() {
+//   try {
 
-export function* getAnonTokenData() {
-  try {
-    
-  } catch (error) {
-    
-  }
-}
+//   } catch (error) {
 
-export function* getToken(params) {
-  try {
-    
-  } catch (error) {
-    
-  }
-}
+//   }
+// }
 
-export function* getAnonTokenDaemon() {
-  yield takeLatest('action_name', getAnonTokenData);
-}
+// export function* getToken(params) {
+//   try {
 
-export default [
-  getAnonTokenDaemon,
-];
+//   } catch (error) {
+
+//   }
+// }
+
+// export function* getAnonTokenDaemon() {
+//   yield takeLatest('action_name', getAnonTokenData);
+// }
+
+// export default [
+//   getAnonTokenDaemon,
+// ];

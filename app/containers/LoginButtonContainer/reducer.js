@@ -5,12 +5,12 @@ export const initialState = fromJS({
   signInModalIsOpen: false,
 });
 
-export default function loginButtonReducer(state = initialState, action = {} ) {
+export default function loginButtonReducer(state = initialState, action = {}) {
   switch (action.type) {
     case OPEN_MODAL:
-      return state.set("signInModalIsOpen", true);
+      return state.set('signInModalIsOpen', true);
     case CLOSE_MODAL:
-      return state.set("signInModalIsOpen", false);
+      return state.set('signInModalIsOpen', false);
     default:
       return state;
   }

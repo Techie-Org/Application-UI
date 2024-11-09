@@ -3,7 +3,7 @@ import { loadHomeSuccess } from './actions';
 import { LOAD_HOME } from './constants';
 
 export function* loadHome() {
-  console.log("setup containers/Home loadHome saga called");
+  console.log('setup containers/Home loadHome saga called');
   yield put(loadHomeSuccess('Home data loaded'));
 }
 
