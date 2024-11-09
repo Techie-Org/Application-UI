@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const webpack = require('webpack');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
@@ -37,6 +38,15 @@ app.get('*', (req, res) => {
   });
 });
 
+app.use(
+  '/',
+  createProxyMiddleware({
+    target: 'http://localhost:5000',
+    changeOrigin: true,
+    secure: false,
+    pathRewrite: { '^/api': '/api' },
+  })
+);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
