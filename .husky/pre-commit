@@ -1,0 +1,2 @@
+npm run verify-branch-naming
+npm run lint:staged
