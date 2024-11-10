@@ -21,12 +21,13 @@ import {
 } from 'components/Form/Validators';
 
 const SignUp = (props) => {
-  const { intl } = props;
-
+  const { intl, registerUser } = props;
+  
   const [termsAgreed, setTermsAgreed] = useState(false);
 
   const handleSignUpSubmit = (formData) => {
     console.log('SignUp FormData ', formData);
+    registerUser(formData);
   };
 
   return (
@@ -140,6 +141,7 @@ const SignUp = (props) => {
 
 SignUp.propTypes = {
   intl: PropTypes.shape(intlShape),
+  registerUser: PropTypes.func,
 };
 
 export default SignUp;
