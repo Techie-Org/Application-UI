@@ -66,7 +66,6 @@ export const isWithinMaxLength = (value, maxLength) => (value?.length ?? 0) <= m
 export const isWithinMinLength = (value, minLength) => (value?.length ?? 0) >= minLength;
 
 // contains alphanumeric characters, is withinMinLength, or is blank.
-
 export const isAlphanumericWithinMinLength = (val, minLength) => isBlank(val)
   || (isLetterOrNumerals(val) && isWithinMinLength(val, minLength));
 
@@ -79,7 +78,6 @@ export const EMAIL_ADDRESS_ALLOWED_CHARS = /^[a-zA-Z0-9@_.-]*$/;
 export const EMAIL_ADDRESS_ALLOWED_CHARS_WITH_COMMA = /^[a-zA-Z0-9\s,@_.-]*$/;
 
 export const EMAIL_ADDRESS_MUST_HAVE_AT = /@/;
-
 
 export const EMAIL_ADDRESS_PATTERN = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
 
@@ -94,7 +92,6 @@ export const isAbove18 = (val) => isDateOfBirth({ minRange: { value: 18, metric:
 export const isValidEmail = (val, optional = true) => (isRequired(val) || optional) && EMAIL_ADDRESS_ALLOWED_CHARS.test(val)
   && /@/.test(val)
   && EMAIL_ADDRESS_PATTERN.test(val);
-
 
 export const isValidDate = (date) => {
   const mDate = moment(date, ['M/DD/YYYY', 'M/D/YYYY'], true);
