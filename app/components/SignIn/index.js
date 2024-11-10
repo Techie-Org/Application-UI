@@ -13,10 +13,11 @@ import messages from './messages';
 import styles from './styles.scss';
 
 const SignIn = (props) => {
-  const { intl } = props;
+  const { intl, signInUser } = props;
 
   const handleSignInSubmit = (formData) => {
     console.log('SignIn submit formData', formData);
+    signInUser(formData);
   };
 
   return (
@@ -82,6 +83,7 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   intl: PropTypes.shape(intlShape),
+  signInUser: PropTypes.func,
 };
 
 export default SignIn;

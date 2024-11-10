@@ -1,17 +1,17 @@
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import { SIGN_IN_USER, SIGN_IN_USER_SUCCESS } from './constants';
 
-export function loadHome(request) {
-  console.log('setup containers/Home loadHome action called');
+export function signInUser(signInFormData) {
+  console.log('setup containers/SignIn signInUser action called signInFormData', signInFormData);
   return {
-    type: LOAD_HOME,
-    request,
+    type: SIGN_IN_USER,
+    formData: signInFormData,
   };
 }
 
-export function loadHomeSuccess(data) {
-  console.log('setup containers/Home loadHomeSuccess action called data', data);
+export function signInUserSuccess(data) {
+  console.log('setup containers/SignIn signInUserSuccess action called data', data);
   return {
-    type: LOAD_HOME_SUCCESS,
+    type: SIGN_IN_USER_SUCCESS,
     data,
   };
 }

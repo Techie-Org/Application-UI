@@ -1,28 +1,38 @@
 import { fromJS } from 'immutable';
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import { SIGN_IN_USER, SIGN_IN_USER_SUCCESS } from './constants';
+
+// const REDUCER_KEY = 'signIn';
 
 const initialState = fromJS({
-  homeResponse: {
-    data: null,
-    loading: null,
-    loaded: null,
+  signInFormData: {
+    email: '',
+    password: '',
+  },
+  signInUser: {
+    loading: false,
+    loaded: false,
+    error: false,
+    data: {},
   },
 });
 
-function home(state = initialState, action) {
+function signIn(state = initialState, action) {
   switch (action.type) {
-    case LOAD_HOME:
+    case SIGN_IN_USER:
       return state
-        .setIn(['homeResponse', 'loading'], true)
-        .setIn(['homeResponse', 'loaded'], false);
-    case LOAD_HOME_SUCCESS:
+        .setIn(['signInUser', 'loading'], true)
+        .setIn(['signInUser', 'loaded'], false)
+        .setIn(['signInUser', 'error'], false)
+        .set('signInFormData', action.formData);
+    case SIGN_IN_USER_SUCCESS:
       return state
-        .setIn(['homeResponse', 'loading'], false)
-        .setIn(['homeResponse', 'loaded'], true)
-        .setIn(['homeResponse', 'data'], action.data);
+        .setIn(['signInUser', 'loading'], false)
+        .setIn(['signInUser', 'loaded'], true)
+        .setIn(['signInUser', 'error'], false)
+        .setIn(['signInUser', 'data'], action.data);
     default:
       return state;
   }
 }
 
-export default home;
+export default signIn;

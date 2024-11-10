@@ -1,14 +1,34 @@
-import { put, takeLatest } from 'redux-saga/effects';
-import { loadHomeSuccess } from './actions';
-import { LOAD_HOME } from './constants';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
+import request from 'utils/request';
+import getHeaders from 'utils/web';
+import { signInUserSuccess } from './actions';
+import { makeSelectSignInFormData } from './selectors';
+import {
+  SIGN_IN_USER, SIGN_IN_USER_API_URL,
+  TIMEOUT,
+} from './constants';
 
-export function* loadHome() {
-  console.log('setup containers/Home loadHome saga called');
-  yield put(loadHomeSuccess('Home data loaded'));
+export function* signInUserSaga() {
+  try {
+    const requestUrl = SIGN_IN_USER_API_URL;
+    const formData = yield select(makeSelectSignInFormData());
+
+    const response = yield call(request, requestUrl, {
+      method: 'POST',
+      data: formData,
+      timeout: TIMEOUT,
+      headers: getHeaders(),
+    });
+
+    console.log('signInUser response', response);
+    yield put(signInUserSuccess(response.data));
+  } catch (error) {
+    console.log('signInUser error', error);
+  }
 }
 
-export function* loadHomeDaemon() {
-  yield takeLatest(LOAD_HOME, loadHome);
+export function* signInUserDaemon() {
+  yield takeLatest(SIGN_IN_USER, signInUserSaga);
 }
 
-export default [loadHomeDaemon];
+export default [signInUserDaemon];
