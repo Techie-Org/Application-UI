@@ -24,6 +24,10 @@ export default defineMessages({
     id: `${scope}.namePlaceholder`,
     defaultMessage: 'Enter your name',
   },
+  nameMinLengthError: {
+    id: `${scope}.nameMinLengthError`,
+    defaultMessage: 'Atleast 3 characters required',
+  },
   blankNameError: {
     id: `${scope}.blankNameError`,
     defaultMessage: 'Name is required',
@@ -39,6 +43,10 @@ export default defineMessages({
   blankEmailError: {
     id: `${scope}.blankEmailError`,
     defaultMessage: 'Email is required',
+  },
+  invalidEmailError: {
+    id: `${scope}.invalidEmailError`,
+    defaultMessage: 'Invalid email',
   },
   genderLabel: {
     id: `${scope}.genderLabel`,
@@ -56,6 +64,14 @@ export default defineMessages({
     id: `${scope}.blankPhoneError`,
     defaultMessage: 'Phone number is required',
   },
+  minLengthPhonevalidator: {
+    id: `${scope}.minLengthPhonevalidator`,
+    defaultMessage: 'Atleast 10 characters are required',
+  },
+  maxLengthPhonevalidator: {
+    id: `${scope}.maxLengthPhonevalidator`,
+    defaultMessage: 'Maximum 12 characters allowed',
+  },
   passwordLabel: {
     id: `${scope}.passwordLabel`,
     defaultMessage: 'Password',
@@ -67,6 +83,10 @@ export default defineMessages({
   blankPasswordError: {
     id: `${scope}.blankPasswordError`,
     defaultMessage: 'Please enter a password',
+  },
+  passwordLengthError: {
+    id: `${scope}.passwordLengthError`,
+    defaultMessage: 'Password should be 10 characters',
   },
   confirmPasswordLabel: {
     id: `${scope}.confirmPasswordLabel`,
