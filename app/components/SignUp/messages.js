@@ -64,7 +64,7 @@ export default defineMessages({
     id: `${scope}.blankPhoneError`,
     defaultMessage: 'Phone number is required',
   },
-  lengthPhoneValidator: {
+  lengthPhoneError: {
     id: `${scope}.lengthPhoneValidator`,
     defaultMessage: 'Phone should have atleast 10 and maximum 12 characters',
   },

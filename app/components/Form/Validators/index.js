@@ -16,8 +16,6 @@ export const PHONE_NUMBER_PATTERN = /^[0-9]*$/;
 
 export const lengthCheckValidator = (message, min = 0, max = 25) => (value) => value && (value.length < min || value.length > max) ? message : '';
 
-export const minLengthNameFieldvalidator = (message) => (value) => value && value.length < 3 ? message : '';
-
 export const emailValidator = (message) => (value) => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   ? message
   : '';
