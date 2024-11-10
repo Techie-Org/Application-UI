@@ -57,13 +57,13 @@ export const GlobalHeader = (props) => {
 };
 
 GlobalHeader.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.shape(intlShape),
   openSignInModal: PropTypes.func,
   loading: PropTypes.bool,
 };
 
-GlobalHeader.defaultProps = {
-  loading: false,
-};
+// GlobalHeader.defaultProps = {
+//   // loading: false,
+// };
 
 export default injectIntl(GlobalHeader);
