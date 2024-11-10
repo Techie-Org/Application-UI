@@ -24,8 +24,8 @@ export default defineMessages({
     id: `${scope}.namePlaceholder`,
     defaultMessage: 'Enter your name',
   },
-  nameMinLengthError: {
-    id: `${scope}.nameMinLengthError`,
+  minLengthNameError: {
+    id: `${scope}.minLengthNameError`,
     defaultMessage: 'Atleast 3 characters required',
   },
   blankNameError: {
@@ -64,13 +64,9 @@ export default defineMessages({
     id: `${scope}.blankPhoneError`,
     defaultMessage: 'Phone number is required',
   },
-  minLengthPhonevalidator: {
-    id: `${scope}.minLengthPhonevalidator`,
-    defaultMessage: 'Atleast 10 characters are required',
-  },
-  maxLengthPhonevalidator: {
-    id: `${scope}.maxLengthPhonevalidator`,
-    defaultMessage: 'Maximum 12 characters allowed',
+  lengthPhoneValidator: {
+    id: `${scope}.lengthPhoneValidator`,
+    defaultMessage: 'Phone should have atleast 10 and maximum 12 characters',
   },
   passwordLabel: {
     id: `${scope}.passwordLabel`,
@@ -86,7 +82,7 @@ export default defineMessages({
   },
   passwordLengthError: {
     id: `${scope}.passwordLengthError`,
-    defaultMessage: 'Password should be 10 characters',
+    defaultMessage: 'Password should be atleast 8 characters',
   },
   confirmPasswordLabel: {
     id: `${scope}.confirmPasswordLabel`,

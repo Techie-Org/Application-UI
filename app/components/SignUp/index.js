@@ -15,11 +15,8 @@ import {
   NAME_PATTERN,
   EMAIL_ALLOWED_PATTERNS,
   PHONE_NUMBER_PATTERN,
-  minLengthNameFieldvalidator,
+  lengthCheckValidator,
   emailValidator,
-  minLengthPhoneNumberFieldvalidator,
-  maxLengthPhoneNumberFieldvalidator,
-  passwordLengthvalidator,
 } from 'components/Form/Validators';
 import { GENDER_FIELD_ITEMS } from './constants';
 import messages from './messages';
@@ -61,8 +58,8 @@ const SignUp = (props) => {
                 isBlankValidator(
                   intl.formatMessage(messages.blankNameError)
                 ),
-                minLengthNameFieldvalidator(
-                  intl.formatMessage(messages.nameMinLengthError)
+                lengthCheckValidator(
+                  intl.formatMessage(messages.minLengthNameError), 3,
                 ),
               ]}
             />
@@ -97,11 +94,8 @@ const SignUp = (props) => {
                 isBlankValidator(
                   intl.formatMessage(messages.blankPhoneError)
                 ),
-                minLengthPhoneNumberFieldvalidator(
-                  intl.formatMessage(messages.minLengthPhonevalidator)
-                ),
-                maxLengthPhoneNumberFieldvalidator(
-                  intl.formatMessage(messages.maxLengthPhonevalidator)
+                lengthCheckValidator(
+                  intl.formatMessage(messages.lengthPhoneValidator), 10, 12
                 ),
               ]}
             />
@@ -113,9 +107,8 @@ const SignUp = (props) => {
                 isBlankValidator(
                   intl.formatMessage(messages.blankPasswordError)
                 ),
-                passwordLengthvalidator(
-                  intl.formatMessage(messages.passwordLengthError)
-
+                lengthCheckValidator(
+                  intl.formatMessage(messages.passwordLengthError), 8,
                 ),
               ]}
               fullWidth
