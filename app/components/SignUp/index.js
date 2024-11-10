@@ -15,6 +15,8 @@ import {
   NAME_PATTERN,
   EMAIL_ALLOWED_PATTERNS,
   PHONE_NUMBER_PATTERN,
+  lengthCheckValidator,
+  emailValidator,
 } from 'components/Form/Validators';
 import { GENDER_FIELD_ITEMS } from './constants';
 import messages from './messages';
@@ -52,9 +54,14 @@ const SignUp = (props) => {
               label={intl.formatMessage(messages.nameLabel)}
               placeholder={intl.formatMessage(messages.namePlaceholder)}
               allowPattern={NAME_PATTERN}
-              validators={isBlankValidator(
-                intl.formatMessage(messages.blankNameError)
-              )}
+              validators={[
+                isBlankValidator(
+                  intl.formatMessage(messages.blankNameError)
+                ),
+                lengthCheckValidator(
+                  intl.formatMessage(messages.minLengthNameError), 3,
+                ),
+              ]}
             />
             <TextField
               model=".email"
@@ -62,9 +69,14 @@ const SignUp = (props) => {
               label={intl.formatMessage(messages.emailLabel)}
               placeholder={intl.formatMessage(messages.emailPlaceholder)}
               allowPattern={EMAIL_ALLOWED_PATTERNS}
-              validators={isBlankValidator(
-                intl.formatMessage(messages.blankEmailError)
-              )}
+              validators={[
+                isBlankValidator(
+                  intl.formatMessage(messages.blankEmailError)
+                ),
+                emailValidator(
+                  intl.formatMessage(messages.invalidEmailError)
+                ),
+              ]}
             />
             <RadioField
               model=".gender"
@@ -78,17 +90,27 @@ const SignUp = (props) => {
               label={intl.formatMessage(messages.phoneLabel)}
               placeholder={intl.formatMessage(messages.phonePlaceholder)}
               allowPattern={PHONE_NUMBER_PATTERN}
-              validators={isBlankValidator(
-                intl.formatMessage(messages.blankPhoneError)
-              )}
+              validators={[
+                isBlankValidator(
+                  intl.formatMessage(messages.blankPhoneError)
+                ),
+                lengthCheckValidator(
+                  intl.formatMessage(messages.lengthPhoneValidator), 10, 12
+                ),
+              ]}
             />
             <TextField
               model=".password"
               label={intl.formatMessage(messages.passwordLabel)}
               placeholder={intl.formatMessage(messages.passwordPlaceholder)}
-              validators={isBlankValidator(
-                intl.formatMessage(messages.blankPasswordError)
-              )}
+              validators={[
+                isBlankValidator(
+                  intl.formatMessage(messages.blankPasswordError)
+                ),
+                lengthCheckValidator(
+                  intl.formatMessage(messages.passwordLengthError), 8,
+                ),
+              ]}
               fullWidth
               isPassword
             />
