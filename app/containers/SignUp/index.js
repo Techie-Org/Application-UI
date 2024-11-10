@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import compose from 'lodash/fp/compose';
 import SignUp from 'components/SignUp';
 import { registerUser as registerUserAction } from './actions';
-import { makeSelectRegisterUserLoading } from './selectors';
+import { makeSelectRegisterUserLoading, makeSelectRegisterUserLoaded } from './selectors';
 
 const mapStateToProps = () => createStructuredSelector({
   registerUserLoading: makeSelectRegisterUserLoading(),
+  registerUserLoaded: makeSelectRegisterUserLoaded(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
