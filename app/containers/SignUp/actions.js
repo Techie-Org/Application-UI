@@ -1,17 +1,21 @@
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import { parseFormData } from './utils';
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+} from './constants';
 
-export function loadHome(request) {
-  console.log('setup containers/SignUp loadHome action called');
+export function registerUser(signUpFormData) {
+  console.log('setup containers/SignUp registerUser action called signUpFormData', signUpFormData);
   return {
-    type: LOAD_HOME,
-    request,
+    type: REGISTER_USER,
+    formData: parseFormData(signUpFormData),
   };
 }
 
-export function loadHomeSuccess(data) {
-  console.log('setup containers/SignUp loadHomeSuccess action called data', data);
+export function registerUserSuccess(data) {
+  console.log('setup containers/SignUp registerUserSuccess action called data', data);
   return {
-    type: LOAD_HOME_SUCCESS,
+    type: REGISTER_USER_SUCCESS,
     data,
   };
 }

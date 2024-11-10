@@ -89,13 +89,15 @@ export default function request(url, options = {}) {
   // console.log('cancelTokenSource.token', cancelTokenSource.token);
   const promise = axios(url, Object.assign(options, { cancelToken: cancelTokenSource.token }))
     .then(checkStatus)
-    .then(handleError)
+    .catch(handleError)
     .then(parseJSON)
-    .then(((response) => processCslErrors(response, url)));
+    .then((response) => processCslErrors(response, url));
 
   /* istanbul ignore next */
   promise[CANCEL] = () => {
     // cancel XHR request, called by redux-saga when a saga gets cancelled
     cancelTokenSource.cancel(CANCEL_OPERATION);
   };
+
+  return promise;
 }
