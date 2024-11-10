@@ -3,16 +3,16 @@ import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import compose from 'lodash/fp/compose';
 import SignUp from 'components/SignUp';
-import { loadHome as loadHomeAction } from './actions';
-import { makeSelectHomeResponse } from './selectors';
+import { registerUser as registerUserAction } from './actions';
+import { makeSelectRegisterUserLoading, makeSelectRegisterUserLoaded } from './selectors';
 
 const mapStateToProps = () => createStructuredSelector({
-  tokenData: () => '1234', // sample data initially
-  homeData: makeSelectHomeResponse(),
+  registerUserLoading: makeSelectRegisterUserLoading(),
+  registerUserLoaded: makeSelectRegisterUserLoaded(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  loadHome: (request) => dispatch(loadHomeAction(request)), // Sample action dispatched initially
+  registerUser: (requestData) => dispatch(registerUserAction(requestData)),
 });
 
 const SignUpContainer = compose(
