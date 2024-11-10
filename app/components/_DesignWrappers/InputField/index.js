@@ -18,6 +18,7 @@ const InputField = (props) => {
     if (allowPattern) {
       const regex = new RegExp(allowPattern);
       if (!regex.test(event.target.value)) {
+        // eslint-disable-next-line no-param-reassign
         event.target.value = input.value;
       }
     }
@@ -30,8 +31,7 @@ const InputField = (props) => {
     return error && submitFailed && invalid && !valid ? error : '';
   };
 
-  const checkError = () =>
-    meta.error && meta.invalid && !meta.valid && meta.submitFailed;
+  const checkError = () => meta.error && meta.invalid && !meta.valid && meta.submitFailed;
 
   const renderInputField = () => {
     switch (props.type) {
