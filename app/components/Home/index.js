@@ -27,8 +27,8 @@ Home.propTypes = {
   tokenData: PropTypes.string,
 };
 
-Home.defaultProps = {
-  // loadHome: ''
-};
+// Home.defaultProps = {
+//   // loadHome: ''
+// };
 
 export default Home;
