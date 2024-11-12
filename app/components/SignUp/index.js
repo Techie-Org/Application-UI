@@ -95,7 +95,7 @@ const SignUp = (props) => {
                   intl.formatMessage(messages.blankPhoneError)
                 ),
                 lengthCheckValidator(
-                  intl.formatMessage(messages.lengthPhoneValidator), 10, 12
+                  intl.formatMessage(messages.lengthPhoneError), 10, 12
                 ),
               ]}
             />
