@@ -1,5 +1,5 @@
 // SignUp API URLs
-export const REGISTER_USER_API_URL = 'api/registerUser';
+export const REGISTER_USER_API_URL = '/api/account/registerUser';
 
 // SignUp actions
 export const REGISTER_USER = 'artistry/SignUp/REGISTER_USER';
