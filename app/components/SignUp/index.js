@@ -152,7 +152,7 @@ const SignUp = (props) => {
         <Grid2>
           <Typography>
             <FormattedMessage {...messages.accountExistText} />
-            <TextLink href={CONFIG.SIGN_UP_PAGE}>
+            <TextLink href={CONFIG.SIGN_IN_PAGE}>
               <FormattedMessage {...messages.signInLink} />
             </TextLink>
           </Typography>
