@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import classNames from 'classnames';
@@ -10,9 +10,12 @@ import { HOMEPAGE_ROUTE } from './constants';
 import messages from './messages';
 import styles from './styles.scss';
 
-
 export const GlobalHeader = (props) => {
-  const { intl } = props;
+  const { intl, isUserLoggedIn, loadUserProfile } = props;
+
+  useEffect(() => {
+    loadUserProfile();
+  }, [isUserLoggedIn]);
 
   const renderLogo = () => (
     <div className={classNames(styles.headerLogoContainer)}>
@@ -49,17 +52,16 @@ export const GlobalHeader = (props) => {
 
   return (
     <div className={styles.globalHeaderContainer}>
-      <section className={styles.globalHeaderNavbar}>
-        {renderNavbar()}
-      </section>
+      <section className={styles.globalHeaderNavbar}>{renderNavbar()}</section>
     </div>
   );
 };
 
 GlobalHeader.propTypes = {
   intl: PropTypes.shape(intlShape),
-  openSignInModal: PropTypes.func,
+  loadUserProfile: PropTypes.func,
   loading: PropTypes.bool,
+  isUserLoggedIn: PropTypes.bool,
 };
 
 // GlobalHeader.defaultProps = {

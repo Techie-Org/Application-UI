@@ -2,16 +2,17 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { injectIntl } from 'react-intl';
 import GlobalHeader from 'components/GlobalHeader';
-// import { makeSelectHomeResponse } from "./selectors";
 import compose from 'lodash/fp/compose';
-import { openModal } from 'containers/LoginButtonContainer/actions';
+import { loadUserProfile } from './actions';
+import { makeSelectUserProfileData, makeSelectIsUserLoggedIn } from './selectors';
 
 const mapStateToProps = createStructuredSelector({
-  loading: () => true, // need to pass a selector from selectors.js
+  userProfileData: makeSelectUserProfileData(),
+  isUserLoggedIn: makeSelectIsUserLoggedIn(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  openSignInModal: () => dispatch(openModal()),
+  loadUserProfile: () => dispatch(loadUserProfile()),
 });
 
 const GlobalHeaderContainer = compose(
