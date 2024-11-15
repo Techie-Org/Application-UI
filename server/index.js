@@ -9,7 +9,8 @@ const app = express();
 const webpackConfig = require('../webpack.config');
 const compiler = webpack(webpackConfig);
 
-const pxhost = process.env.npm_config_pxhost || 'http://localhost:5000/api'; // Added api with base as pathRewrite not working in proxy middleware
+// const pxhost = process.env.npm_config_pxhost || 'http://localhost:5000';
+const pxhost = process.env.npm_config_pxhost || 'https://dev-kalakaar.onrender.com';
 
 app.use(
   '/api',
