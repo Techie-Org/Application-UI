@@ -5,8 +5,11 @@ import classNames from 'classnames';
 import TextLink from 'components/_DesignWrappers/TextLink';
 
 // import artistryLogo from './assets/artistryLogo.svg';
+import { Button, Toolbar, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { HOMEPAGE_ROUTE } from './constants';
 // import NavbarItems from './NavbarItems';
+import CONFIG from '../../config/development';
 import messages from './messages';
 import styles from './styles.scss';
 
@@ -47,6 +50,16 @@ export const GlobalHeader = (props) => {
       {/* <NavbarItems
         menuData={'headerData'} // TODO: navbar data needs to be passed here
       /> */}
+      <Toolbar>
+        <Typography>
+          <Link to={CONFIG.SIGN_UP_PAGE}>
+            <Button>Sign Up</Button>
+          </Link>
+          <Link to={CONFIG.SIGN_IN_PAGE}>
+            <Button>Log In</Button>
+          </Link>
+        </Typography>
+      </Toolbar>
     </div>
   );
 
