@@ -2,6 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { signInUserSuccess } from './actions';
+import { setUserLogIn } from '../GlobalHeaderContainer/actions';
 import { makeSelectSignInFormData } from './selectors';
 import {
   SIGN_IN_USER, SIGN_IN_USER_API_URL,
@@ -22,6 +23,7 @@ export function* signInUserSaga() {
 
     console.log('signInUser response', response);
     yield put(signInUserSuccess(response.data));
+    yield put(setUserLogIn(true));
   } catch (error) {
     console.log('signInUser error', error);
   }
