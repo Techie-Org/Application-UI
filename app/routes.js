@@ -43,14 +43,14 @@ const homeRoutes = {
     config: {},
   },
   signIn: {
-    path: '/signIn',
+    path: '/account/signIn',
     name: 'signIn',
     reducers: ['signIn'],
     sagas: ['signIn'],
     config: {},
   },
   signUp: {
-    path: '/signUp',
+    path: '/account/signUp',
     name: 'signUp',
     reducers: ['signUp'],
     sagas: ['signUp'],
