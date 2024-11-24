@@ -8,8 +8,9 @@ import TextField from 'components/_DesignWrappers/TextField';
 import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
 import TextLink from 'components/_DesignWrappers/TextLink';
 import Button from 'components/_DesignWrappers/Button';
-import { isBlankValidator } from 'components/Form/Validators';
+import { isBlankValidator, emailValidator, lengthCheckValidator } from 'components/Form/Validators';
 import CONFIG from '../../config/development';
+
 import messages from './messages';
 import styles from './styles.scss';
 
@@ -35,9 +36,14 @@ const SignIn = (props) => {
             model=".email"
             label={intl.formatMessage(messages.emailLabel)}
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
-            validators={isBlankValidator(
-              intl.formatMessage(messages.emailError)
-            )}
+            validators={[
+              isBlankValidator(
+                intl.formatMessage(messages.emailError)
+              ),
+              emailValidator(
+                intl.formatMessage(messages.invalidEmailError)
+              ),
+            ]}
             fullWidth
           />
           <TextField
@@ -45,9 +51,14 @@ const SignIn = (props) => {
             className={styles.passwordField}
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
-            validators={isBlankValidator(
-              intl.formatMessage(messages.passwordError)
-            )}
+            validators={[
+              isBlankValidator(
+                intl.formatMessage(messages.passwordError)
+              ),
+              lengthCheckValidator(
+                intl.formatMessage(messages.passwordLengthError), 8,
+              ),
+            ]}
             isPassword
             fullWidth
           />
