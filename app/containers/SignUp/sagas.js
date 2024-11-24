@@ -1,6 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
+import { history } from 'utils/browserHistory';
 import { registerUserSuccess } from './actions';
 import { makeSelectSignUpFormData } from './selectors';
 import {
@@ -23,6 +24,7 @@ export function* registerUserSaga() {
 
     console.log('register User response', response);
     yield put(registerUserSuccess(response.data));
+    history.navigate('/account/signIn');
   } catch (error) {
     console.log('register User error', error);
   }
