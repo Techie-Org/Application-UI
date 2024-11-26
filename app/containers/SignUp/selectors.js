@@ -22,3 +22,7 @@ export const makeSelectRegisterUserData = () => createSelector(
   signUpState,
   (state) => state?.getIn(['registerUser', 'data']) ?? {},
 );
+export const makeSelectOtpValue = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['userOtpValue', 'otp']) ?? '',
+);
