@@ -120,4 +120,12 @@ export default defineMessages({
     id: `${scope}.signInLink`,
     defaultMessage: 'Sign In',
   },
+  hidePasswordLabel: {
+    id: `${scope}.hidePasswordLabel`,
+    defaultMessage: 'HidePassword',
+  },
+  showPasswordLabel: {
+    id: `${scope}.showPasswordLabel`,
+    defaultMessage: 'ShowPassword',
+  },
 });

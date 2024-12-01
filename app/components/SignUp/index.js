@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
-import { Grid2, Paper, Avatar, Typography } from '@mui/material';
+import { Grid2, Paper, Avatar, Typography, IconButton, InputAdornment } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LocalForm from 'components/_DesignWrappers/LocalForm';
 import TextField from 'components/_DesignWrappers/TextField';
@@ -27,6 +29,11 @@ const SignUp = (props) => {
   const { intl, registerUser } = props;
 
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSignUpSubmit = (formData) => {
     console.log('SignUp FormData ', formData);
@@ -114,6 +121,20 @@ const SignUp = (props) => {
               ]}
               fullWidth
               isPassword
+              type={showPassword ? 'text' : 'password'}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleTogglePasswordVisibility}
+                      edge="end"
+                      aria-label={showPassword ? intl.formatMessage(messages.hidePasswordLabel) : intl.formatMessage(messages.showPasswordLabel)}
+                    >
+                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               model=".confirmPassword"
