@@ -16,7 +16,7 @@
     "lint:staged": "lint-staged",
     "verify-branch-naming": "node ./internals/scripts/verify-branch-naming",
     "prepare": "husky",
-    "extract-intl": "extract-messages -l=en -o ./app/translations -d en --flat true ./app/**/messages.js"
+    "extract-intl": "babel-node --presets @babel/preset-env -- ./internals/scripts/extract-intl.js"
   },
   "lint-staged": {
     "*.js": "npm run lint:eslint"
@@ -301,7 +301,10 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.1",
+    "@babel/node": "^7.26.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
+    "cheerio": "^1.0.0-rc.12",
     "css-loader": "^7.1.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
@@ -318,6 +321,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.1.5",
+    "jest-cli": "^29.7.0",
     "lint-staged": "^15.2.10",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.1",
