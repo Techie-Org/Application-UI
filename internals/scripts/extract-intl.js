@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * This script will extract the internationalization messages from all components
  * and package them in the translation json files in the translations file.
@@ -135,6 +134,7 @@ const extractFromFile = async (filename) => {
       // Write to file the JSON representation of the translation messages
       const prettified = `${JSON.stringify(messages, null, 2)}\n`;
 
+      // eslint-disable-next-line no-await-in-loop
       await writeFile(translationFileName, prettified);
 
       localeTaskDone();
