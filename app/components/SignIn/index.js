@@ -9,7 +9,7 @@ import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
 import TextLink from 'components/_DesignWrappers/TextLink';
 import Button from 'components/_DesignWrappers/Button';
 import { isBlankValidator, emailValidator, lengthCheckValidator } from 'components/Form/Validators';
-import CONFIG from '../../config/development';
+import config from 'config';
 
 import messages from './messages';
 import styles from './styles.scss';
@@ -84,7 +84,7 @@ const SignIn = (props) => {
         </Typography>
         <Typography>
           <FormattedMessage {...messages.accountExistText} />
-          <TextLink href={CONFIG.SIGN_UP_PAGE}>
+          <TextLink href={config.SIGN_UP_PAGE}>
             <FormattedMessage {...messages.signUpLink} />
           </TextLink>
         </Typography>
