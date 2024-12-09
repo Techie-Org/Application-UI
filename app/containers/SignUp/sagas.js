@@ -22,7 +22,6 @@ export function* registerUserSaga() {
       headers: getHeaders(),
     });
 
-    console.log('register User response', response);
     yield put(registerUserSuccess(response.data));
     history.navigate('/account/signIn');
   } catch (error) {

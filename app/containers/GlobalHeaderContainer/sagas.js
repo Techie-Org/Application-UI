@@ -24,7 +24,6 @@ export function* userProfileSaga() {
       yield put(userProfileSuccess(response.data));
       yield put(setUserLogIn(true));
     }
-    console.log('userProfile response', response);
   } catch (error) {
     console.log('userProfile error', error);
   }
@@ -44,7 +43,6 @@ export function* userLogoutSaga() {
       yield put(setUserLogIn(false));
       history.navigate('/');
     }
-    console.log('logoutUser response', response);
   } catch (error) {
     console.log('logoutUser error', error);
   }

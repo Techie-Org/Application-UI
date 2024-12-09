@@ -24,12 +24,10 @@ import messages from './messages';
 import styles from './styles.scss';
 
 const SignUp = (props) => {
+  const [termsAgreed, setTermsAgreed] = useState(false);
   const { intl, registerUser } = props;
 
-  const [termsAgreed, setTermsAgreed] = useState(false);
-
   const handleSignUpSubmit = (formData) => {
-    console.log('SignUp FormData ', formData);
     registerUser(formData);
   };
 
