@@ -18,7 +18,6 @@ const SignIn = (props) => {
   const { intl, signInUser } = props;
 
   const handleSignInSubmit = (formData) => {
-    console.log('SignIn submit formData', formData);
     signInUser(formData);
   };
 

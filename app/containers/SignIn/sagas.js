@@ -22,7 +22,6 @@ export function* signInUserSaga() {
       headers: getHeaders(),
     });
 
-    console.log('signInUser response', response);
     yield put(signInUserSuccess(response.data));
     yield put(setUserLogIn(true));
     history.navigate('/');
