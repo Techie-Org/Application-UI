@@ -1,5 +1,3 @@
-/* eslint-disable no-template-curly-in-string */
-
 const CONFIG = {
   HOME: '/',
   SIGN_IN_PAGE: '/account/signIn',
