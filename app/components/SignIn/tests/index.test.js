@@ -1,12 +1,5 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
-// import {
-//   Button,
-//   LocalForm,
-//   TextField,
-//   CheckBoxField,
-//   TextLink,
-// } from 'components/_DesignWrappers';
 import Button from 'components/_DesignWrappers/Button';
 import LocalForm from 'components/_DesignWrappers/LocalForm';
 import TextField from 'components/_DesignWrappers/TextField';
