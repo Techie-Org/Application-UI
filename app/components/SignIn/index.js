@@ -28,7 +28,11 @@ const SignIn = (props) => {
           </Avatar>
           <h2>{intl.formatMessage(messages.signIn)}</h2>
         </Grid2>
-        <LocalForm form="SignInForm" onSubmit={handleSignInSubmit}>
+        <LocalForm
+          form="SignInForm"
+          onSubmit={handleSignInSubmit}
+          data-test-id="signInForm"
+        >
           <TextField
             model=".email"
             label={intl.formatMessage(messages.emailLabel)}
@@ -59,6 +63,7 @@ const SignIn = (props) => {
             color="primary"
             variant="contained"
             className={styles.signInButton}
+            data-test-id="signInSubmitButton"
             fullWidth
           >
             {intl.formatMessage(messages.signInButton)}
