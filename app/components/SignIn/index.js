@@ -10,7 +10,11 @@ import TextField from 'components/_DesignWrappers/TextField';
 import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
 import TextLink from 'components/_DesignWrappers/TextLink';
 import Button from 'components/_DesignWrappers/Button';
-import { isBlankValidator, emailValidator, lengthCheckValidator } from 'components/Form/Validators';
+import {
+  isBlankValidator,
+  emailValidator,
+  lengthCheckValidator,
+} from 'components/Form/Validators';
 import config from 'config';
 
 import messages from './messages';
@@ -37,18 +41,18 @@ const SignIn = (props) => {
           </Avatar>
           <h2>{intl.formatMessage(messages.signIn)}</h2>
         </Grid2>
-        <LocalForm form="SignInForm" onSubmit={handleSignInSubmit}>
+        <LocalForm
+          form="SignInForm"
+          onSubmit={handleSignInSubmit}
+          data-test-id="signInForm"
+        >
           <TextField
             model=".email"
             label={intl.formatMessage(messages.emailLabel)}
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
             validators={[
-              isBlankValidator(
-                intl.formatMessage(messages.emailError)
-              ),
-              emailValidator(
-                intl.formatMessage(messages.invalidEmailError)
-              ),
+              isBlankValidator(intl.formatMessage(messages.emailError)),
+              emailValidator(intl.formatMessage(messages.invalidEmailError)),
             ]}
             fullWidth
           />
@@ -58,12 +62,8 @@ const SignIn = (props) => {
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
             validators={[
-              isBlankValidator(
-                intl.formatMessage(messages.passwordError)
-              ),
-              lengthCheckValidator(
-                intl.formatMessage(messages.passwordLengthError), 8,
-              ),
+              isBlankValidator(intl.formatMessage(messages.passwordError)),
+              lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
             ]}
             isPassword
             fullWidth
@@ -92,6 +92,7 @@ const SignIn = (props) => {
             color="primary"
             variant="contained"
             className={styles.signInButton}
+            data-test-id="signInSubmitButton"
             fullWidth
           >
             {intl.formatMessage(messages.signInButton)}
