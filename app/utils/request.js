@@ -86,7 +86,6 @@ function parseJSON(response) {
  */
 export default function request(url, options = {}) {
   const cancelTokenSource = axios.CancelToken.source();
-  // console.log('cancelTokenSource.token', cancelTokenSource.token);
   const promise = axios(url, Object.assign(options, { cancelToken: cancelTokenSource.token }))
     .then(checkStatus)
     .catch(handleError)

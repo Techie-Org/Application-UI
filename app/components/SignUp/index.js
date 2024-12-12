@@ -20,15 +20,14 @@ import {
   lengthCheckValidator,
   emailValidator,
 } from 'components/Form/Validators';
-import CONFIG from '../../config/development';
+import config from 'config';
 import { GENDER_FIELD_ITEMS } from './constants';
 import messages from './messages';
 import styles from './styles.scss';
 
 const SignUp = (props) => {
-  const { intl, registerUser } = props;
-
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const { intl, registerUser } = props;
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePasswordVisibility = () => {
@@ -36,7 +35,6 @@ const SignUp = (props) => {
   };
 
   const handleSignUpSubmit = (formData) => {
-    console.log('SignUp FormData ', formData);
     registerUser(formData);
   };
 
@@ -173,7 +171,7 @@ const SignUp = (props) => {
         <Grid2>
           <Typography>
             <FormattedMessage {...messages.accountExistText} />
-            <TextLink href={CONFIG.SIGN_IN_PAGE}>
+            <TextLink href={config.SIGN_IN_PAGE}>
               <FormattedMessage {...messages.signInLink} />
             </TextLink>
           </Typography>
