@@ -1,4 +1,4 @@
-import { parseFormData } from './utils';
+import { parseSignUpFormData } from './utils';
 import {
   REGISTER_USER,
   REGISTER_USER_SUCCESS,
@@ -7,7 +7,7 @@ import {
 export function registerUser(signUpFormData) {
   return {
     type: REGISTER_USER,
-    formData: parseFormData(signUpFormData),
+    formData: parseSignUpFormData(signUpFormData),
   };
 }
 
