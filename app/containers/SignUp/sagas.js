@@ -25,7 +25,6 @@ export function* registerUserSaga() {
       headers: getHeaders(),
     });
 
-    console.log('register User response', response);
     yield put(registerUserSuccess(response.data));
   } catch (error) {
     console.log('register User error', error);

@@ -1,4 +1,4 @@
-import { parseFormData } from './utils';
+import { parseSignUpFormData } from './utils';
 import {
   REGISTER_USER,
   REGISTER_USER_SUCCESS,
@@ -7,13 +7,9 @@ import {
 } from './constants';
 
 export function registerUser(signUpFormData) {
-  console.log(
-    'setup containers/SignUp registerUser action called signUpFormData',
-    signUpFormData
-  );
   return {
     type: REGISTER_USER,
-    formData: parseFormData(signUpFormData),
+    formData: parseSignUpFormData(signUpFormData),
   };
 }
 
