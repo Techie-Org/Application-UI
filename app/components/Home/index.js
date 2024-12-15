@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Home = ({ loadHome, homeData, tokenData }) => {
-  console.log('setup components/Home Home tokenData', tokenData);
-  console.log('setup components/Home Home homeData', homeData);
-
+export const Home = ({ loadHome, homeData }) => {
   const handleClick = () => {
     loadHome();
   };
@@ -24,7 +21,6 @@ export const Home = ({ loadHome, homeData, tokenData }) => {
 Home.propTypes = {
   loadHome: PropTypes.func,
   homeData: PropTypes.string,
-  tokenData: PropTypes.string,
 };
 
 // Home.defaultProps = {

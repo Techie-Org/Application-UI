@@ -19,9 +19,8 @@ import {
   PHONE_NUMBER_PATTERN,
   lengthCheckValidator,
   emailValidator,
-  otpLengthValidator,
 } from 'components/Form/Validators';
-import CONFIG from '../../config/development';
+import config from 'config';
 import { GENDER_FIELD_ITEMS } from './constants';
 import messages from './messages';
 import styles from './styles.scss';
@@ -36,21 +35,17 @@ const SignUp = (props) => {
       if (otpValidationSuccessLoaded) {
         setOpenOtpModal(false);
       } else {
-        console.log('inside otp flase');
         setOpenOtpModal(true);
       }
     } else {
-      console.log('register false');
       setOpenOtpModal(false);
     }
   }, [registerUserLoaded, otpValidationSuccessLoaded]);
 
   const handleSignUpSubmit = (formData) => {
-    console.log('SignUp FormData ', formData);
     registerUser(formData);
   };
   const handleOtpValidation = (formData) => {
-    console.log('otp value', formData);
     validateOtp(formData);
   };
   return (
@@ -77,12 +72,8 @@ const SignUp = (props) => {
                 placeholder={intl.formatMessage(messages.namePlaceholder)}
                 allowPattern={NAME_PATTERN}
                 validators={[
-                  isBlankValidator(
-                    intl.formatMessage(messages.blankNameError)
-                  ),
-                  lengthCheckValidator(
-                    intl.formatMessage(messages.minLengthNameError), 3,
-                  ),
+                  isBlankValidator(intl.formatMessage(messages.blankNameError)),
+                  lengthCheckValidator(intl.formatMessage(messages.minLengthNameError), 3,),
                 ]}
               />
               <TextField
@@ -92,12 +83,8 @@ const SignUp = (props) => {
                 placeholder={intl.formatMessage(messages.emailPlaceholder)}
                 allowPattern={EMAIL_ALLOWED_PATTERNS}
                 validators={[
-                  isBlankValidator(
-                    intl.formatMessage(messages.blankEmailError)
-                  ),
-                  emailValidator(
-                    intl.formatMessage(messages.invalidEmailError)
-                  ),
+                  isBlankValidator(intl.formatMessage(messages.blankEmailError)),
+                  emailValidator(intl.formatMessage(messages.invalidEmailError)),
                 ]}
               />
               <RadioField
@@ -113,12 +100,8 @@ const SignUp = (props) => {
                 placeholder={intl.formatMessage(messages.phonePlaceholder)}
                 allowPattern={PHONE_NUMBER_PATTERN}
                 validators={[
-                  isBlankValidator(
-                    intl.formatMessage(messages.blankPhoneError)
-                  ),
-                  lengthCheckValidator(
-                    intl.formatMessage(messages.lengthPhoneError), 10, 12
-                  ),
+                  isBlankValidator(intl.formatMessage(messages.blankPhoneError)),
+                  lengthCheckValidator(intl.formatMessage(messages.lengthPhoneError), 10, 12),
                 ]}
               />
               <TextField
@@ -126,12 +109,8 @@ const SignUp = (props) => {
                 label={intl.formatMessage(messages.passwordLabel)}
                 placeholder={intl.formatMessage(messages.passwordPlaceholder)}
                 validators={[
-                  isBlankValidator(
-                    intl.formatMessage(messages.blankPasswordError)
-                  ),
-                  lengthCheckValidator(
-                    intl.formatMessage(messages.passwordLengthError), 8,
-                  ),
+                  isBlankValidator(intl.formatMessage(messages.blankPasswordError)),
+                  lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8,),
                 ]}
                 fullWidth
                 isPassword
@@ -139,16 +118,10 @@ const SignUp = (props) => {
               <TextField
                 model=".confirmPassword"
                 label={intl.formatMessage(messages.confirmPasswordLabel)}
-                placeholder={intl.formatMessage(
-                  messages.confirmPasswordPlaceholder
-                )}
+                placeholder={intl.formatMessage(messages.confirmPasswordPlaceholder)}
                 validators={[
-                  isBlankValidator(
-                    intl.formatMessage(messages.blankConfirmPasswordError)
-                  ),
-                  confirmPasswordValidator(
-                    intl.formatMessage(messages.passwordMatchError)
-                  ),
+                  isBlankValidator(intl.formatMessage(messages.blankConfirmPasswordError)),
+                  confirmPasswordValidator(intl.formatMessage(messages.passwordMatchError)),
                 ]}
                 fullWidth
                 isPassword
@@ -156,9 +129,7 @@ const SignUp = (props) => {
               <CheckBoxField
                 model=".terms"
                 label={intl.formatMessage(messages.termsConditionLabel)}
-                checkboxValue={intl.formatMessage(
-                  messages.termsConditionCheckboxValue
-                )}
+                checkboxValue={intl.formatMessage(messages.termsConditionCheckboxValue)}
                 onChange={() => setTermsAgreed(!termsAgreed)}
               />
               <Button
@@ -173,7 +144,7 @@ const SignUp = (props) => {
           <Grid2>
             <Typography>
               <FormattedMessage {...messages.accountExistText} />
-              <TextLink href={CONFIG.SIGN_IN_PAGE}>
+              <TextLink href={config.SIGN_IN_PAGE}>
                 <FormattedMessage {...messages.signInLink} />
               </TextLink>
             </Typography>
@@ -181,8 +152,8 @@ const SignUp = (props) => {
         </Paper>
         <Modal
           open={openOtpModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="otp-modal-title"
+          aria-describedby="otp-modal-description"
         >
           <Stack className={styles.otpModal} spacing={3} alignItems="center">
             <Typography className={styles.otpDescription} variant="h3">
@@ -203,9 +174,7 @@ const SignUp = (props) => {
                     maxLength: 6,
                   }}
                   validators={
-                    otpLengthValidator(
-                      intl.formatMessage(messages.otpLengthValidator)
-                    )
+                    lengthCheckValidator(intl.formatMessage(messages.otpLengthValidator), 6, 6)
                   }
                 />
                 <Button
