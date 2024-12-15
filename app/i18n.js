@@ -28,3 +28,9 @@ export const getDateFormatByPOS = (locale) => {
   // default (first element is day)
   return 'DD_MM_YYYY';
 };
+
+export const DEFAULT_LOCALE = 'en';
+
+export const appLocales = [
+  'en',
+];

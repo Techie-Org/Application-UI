@@ -22,5 +22,5 @@ Note: versions below or over these could cause problems.
 
 * Run `npm ci` in the repo folder
 
-> Run `npm run start:server` to spin up the local server
+> Run `npm start` to spin up the local server
 

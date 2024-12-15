@@ -15,9 +15,9 @@ import {
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
+import config from 'config';
 import { HOMEPAGE_ROUTE } from './constants';
 // import NavbarItems from './NavbarItems';
-import CONFIG from '../../config/development';
 import messages from './messages';
 import styles from './styles.scss';
 
@@ -89,10 +89,10 @@ export const GlobalHeader = (props) => {
   const renderLoginSignupButtons = () => (
     <Toolbar>
       <Typography>
-        <Link to={CONFIG.SIGN_UP_PAGE}>
+        <Link to={config.SIGN_UP_PAGE}>
           <Button>Sign Up</Button>
         </Link>
-        <Link to={CONFIG.SIGN_IN_PAGE}>
+        <Link to={config.SIGN_IN_PAGE}>
           <Button>Log In</Button>
         </Link>
       </Typography>
