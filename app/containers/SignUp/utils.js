@@ -5,3 +5,6 @@ export const parseSignUpFormData = (formData) => ({
   phone: formData?.phone,
   password: formData?.password,
 });
+export const transformvalidateOtpData = (formData, otpValue) => ({
+  ...formData, ...otpValue,
+});

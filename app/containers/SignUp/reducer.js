@@ -1,5 +1,10 @@
 import { fromJS } from 'immutable';
-import { REGISTER_USER, REGISTER_USER_SUCCESS } from './constants';
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  VALIDATE_OTP,
+  VALIDATE_OTP_SUCCESS,
+} from './constants';
 
 const initialState = fromJS({
   formData: {
@@ -10,6 +15,12 @@ const initialState = fromJS({
     password: '',
   },
   registerUser: {
+    loading: false,
+    loaded: false,
+    error: false,
+    data: {},
+  },
+  validateOtp: {
     loading: false,
     loaded: false,
     error: false,
@@ -31,6 +42,18 @@ function signUp(state = initialState, action) {
         .setIn(['registerUser', 'loaded'], true)
         .setIn(['registerUser', 'error'], false)
         .setIn(['registerUser', 'data'], action.data);
+    case VALIDATE_OTP:
+      return state
+        .setIn(['validateOtp', 'loading'], true)
+        .setIn(['validateOtp', 'loaded'], false)
+        .setIn(['validateOtp', 'error'], false)
+        .set('userOtpValue', action.otpValue);
+    case VALIDATE_OTP_SUCCESS:
+      return state
+        .setIn(['validateOtp', 'loading'], false)
+        .setIn(['validateOtp', 'loaded'], true)
+        .setIn(['validateOtp', 'error'], false)
+        .setIn(['validateOtp', 'data'], action.data);
     default:
       return state;
   }
