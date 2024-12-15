@@ -47,7 +47,7 @@ function signUp(state = initialState, action) {
         .setIn(['validateOtp', 'loading'], true)
         .setIn(['validateOtp', 'loaded'], false)
         .setIn(['validateOtp', 'error'], false)
-        .setIn(['userOtpValue', 'otp'], action.otpValue);
+        .set('userOtpValue', action.otpValue);
     case VALIDATE_OTP_SUCCESS:
       return state
         .setIn(['validateOtp', 'loading'], false)

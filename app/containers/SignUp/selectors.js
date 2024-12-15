@@ -24,5 +24,5 @@ export const makeSelectRegisterUserData = () => createSelector(
 );
 export const makeSelectOtpValue = () => createSelector(
   signUpState,
-  (state) => state?.getIn(['userOtpValue', 'otp']) ?? {},
+  (state) => state?.get('userOtpValue') ?? {},
 );
