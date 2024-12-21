@@ -7,20 +7,25 @@
     "node": ">=20.17.0"
   },
   "scripts": {
-    "webpack:build": "webpack",
-    "start:server": "node server",
-    "test": "npm run test:default -- --coverage",
-    "test:fast": "npm run test:default",
-    "test:default": "node --expose-gc ./node_modules/jest-cli/bin/jest.js",
+    "build": "webpack",
+    "build:clean": "npm run test:clean && rimraf ./build",
+    "clean:all": "npm run test:clean && npm run build:clean",
+    "clear-jest-cache": "rimraf ./.jest-cache ./.eslintcache ./.stylelintcache node_modules/.cache",
     "eject": "react-scripts eject",
+    "extract-intl": "babel-node --presets @babel/preset-env -- ./internals/scripts/extract-intl.js",
     "lint": "npm run lint:js",
     "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.css\" --cache",
     "lint:eslint": "eslint --quiet --cache --ignore-path .gitignore --ignore-pattern \"internals/scripts\" --ignore-pattern static --ignore-pattern \"static/*\"",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
-    "verify-branch-naming": "node ./internals/scripts/verify-branch-naming",
     "prepare": "husky",
-    "extract-intl": "babel-node --presets @babel/preset-env -- ./internals/scripts/extract-intl.js"
+    "pretest": "npm run test:clean && npm run lint",
+    "start": "node server",
+    "test": "npm run test:default -- --coverage",
+    "test:clean": "npm run clear-jest-cache && rimraf ./coverage",
+    "test:default": "node --expose-gc ./node_modules/jest-cli/bin/jest.js",
+    "test:fast": "npm run test:default",
+    "verify-branch-naming": "node ./internals/scripts/verify-branch-naming"
   },
   "lint-staged": {
     "*.js": "npm run lint:eslint"
