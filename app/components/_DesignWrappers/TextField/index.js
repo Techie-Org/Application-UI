@@ -26,6 +26,7 @@ TextField.propTypes = {
   model: PropTypes.string,
   form: PropTypes.string,
   isPassword: PropTypes.bool,
+  validators: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 };
 
 export default TextField;
