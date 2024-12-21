@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
 import { Grid2, Paper, Avatar, Typography } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import TextLink from 'components/_DesignWrappers/TextLink';
-import Button from 'components/_DesignWrappers/Button';
+import {
+  Button,
+  LocalForm,
+  TextField,
+  CheckBoxField,
+  TextLink,
+} from 'components/_DesignWrappers';
 import {
   isBlankValidator,
   emailValidator,

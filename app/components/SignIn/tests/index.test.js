@@ -1,10 +1,6 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
-import Button from 'components/_DesignWrappers/Button';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import TextLink from 'components/_DesignWrappers/TextLink';
+import { Button, LocalForm, TextField, CheckBoxField, TextLink } from 'components/_DesignWrappers';
 import { shallowWithIntl } from '@internals/testing/intl-enzyme-test-helper';
 import SignIn from '..';
 
