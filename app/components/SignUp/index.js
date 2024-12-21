@@ -5,12 +5,14 @@ import { Grid2, Paper, Avatar, Typography } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import RadioField from 'components/_DesignWrappers/RadioField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import Button from 'components/_DesignWrappers/Button';
-import TextLink from 'components/_DesignWrappers/TextLink';
+import {
+  Button,
+  LocalForm,
+  TextField,
+  CheckBoxField,
+  TextLink,
+  RadioField,
+} from 'components/_DesignWrappers';
 import {
   isBlankValidator,
   confirmPasswordValidator,
@@ -26,7 +28,13 @@ import messages from './messages';
 import styles from './styles.scss';
 
 const SignUp = (props) => {
-  const { intl, registerUser, registerUserLoaded, validateOtp, otpValidationSuccessLoaded } = props;
+  const {
+    intl,
+    registerUser,
+    registerUserLoaded,
+    validateOtp,
+    otpValidationSuccessLoaded,
+  } = props;
 
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [openOtpModal, setOpenOtpModal] = useState(false);
@@ -73,7 +81,7 @@ const SignUp = (props) => {
                 allowPattern={NAME_PATTERN}
                 validators={[
                   isBlankValidator(intl.formatMessage(messages.blankNameError)),
-                  lengthCheckValidator(intl.formatMessage(messages.minLengthNameError), 3,),
+                  lengthCheckValidator(intl.formatMessage(messages.minLengthNameError), 3),
                 ]}
               />
               <TextField
@@ -110,7 +118,7 @@ const SignUp = (props) => {
                 placeholder={intl.formatMessage(messages.passwordPlaceholder)}
                 validators={[
                   isBlankValidator(intl.formatMessage(messages.blankPasswordError)),
-                  lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8,),
+                  lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
                 ]}
                 fullWidth
                 isPassword
@@ -161,11 +169,19 @@ const SignUp = (props) => {
             <Typography className={styles.otpDescription} variant="h3">
               <FormattedMessage {...messages.otpDescription} />
             </Typography>
-            <Typography variant="caption" gutterBottom className={styles.otpSentMessage}>
+            <Typography
+              variant="caption"
+              gutterBottom
+              className={styles.otpSentMessage}
+            >
               <FormattedMessage {...messages.otpMessage} />
             </Typography>
             <Stack alignItems="center" className={styles.otpFormStack}>
-              <LocalForm form="verifyOtpValidation" onSubmit={handleOtpValidation} className={styles.otpFormContainer}>
+              <LocalForm
+                form="verifyOtpValidation"
+                onSubmit={handleOtpValidation}
+                className={styles.otpFormContainer}
+              >
                 <TextField
                   model=".otp"
                   label={intl.formatMessage(messages.otpLabel)}
