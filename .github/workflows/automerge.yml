@@ -5,6 +5,9 @@ on:
     branches:
       - pod-development/* # The branch you want to automatically merge pull request
       - epic/*
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   Run_Actions:
     runs-on: ubuntu-latest
@@ -42,7 +45,7 @@ jobs:
           # The merge method ("merge", "squash", "rebase"). Default is "merge"
           merge-method: merge
           # Let the bot delete the merged branch. true or false.
-          auto-delete: false
+          auto-delete: true
           # GitHub WebHook Secret Token
           github-token: ${{ secrets.SECRET_PERSONAL_TOKEN }}
       - if: ${{ !fromJSON(steps.get-labels.outputs.isDownstream) }}
