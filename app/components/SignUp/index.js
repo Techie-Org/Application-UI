@@ -74,7 +74,7 @@ const SignUp = (props) => {
           <Grid2>
             <LocalForm form="SignUpForm" onSubmit={handleSignUpSubmit}>
               <TextField
-                model=".name"
+                model="name"
                 fullWidth
                 label={intl.formatMessage(messages.nameLabel)}
                 placeholder={intl.formatMessage(messages.namePlaceholder)}
@@ -85,7 +85,7 @@ const SignUp = (props) => {
                 ]}
               />
               <TextField
-                model=".email"
+                model="email"
                 fullWidth
                 label={intl.formatMessage(messages.emailLabel)}
                 placeholder={intl.formatMessage(messages.emailPlaceholder)}
@@ -96,13 +96,13 @@ const SignUp = (props) => {
                 ]}
               />
               <RadioField
-                model=".gender"
+                model="gender"
                 legend={intl.formatMessage(messages.genderLabel)}
                 items={GENDER_FIELD_ITEMS}
                 variant="inline"
               />
               <TextField
-                model=".phone"
+                model="phone"
                 fullWidth
                 label={intl.formatMessage(messages.phoneLabel)}
                 placeholder={intl.formatMessage(messages.phonePlaceholder)}
@@ -113,7 +113,7 @@ const SignUp = (props) => {
                 ]}
               />
               <TextField
-                model=".password"
+                model="password"
                 label={intl.formatMessage(messages.passwordLabel)}
                 placeholder={intl.formatMessage(messages.passwordPlaceholder)}
                 validators={[
@@ -124,7 +124,7 @@ const SignUp = (props) => {
                 isPassword
               />
               <TextField
-                model=".confirmPassword"
+                model="confirmPassword"
                 label={intl.formatMessage(messages.confirmPasswordLabel)}
                 placeholder={intl.formatMessage(
                   messages.confirmPasswordPlaceholder
@@ -137,7 +137,7 @@ const SignUp = (props) => {
                 isPassword
               />
               <CheckBoxField
-                model=".terms"
+                model="terms"
                 label={intl.formatMessage(messages.termsConditionLabel)}
                 checkboxValue={intl.formatMessage(messages.termsConditionCheckboxValue)}
                 onChange={() => setTermsAgreed(!termsAgreed)}

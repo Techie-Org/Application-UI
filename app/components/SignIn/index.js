@@ -42,7 +42,7 @@ const SignIn = (props) => {
           data-test-id="signInForm"
         >
           <TextField
-            model=".email"
+            model="email"
             label={intl.formatMessage(messages.emailLabel)}
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
             validators={[
@@ -52,7 +52,7 @@ const SignIn = (props) => {
             fullWidth
           />
           <TextField
-            model=".password"
+            model="password"
             className={styles.passwordField}
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
@@ -64,7 +64,7 @@ const SignIn = (props) => {
             fullWidth
           />
           <CheckBoxField
-            model=".rememberLogin"
+            model="rememberLogin"
             label={intl.formatMessage(messages.rememberMeLabel)}
             checkboxValue={intl.formatMessage(messages.rememberMeCheckBoxName)}
           />
