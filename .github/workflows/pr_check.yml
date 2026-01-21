@@ -43,8 +43,6 @@ jobs:
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
         with:
           path: node_modules
           lookup-only: true
@@ -54,8 +52,11 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: Install dependencies if cache misses
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SECRET_PERSONAL_TOKEN }}
         run: |
           echo "**Node Modules cache miss!**" >> $GITHUB_STEP_SUMMARY
           npm config delete registry
