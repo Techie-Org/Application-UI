@@ -14,7 +14,7 @@ import {
   sagaHelper,
 } from './routes';
 
-// import english from './translations/en.json';
+import english from './translations/en.json';
 
 const store = configureStore({}, browserHistory);
 
@@ -47,9 +47,9 @@ const createRoute = ({
 const routes = enabledRoutes.map((name) => routeList[name]);
 
 
-// const messages = {
-//   en: english,
-// }
+const messages = {
+  en: english,
+};
 
 export const App = () => {
   const locale = 'en';
@@ -63,8 +63,7 @@ export const App = () => {
   };
 
   return (
-    // <IntlProvider locale={locale} messages={messages[locale]}>
-    <IntlProvider locale={locale}>
+    <IntlProvider locale={locale} messages={messages[locale]}>
       <Provider store={store}>
         <AppHeader>
           <GlobalHeaderContainer />
@@ -78,15 +77,7 @@ export const App = () => {
           </Suspense>
           {/* <AppFooter /> */}
         </div>
-
       </Provider>
-
-
-      <div className="App">
-        <header className="App-header">
-          New App
-        </header>
-      </div>
     </IntlProvider>
   );
 };
