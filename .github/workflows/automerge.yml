@@ -12,6 +12,14 @@ jobs:
   Run_Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.MERGE_BOT_APP_ID }}
+          private-key: ${{ secrets.MERGE_BOT_SECRET_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
       - name: set outputs from labels
         id: get-labels
         shell: bash
@@ -34,7 +42,7 @@ jobs:
           # Let the bot delete the merged branch. true or false.
           auto-delete: false
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
       - if: ${{ (fromJSON(steps.get-labels.outputs.isDownstream) && github.event.pull_request.head.ref != 'development') || fromJSON(steps.get-labels.outputs.isUpstream) }}
         name: Merging Manual Downstream or Upstream PR
         uses: plm9606/automerge_actions@1.2.2
@@ -48,7 +56,7 @@ jobs:
           # Let the bot delete the merged branch. true or false.
           auto-delete: true
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
       - if: ${{ !fromJSON(steps.get-labels.outputs.isDownstream) }}
         name: Automatically Merge PR
         uses: plm9606/automerge_actions@1.2.2
@@ -62,4 +70,4 @@ jobs:
           # Let the bot delete the merged branch. true or false.
           auto-delete: false
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
