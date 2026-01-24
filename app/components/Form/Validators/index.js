@@ -2,15 +2,11 @@ import { isString } from 'lodash';
 import { EMAIL_ADDRESS_ALLOWED_CHARS } from '../Util';
 import { ENGLISH_LETTERS_PATTERN } from '../Util/constants';
 
-export const isRequiredValidator = (message) => (val) =>
-  val && !!(val?.length ?? true) ? undefined : message;
+export const isRequiredValidator = (message) => (val) => val && !!(val?.length ?? true) ? undefined : message;
 
-export const isBlankValidator = (message) => (string) =>
-  !isString(string) || string?.trim().length === 0 ? message : '';
+export const isBlankValidator = (message) => (string) => !isString(string) || string?.trim().length === 0 ? message : '';
 
-export const confirmPasswordValidator =
-  (message) => (val, formValues, instanceRef) =>
-    val === formValues.get(instanceRef.form).toJS().password ? '' : message;
+export const confirmPasswordValidator = (message) => (val, formValues, instanceRef) => val === formValues.get(instanceRef.form).toJS().password ? '' : message;
 
 export const NAME_PATTERN = ENGLISH_LETTERS_PATTERN;
 

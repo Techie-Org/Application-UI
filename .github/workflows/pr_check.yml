@@ -1,0 +1,194 @@
+#PR check: github check that runs on every PR to do linting and unit tests
+name: pr_check
+on: pull_request
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}
+  cancel-in-progress: true
+env:
+  node-version: 20.17.0
+  cache-name: cache-node-modules
+  jest-diff-max-files: 500
+  token-name: SECRET_PERSONAL_TOKEN
+  upstream-branch: development
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      force-full: ${{ fromJSON(steps.get-labels.outputs.isUpstream) || fromJSON(steps.get-labels.outputs.isRelease) || true}}
+    steps:
+      - name: set outputs from labels
+        id: get-labels
+        shell: bash
+        run: |
+          echo "isUpstream=${{ github.event.pull_request.base.ref == env.upstream-branch }}" >> $GITHUB_OUTPUT
+          echo "isRelease=${{ startswith(github.event.pull_request.base.ref, 'release/') || startsWith(github.event.pull_request.base.ref, 'hotfix/' ) }}" >> $GITHUB_OUTPUT
+      - name: Add details to summary
+        run: |
+          echo "## Build Details" >> $GITHUB_STEP_SUMMARY
+          echo "**Upstream branch**: ${{ env.upstream-branch }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **isUpstream**: ${{ fromJSON(steps.get-labels.outputs.isUpstream) }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **isRelease**: ${{ fromJSON(steps.get-labels.outputs.isRelease) }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Base**: ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Base SHA**: ${{ github.event.pull_request.base.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Head**: ${{ github.event.pull_request.head.ref }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Head SHA**: ${{ github.event.pull_request.head.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR**: ${{ github.event.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Node version**: ${{ env.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Labels**: ${{ join(github.event.pull_request.labels.*.name, ', ') }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **step force-full**: ${{ fromJSON(steps.get-labels.outputs.isUpstream) || fromJSON(steps.get-labels.outputs.isRelease) || true }}" >> $GITHUB_STEP_SUMMARY
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets[env.token-name] }}
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          lookup-only: true
+          key: ${{ env.cache-name }}-${{ runner.os }}-v${{ env.node-version }}-${{ hashFiles('**/package-lock.json') }}
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true'}}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: Install dependencies if cache misses
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SECRET_PERSONAL_TOKEN }}
+        run: |
+          echo "**Node Modules cache miss!**" >> $GITHUB_STEP_SUMMARY
+          npm config delete registry
+          npm config set node-options="--max_old_space_size=4096"
+          echo "**npm config:**" >> $GITHUB_STEP_SUMMARY
+          npm config ls >> $GITHUB_STEP_SUMMARY
+          npm ci
+  lint:
+    runs-on: ubuntu-latest
+    needs: [prepare]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets[env.token-name] }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+      - name: npm config
+        run: |
+          npm config set node-options="--max_old_space_size=4096"
+          echo "**NPM Config**" >> $GITHUB_STEP_SUMMARY
+          npm config ls >> $GITHUB_STEP_SUMMARY
+      - name: restore node modules from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: ${{ env.cache-name }}-${{ runner.os }}-v${{ env.node-version }}-${{ hashFiles('**/package-lock.json') }}
+      - name: clean up working dir
+        run: |
+          npm run clean:all
+          npm run clear-jest-cache
+      - name: eslint changed files
+        if: ${{ !fromJSON(needs.prepare.outputs.force-full) }}
+        run: npm run pretest --pull_id=${{ github.event.number }} --gh_cloud_api_token=${{ secrets[env.token-name] }}
+      - name: eslint all files
+        if: ${{ fromJSON(needs.prepare.outputs.force-full) }}
+        run: npm run pretest
+      - name: check intl extraction
+        run: npm run extract-intl
+      - name: cancel all jobs on failure
+        if: failure()
+        uses: andymckay/cancel-action@0.5
+  jest-diff:
+    runs-on: ubuntu-latest
+    needs: [prepare]
+    if: ${{ !fromJSON(needs.prepare.outputs.force-full) }}
+    outputs:
+      run-sharded: ${{ fromJSON(steps.jest-diff.outputs.file-count) >= fromJSON(env.jest-diff-max-files) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets[env.token-name] }}
+          fetch-depth: 2
+      - run: git fetch --no-tags --depth-1 origin ${{ github.event.pull_request.base.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+      - name: npm config
+        run: |
+          npm config set node-options="--max_old_space_size=4096"
+          echo "**NPM Config**" >> $GITHUB_STEP_SUMMARY
+          npm config ls >> $GITHUB_STEP_SUMMARY
+      - name: restore node modules from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: ${{ env.cache-name }}-${{ runner.os }}-v${{ env.node-version }}-${{ hashFiles('**/package-lock.json') }}
+      - name: check diff test affected files count with jest
+        id: jest-diff
+        #run: npm run test:fast -- -- --silent --changedSince=${{ github.event.pull_request.base.sha }}
+        shell: bash
+        run: |
+          echo `file-count- npm run test:fast -- -- --silent --changedSince=${{ github.event.pull_request.base.sha }} --listTests | wc -l` >> $GITHUB_OUTPUT
+      - name: add to summary
+        run: |
+          echo "- **Prepare force-full**: ${{ fromJSON(needs.prepare.outputs.force-full) }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Jest diff file count**: ${{ steps.jest-diff.outputs.file-count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Jest sharded**: ${{ fromJSON(steps.jest-diff.outputs.file-count) >= fromJSON(env.jest-diff-max-files) }}" >> $GITHUB_STEP_SUMMARY
+      - name: run jest diff if files less than jest-diff-max-files
+        if: ${{ (fromJSON(steps.jest-diff.outputs.file-count) < fromJSON(env.jest-diff-max-files))}}
+        run: |
+          npm run test:fast -- -- --silent --changedSince=${{ github.event.pull_request.base.sha }}
+      - name: cancel all jobs on failure
+        if: failure()
+        uses: andymckay/cancel-action@0.5
+  jest-sharded:
+    runs-on: ubuntu-latest
+    needs: [jest-diff, prepare]
+    if: ${{ !cancelled() && (fromJSON(needs.prepare.outputs.force-full) || fromJSON(needs.jest-diff.outputs.run-sharded)) }}
+    strategy:
+      fail-fast: true
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets[env.token-name] }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+      - name: npm config
+        run: |
+          npm config set node-options="--max_old_space_size=4096"
+          echo "**NPM Config**" >> $GITHUB_STEP_SUMMARY
+          npm config ls >> $GITHUB_STEP_SUMMARY
+      - name: restore node modules from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: ${{ env.cache-name }}-${{ runner.os }}-v${{env.node-version}}-${{ hashFiles('**/package-lock.json') }}
+      - name: run sharded tests with jest
+        run: npm run test:fast -- -- --silent --shard=${{ matrix.shard }}/${{ strategy.job-total}}
+      - name: cancel all jobs on failure
+        if: failure()
+        uses: andymckay/cancel-action@0.5
+  status:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [jest-diff, jest-sharded, lint]
+    steps:
+      - name: Add details to summary
+        run: |
+          echo "## Status Details" >> $GITHUB_STEP_SUMMARY
+          echo "**jest-sharded**: ${{ needs.jest-sharded.result}}" >> $GITHUB_STEP_SUMMARY
+          echo "- **jest-diff**: ${{ needs.jest-diff.result}}" >> $GITHUB_STEP_SUMMARY
+          echo "- **lint**: ${{ needs.lint.result}}" >> $GITHUB_STEP_SUMMARY
+      - name: fail step if any of the other jobs failed
+        if: contains(fromJSON('["failure", "cancelled"]'), needs.lint.result) || contains(fromJSON('["failure", "cancelled"]'), needs.jest-diff.result) || contains(fromJSON('["failure", "cancelled"]'), needs.jest-sharded.result)
+        run: exit 1

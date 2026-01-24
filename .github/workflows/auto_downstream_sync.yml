@@ -1,0 +1,113 @@
+name: Create PRs for Downstream Sync (epic/pod-development)
+
+on:
+  schedule:
+    - cron: '0 2 * * *'     #Runs daily at 2AM UTC
+  workflow_dispatch:          #Allows manual execution
+
+jobs:
+  create-sync-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Chekout Repository
+        uses: actions/checkout@v4     #Fetched the repository code
+
+      - name: Get subscribed branches and create PRs
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.SECRET_PERSONAL_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const headBranch = "development";   // Source branch
+
+            // Retrieve open issues with the 'downstream-sync' label
+            const searchQuery = `repo:${owner}/${repo} is:issue state:open label:downstream-sync`;
+            const issues = await github.rest.search.issuesAndPullRequests({
+              q: searchQuery,
+              sort: 'created',
+              order: 'desc'
+            });
+
+            if (issues.data.items.length === 0) {
+              console.log("No matching issues found. Exiting.");
+              return;
+            }
+
+            let subscribedBranches = issues.data.items.map(issue => ({
+              name: issue.title,
+              labels: issue.labels.map(label => label.name)
+            }));
+
+            // Filter branches that start with "epic/" or "pod-development/"
+            let filteredBranches = subscribedBranches.filter(branch => 
+              branch.name.startsWith("epic/") || branch.name.startsWith("pod-development/")
+            );
+
+            if (filteredBranches.length === 0) {
+              console.log("No branches match the required prefixes. Exiting.");
+              return;
+            }
+            
+            console.log("Filtered Branches: ", filteredBranches.map(branch => branch.name));
+
+            for (const { name, labels } of filteredBranches) {
+              console.log(`Checking PRs for base: ${name}, head: ${headBranch}`);
+
+              // Check if a PR already exists with the exact base and head
+              const existingPRs = await github.rest.pulls.list({
+                owner,
+                repo,
+                state: "open",
+                base: name,    // Check if base matches the target branch
+              });
+
+              const existingMatchingPR = existingPRs.data.find(pr => pr.head.ref === headBranch);
+
+              if (existingMatchingPR) {
+                console.log(`PR already exists for ${name} (PR #${existingMatchingPR.number}). Skipping.`);
+                continue;
+              }
+
+              // Check if there are any commits between development and the target branch
+              try {
+                const compare = await github.rest.repos.compareCommits({
+                  owner,
+                  repo,
+                  base: name,   // Target branch
+                  head: headBranch,   // Source branch (development)
+                });
+
+                if (compare.data.commits.length === 0) {
+                  console.log(`No new commits to merge from ${headBranch} to ${name}. Skipping the PR creation.`);
+                  continue;
+                }
+              } catch(error) {
+                console.log(`Error comparing branches ${headBranch} -> ${name}:`, error.message);
+                continue;
+              }
+
+              // Create a new pull request
+              const pr = await github.rest.pulls.create({
+                owner,
+                repo,
+                title: `Sync development -> ${name}`,
+                head: headBranch,     // Set head to 'development'
+                base: name,         // Set base to the target branch
+                body: `Automated PR to sync development into ${name}`
+              });
+
+              console.log(`PR created for ${name}: ${pr.data.html_url}`);
+
+              // Add labels from the branch and default labels to the PR
+              const prLabels = [...new Set([...labels, "downstream"])];
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: pr.data.number,
+                labels: prLabels,
+              });
+
+              console.log(`Labels added to the PR #${pr.data.number}: ${prLabels.join(", ")}`);
+            }
