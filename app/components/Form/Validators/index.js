@@ -6,7 +6,7 @@ export const isRequiredValidator = (message) => (val) => val && !!(val?.length ?
 
 export const isBlankValidator = (message) => (string) => !isString(string) || string?.trim().length === 0 ? message : '';
 
-export const confirmPasswordValidator = (message) => (val, formValues, instanceRef) => val === formValues.get(instanceRef.form).toJS().password ? '' : message;
+export const confirmPasswordValidator = (message) => (val, formValues) => val === formValues?.toJS()?.password ? '' : message;
 
 export const NAME_PATTERN = ENGLISH_LETTERS_PATTERN;
 

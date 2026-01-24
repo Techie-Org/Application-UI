@@ -1,10 +1,6 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
-import Button from 'components/_DesignWrappers/Button';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import TextLink from 'components/_DesignWrappers/TextLink';
+import { Button, LocalForm, TextField, CheckBoxField, TextLink } from 'components/_DesignWrappers';
 import { shallowWithIntl } from '@internals/testing/intl-enzyme-test-helper';
 import SignIn from '..';
 
@@ -27,8 +23,8 @@ describe('SignIn component tests', () => {
   });
   it('should render email and password textfields', () => {
     expect(componentWrapper.find(TextField).length).toBe(2);
-    expect(componentWrapper.find(TextField).at(0).props().model).toEqual('.email');
-    expect(componentWrapper.find(TextField).at(1).props().model).toEqual('.password');
+    expect(componentWrapper.find(TextField).at(0).props().model).toEqual('email');
+    expect(componentWrapper.find(TextField).at(1).props().model).toEqual('password');
   });
   it('should dispatch signInUser action on form submit', () => {
     const formDataMock = { email: 'test@gmail.com', password: 'test@1234' };

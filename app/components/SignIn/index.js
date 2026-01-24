@@ -5,11 +5,13 @@ import { Grid2, Paper, Avatar, Typography, InputAdornment, IconButton } from '@m
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import TextLink from 'components/_DesignWrappers/TextLink';
-import Button from 'components/_DesignWrappers/Button';
+import {
+  Button,
+  LocalForm,
+  TextField,
+  CheckBoxField,
+  TextLink,
+} from 'components/_DesignWrappers';
 import {
   isBlankValidator,
   emailValidator,
@@ -47,7 +49,7 @@ const SignIn = (props) => {
           data-test-id="signInForm"
         >
           <TextField
-            model=".email"
+            model="email"
             label={intl.formatMessage(messages.emailLabel)}
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
             validators={[
@@ -57,7 +59,7 @@ const SignIn = (props) => {
             fullWidth
           />
           <TextField
-            model=".password"
+            model="password"
             className={styles.passwordField}
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
@@ -83,7 +85,7 @@ const SignIn = (props) => {
             }}
           />
           <CheckBoxField
-            model=".rememberLogin"
+            model="rememberLogin"
             label={intl.formatMessage(messages.rememberMeLabel)}
             checkboxValue={intl.formatMessage(messages.rememberMeCheckBoxName)}
           />

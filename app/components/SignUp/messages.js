@@ -128,4 +128,28 @@ export default defineMessages({
     id: `${scope}.showPasswordLabel`,
     defaultMessage: 'ShowPassword',
   },
+  otpDescription: {
+    id: `${scope}.otpDescription`,
+    defaultMessage: 'Please enter the One-Time Password to verify your account',
+  },
+  otpMessage: {
+    id: `${scope}.otpMessage`,
+    defaultMessage: 'OTP has been sent to registered mail id',
+  },
+  otpLabel: {
+    id: `${scope}.otpLabel`,
+    defaultMessage: 'OTP',
+  },
+  otpPlaceholder: {
+    id: `${scope}.otpPlaceholder`,
+    defaultMessage: 'Enter your 6 digit OTP',
+  },
+  otpButton: {
+    id: `${scope}.otpButton`,
+    defaultMessage: 'Verify',
+  },
+  otpLengthValidator: {
+    id: `${scope}.otpLengthValidator`,
+    defaultMessage: 'Enter 6 digits',
+  },
 });

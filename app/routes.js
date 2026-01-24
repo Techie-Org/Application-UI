@@ -12,6 +12,7 @@ export const componentHelper = {
 */
 export const reducerHelper = {
   home: () => import('containers/Home/reducer'),
+  globalHeader: () => import('containers/GlobalHeaderContainer/reducer'),
   signIn: () => import('containers/SignIn/reducer'),
   signUp: () => import('containers/SignUp/reducer'),
 };
@@ -21,6 +22,7 @@ export const reducerHelper = {
 */
 export const sagaHelper = {
   home: () => import('containers/Home/sagas'),
+  globalHeader: () => import('containers/GlobalHeaderContainer/sagas'),
   signIn: () => import('containers/SignIn/sagas'),
   signUp: () => import('containers/SignUp/sagas'),
 };
@@ -38,10 +40,13 @@ const homeRoutes = {
   home: {
     path: '/',
     name: 'home',
-    reducers: ['home'],
-    sagas: ['home'],
+    reducers: ['home', 'globalHeader'],
+    sagas: ['home', 'globalHeader'],
     config: {},
   },
+};
+
+const userAccountRoutes = {
   signIn: {
     path: '/account/signIn',
     name: 'signIn',
@@ -60,4 +65,5 @@ const homeRoutes = {
 
 export const routes = {
   ...homeRoutes,
+  ...userAccountRoutes,
 };
