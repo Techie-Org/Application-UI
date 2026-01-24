@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
-import { Grid2, Paper, Avatar, Typography } from '@mui/material';
+import { Grid2, Paper, Avatar, Typography, InputAdornment, IconButton } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
 import {
   Button,
@@ -22,6 +24,11 @@ import styles from './styles.scss';
 
 const SignIn = (props) => {
   const { intl, signInUser } = props;
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSignInSubmit = (formData) => {
     signInUser(formData);
@@ -62,6 +69,20 @@ const SignIn = (props) => {
             ]}
             isPassword
             fullWidth
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                    aria-label={showPassword ? intl.formatMessage(messages.hidePasswordLabel) : intl.formatMessage(messages.showPasswordLabel)}
+                  >
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <CheckBoxField
             model="rememberLogin"

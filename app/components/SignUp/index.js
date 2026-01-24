@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
-import { Grid2, Paper, Avatar, Typography } from '@mui/material';
+import { Grid2, Paper, Avatar, Typography, IconButton, InputAdornment } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
@@ -38,6 +40,8 @@ const SignUp = (props) => {
 
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [openOtpModal, setOpenOtpModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   useEffect(() => {
     if (registerUserLoaded) {
       if (otpValidationSuccessLoaded) {
@@ -49,6 +53,10 @@ const SignUp = (props) => {
       setOpenOtpModal(false);
     }
   }, [registerUserLoaded, otpValidationSuccessLoaded]);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSignUpSubmit = (formData) => {
     registerUser(formData);
@@ -114,12 +122,26 @@ const SignUp = (props) => {
               />
               <TextField
                 model="password"
+                type={showPassword ? 'text' : 'password'}
                 label={intl.formatMessage(messages.passwordLabel)}
                 placeholder={intl.formatMessage(messages.passwordPlaceholder)}
                 validators={[
                   isBlankValidator(intl.formatMessage(messages.blankPasswordError)),
                   lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
                 ]}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleTogglePasswordVisibility}
+                        edge="end"
+                        aria-label={showPassword ? intl.formatMessage(messages.hidePasswordLabel) : intl.formatMessage(messages.showPasswordLabel)}
+                      >
+                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 fullWidth
                 isPassword
               />

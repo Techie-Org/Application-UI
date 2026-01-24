@@ -68,4 +68,12 @@ export default defineMessages({
     id: `${scope}.accountExistText`,
     defaultMessage: "Don't have an account? ",
   },
+  hidePasswordLabel: {
+    id: `${scope}.hidePasswordLabel`,
+    defaultMessage: 'HidePassword',
+  },
+  showPasswordLabel: {
+    id: `${scope}.showPasswordLabel`,
+    defaultMessage: 'ShowPassword',
+  },
 });

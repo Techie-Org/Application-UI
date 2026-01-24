@@ -120,6 +120,14 @@ export default defineMessages({
     id: `${scope}.signInLink`,
     defaultMessage: 'Sign In',
   },
+  hidePasswordLabel: {
+    id: `${scope}.hidePasswordLabel`,
+    defaultMessage: 'HidePassword',
+  },
+  showPasswordLabel: {
+    id: `${scope}.showPasswordLabel`,
+    defaultMessage: 'ShowPassword',
+  },
   otpDescription: {
     id: `${scope}.otpDescription`,
     defaultMessage: 'Please enter the One-Time Password to verify your account',

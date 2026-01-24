@@ -23,8 +23,8 @@ describe('SignIn component tests', () => {
   });
   it('should render email and password textfields', () => {
     expect(componentWrapper.find(TextField).length).toBe(2);
-    expect(componentWrapper.find(TextField).at(0).props().model).toEqual('.email');
-    expect(componentWrapper.find(TextField).at(1).props().model).toEqual('.password');
+    expect(componentWrapper.find(TextField).at(0).props().model).toEqual('email');
+    expect(componentWrapper.find(TextField).at(1).props().model).toEqual('password');
   });
   it('should dispatch signInUser action on form submit', () => {
     const formDataMock = { email: 'test@gmail.com', password: 'test@1234' };
