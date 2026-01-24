@@ -22,19 +22,26 @@ jobs:
             const repo = context.repo.repo;
             const headBranch = "development";   // Source branch
 
-            // Retrieve list of repo branches
-            const branches = await github.rest.repos.listBranches({
-              owner,
-              repo,
+            // Retrieve open issues with the 'downstream-sync' label
+            const searchQuery = `repo:${owner}/${repo} is:issue state:open label:downstream-sync`;
+            const issues = await github.rest.search.issuesAndPullRequests({
+              q: searchQuery,
+              sort: 'created',
+              order: 'desc'
             });
 
-            if (branches.data.length === 0) {
-              console.log("No matching branches found. Exiting.");
+            if (issues.data.items.length === 0) {
+              console.log("No matching issues found. Exiting.");
               return;
             }
 
+            let subscribedBranches = issues.data.items.map(issue => ({
+              name: issue.title,
+              labels: issue.labels.map(label => label.name)
+            }));
+
             // Filter branches that start with "epic/" or "pod-development/"
-            let filteredBranches = branches.data.filter(branch => 
+            let filteredBranches = subscribedBranches.filter(branch => 
               branch.name.startsWith("epic/") || branch.name.startsWith("pod-development/")
             );
 
@@ -45,7 +52,7 @@ jobs:
             
             console.log("Filtered Branches: ", filteredBranches.map(branch => branch.name));
 
-            for (const { name } of filteredBranches) {
+            for (const { name, labels } of filteredBranches) {
               console.log(`Checking PRs for base: ${name}, head: ${headBranch}`);
 
               // Check if a PR already exists with the exact base and head
@@ -94,7 +101,7 @@ jobs:
               console.log(`PR created for ${name}: ${pr.data.html_url}`);
 
               // Add labels from the branch and default labels to the PR
-              const prLabels = [...new Set(["downstream", "downstream-sync"])];
+              const prLabels = [...new Set([...labels, "downstream"])];
               await github.rest.issues.addLabels({
                 owner,
                 repo,
