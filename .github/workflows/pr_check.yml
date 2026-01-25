@@ -142,7 +142,7 @@ jobs:
       - name: run jest diff if files less than jest-diff-max-files
         if: ${{ (fromJSON(steps.jest-diff.outputs.file-count) < fromJSON(env.jest-diff-max-files))}}
         run: |
-          npm run test:fast -- -- --silent --changedSince=${{ github.vent.pull_request.base.sha }}
+          npm run test:fast -- -- --silent --changedSince=${{ github.event.pull_request.base.sha }}
       - name: cancel all jobs on failure
         if: failure()
         uses: andymckay/cancel-action@0.5
