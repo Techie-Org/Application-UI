@@ -9,11 +9,11 @@ const LocalForm = (props) => {
   const componentClassName = classnames(className, {});
 
   const handleLocalSubmit = (formData) => {
-    onSubmit(formData.toJS()?.[form]);
+    onSubmit(formData.toJS());
   };
 
-  // Binding form prop to the individual children, except button(must have type)
-  const renderChildren = () => React.Children.map(children, (child) => !child.props.type ? React.cloneElement(child, { form }) : child);
+  // // Binding form prop to the individual children, except button(must have type)
+  // const renderChildren = () => React.Children.map(children, (child) => !child.props.type ? React.cloneElement(child, { form }) : child);
 
   return (
     <Form
@@ -21,7 +21,7 @@ const LocalForm = (props) => {
       onSubmit={handleSubmit(handleLocalSubmit)}
       form={form}
     >
-      {renderChildren()}
+      {children}
     </Form>
   );
 };

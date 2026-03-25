@@ -11,7 +11,7 @@ const TextField = (props) => {
 
   return (
     <Field
-      name={`${form}${model}`}
+      name={model}
       className={componentClassName}
       component={InputField}
       type={isPassword ? 'password' : 'text'}

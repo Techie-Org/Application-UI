@@ -24,6 +24,10 @@ export default defineMessages({
     id: `${scope}.emailError`,
     defaultMessage: 'Email is required',
   },
+  invalidEmailError: {
+    id: `${scope}.invalidEmailError`,
+    defaultMessage: 'Invalid email',
+  },
   passwordLabel: {
     id: `${scope}.passwordLabel`,
     defaultMessage: 'Password',
@@ -35,6 +39,10 @@ export default defineMessages({
   passwordError: {
     id: `${scope}.passwordError`,
     defaultMessage: 'Password is required',
+  },
+  passwordLengthError: {
+    id: `${scope}.passwordLengthError`,
+    defaultMessage: 'Password should be atleast 8 characters',
   },
   rememberMeLabel: {
     id: `${scope}.rememberMeLabel`,
@@ -59,5 +67,13 @@ export default defineMessages({
   accountExistText: {
     id: `${scope}.accountExistText`,
     defaultMessage: "Don't have an account? ",
+  },
+  hidePasswordLabel: {
+    id: `${scope}.hidePasswordLabel`,
+    defaultMessage: 'HidePassword',
+  },
+  showPasswordLabel: {
+    id: `${scope}.showPasswordLabel`,
+    defaultMessage: 'ShowPassword',
   },
 });

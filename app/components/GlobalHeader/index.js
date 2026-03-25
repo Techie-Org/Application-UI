@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import classNames from 'classnames';
 import TextLink from 'components/_DesignWrappers/TextLink';
 
 // import artistryLogo from './assets/artistryLogo.svg';
+import {
+  Button,
+  Toolbar,
+  Typography,
+  Avatar,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import config from 'config';
 import { HOMEPAGE_ROUTE } from './constants';
 // import NavbarItems from './NavbarItems';
 import messages from './messages';
 import styles from './styles.scss';
 
-
 export const GlobalHeader = (props) => {
-  const { intl } = props;
+  const [showMenu, setShowMenu] = useState(false);
+  const [menuAnchorElement, setMenuAnchorElement] = useState(null);
+  const { intl, isUserLoggedIn, logoutUser, loadUserProfile } = props;
+
+  useEffect(() => {
+    loadUserProfile();
+  }, [isUserLoggedIn]);
+
+  const handleUserLogout = () => {
+    logoutUser();
+    setShowMenu(!showMenu);
+  };
 
   const renderLogo = () => (
     <div className={classNames(styles.headerLogoContainer)}>
@@ -37,6 +58,47 @@ export const GlobalHeader = (props) => {
     </div>
   );
 
+  const handleMenuState = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const renderUserAvatar = () => (
+    <div>
+      <Button
+        onClick={(event) => {
+          setMenuAnchorElement(event.currentTarget);
+          handleMenuState();
+        }}
+      >
+        <Avatar>
+          <AccountCircleIcon />
+        </Avatar>
+      </Button>
+      <Menu
+        anchorEl={menuAnchorElement}
+        open={showMenu}
+        onClose={handleMenuState}
+      >
+        <MenuItem onClick={handleMenuState}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuState}>My account</MenuItem>
+        <MenuItem onClick={handleUserLogout}>Logout</MenuItem>
+      </Menu>
+    </div>
+  );
+
+  const renderLoginSignupButtons = () => (
+    <Toolbar>
+      <Typography>
+        <Link to={config.SIGN_UP_PAGE}>
+          <Button>Sign Up</Button>
+        </Link>
+        <Link to={config.SIGN_IN_PAGE}>
+          <Button>Log In</Button>
+        </Link>
+      </Typography>
+    </Toolbar>
+  );
+
   const renderNavbar = () => (
     <div className={styles.navbarContainer}>
       {renderLogo()}
@@ -44,22 +106,23 @@ export const GlobalHeader = (props) => {
       {/* <NavbarItems
         menuData={'headerData'} // TODO: navbar data needs to be passed here
       /> */}
+      {isUserLoggedIn ? renderUserAvatar() : renderLoginSignupButtons()}
     </div>
   );
 
   return (
     <div className={styles.globalHeaderContainer}>
-      <section className={styles.globalHeaderNavbar}>
-        {renderNavbar()}
-      </section>
+      <section className={styles.globalHeaderNavbar}>{renderNavbar()}</section>
     </div>
   );
 };
 
 GlobalHeader.propTypes = {
   intl: PropTypes.shape(intlShape),
-  openSignInModal: PropTypes.func,
+  loadUserProfile: PropTypes.func,
+  logoutUser: PropTypes.func,
   loading: PropTypes.bool,
+  isUserLoggedIn: PropTypes.bool,
 };
 
 // GlobalHeader.defaultProps = {

@@ -1,22 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
-import { Grid2, Paper, Avatar, Typography } from '@mui/material';
+import { Grid2, Paper, Avatar, Typography, InputAdornment, IconButton } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
-import LocalForm from 'components/_DesignWrappers/LocalForm';
-import TextField from 'components/_DesignWrappers/TextField';
-import CheckBoxField from 'components/_DesignWrappers/CheckBoxField';
-import TextLink from 'components/_DesignWrappers/TextLink';
-import Button from 'components/_DesignWrappers/Button';
-import { isBlankValidator } from 'components/Form/Validators';
+import {
+  Button,
+  LocalForm,
+  TextField,
+  CheckBoxField,
+  TextLink,
+} from 'components/_DesignWrappers';
+import {
+  isBlankValidator,
+  emailValidator,
+  lengthCheckValidator,
+} from 'components/Form/Validators';
+import config from 'config';
+
 import messages from './messages';
 import styles from './styles.scss';
 
 const SignIn = (props) => {
-  const { intl } = props;
+  const { intl, signInUser } = props;
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSignInSubmit = (formData) => {
-    console.log('SignIn submit formData', formData);
+    signInUser(formData);
   };
 
   return (
@@ -28,29 +43,49 @@ const SignIn = (props) => {
           </Avatar>
           <h2>{intl.formatMessage(messages.signIn)}</h2>
         </Grid2>
-        <LocalForm form="SignInForm" onSubmit={handleSignInSubmit}>
+        <LocalForm
+          form="SignInForm"
+          onSubmit={handleSignInSubmit}
+          data-test-id="signInForm"
+        >
           <TextField
-            model=".email"
+            model="email"
             label={intl.formatMessage(messages.emailLabel)}
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
-            validators={isBlankValidator(
-              intl.formatMessage(messages.emailError)
-            )}
+            validators={[
+              isBlankValidator(intl.formatMessage(messages.emailError)),
+              emailValidator(intl.formatMessage(messages.invalidEmailError)),
+            ]}
             fullWidth
           />
           <TextField
-            model=".password"
+            model="password"
             className={styles.passwordField}
             label={intl.formatMessage(messages.passwordLabel)}
             placeholder={intl.formatMessage(messages.passwordPlaceholder)}
-            validators={isBlankValidator(
-              intl.formatMessage(messages.passwordError)
-            )}
+            validators={[
+              isBlankValidator(intl.formatMessage(messages.passwordError)),
+              lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
+            ]}
             isPassword
             fullWidth
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                    aria-label={showPassword ? intl.formatMessage(messages.hidePasswordLabel) : intl.formatMessage(messages.showPasswordLabel)}
+                  >
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <CheckBoxField
-            model=".rememberLogin"
+            model="rememberLogin"
             label={intl.formatMessage(messages.rememberMeLabel)}
             checkboxValue={intl.formatMessage(messages.rememberMeCheckBoxName)}
           />
@@ -59,6 +94,7 @@ const SignIn = (props) => {
             color="primary"
             variant="contained"
             className={styles.signInButton}
+            data-test-id="signInSubmitButton"
             fullWidth
           >
             {intl.formatMessage(messages.signInButton)}
@@ -71,7 +107,7 @@ const SignIn = (props) => {
         </Typography>
         <Typography>
           <FormattedMessage {...messages.accountExistText} />
-          <TextLink href="/signUp">
+          <TextLink href={config.SIGN_UP_PAGE}>
             <FormattedMessage {...messages.signUpLink} />
           </TextLink>
         </Typography>
@@ -82,6 +118,7 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   intl: PropTypes.shape(intlShape),
+  signInUser: PropTypes.func,
 };
 
 export default SignIn;

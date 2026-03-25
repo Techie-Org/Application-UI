@@ -1,17 +1,34 @@
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import { parseSignUpFormData } from './utils';
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  VALIDATE_OTP,
+  VALIDATE_OTP_SUCCESS,
+} from './constants';
 
-export function loadHome(request) {
-  console.log('setup containers/SignUp loadHome action called');
+export function registerUser(signUpFormData) {
   return {
-    type: LOAD_HOME,
-    request,
+    type: REGISTER_USER,
+    formData: parseSignUpFormData(signUpFormData),
   };
 }
 
-export function loadHomeSuccess(data) {
-  console.log('setup containers/SignUp loadHomeSuccess action called data', data);
+export function registerUserSuccess(data) {
   return {
-    type: LOAD_HOME_SUCCESS,
+    type: REGISTER_USER_SUCCESS,
+    data,
+  };
+}
+export function validateOtp(otp) {
+  return {
+    type: VALIDATE_OTP,
+    otpValue: otp,
+  };
+}
+
+export function validateOtpSuccess(data) {
+  return {
+    type: VALIDATE_OTP_SUCCESS,
     data,
   };
 }

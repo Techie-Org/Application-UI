@@ -5,10 +5,21 @@ on:
     branches:
       - pod-development/* # The branch you want to automatically merge pull request
       - epic/*
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   Run_Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.MERGE_BOT_APP_ID }}
+          private-key: ${{ secrets.MERGE_BOT_SECRET_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
       - name: set outputs from labels
         id: get-labels
         shell: bash
@@ -16,6 +27,7 @@ jobs:
           echo "**PR Base**: ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
           echo "**PR Head**: ${{ github.event.pull_request.head.ref }}" >> $GITHUB_STEP_SUMMARY
           echo "**Labels**: ${{ join(github.event.pull_request.labels.*.name, ', ') }}" >> $GITHUB_STEP_SUMMARY
+          echo "isUpstream=${{ github.event.pull_request.base.ref == 'development' }}" >> $GITHUB_OUTPUT
           echo "isDownstream=${{ (startsWith(github.event.pull_request.base.ref, 'pod-development/') || startsWith(github.event.pull_request.base.ref, 'epic/')) && (github.event.pull_request.head.ref == 'development' || contains(github.event.pull_request.labels.*.name, 'downstream')) }}" >> $GITHUB_OUTPUT
       - if: ${{ fromJSON(steps.get-labels.outputs.isDownstream) && github.event.pull_request.head.ref == 'development' }}
         name: Merging Downstream PR
@@ -30,9 +42,9 @@ jobs:
           # Let the bot delete the merged branch. true or false.
           auto-delete: false
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.SECRET_PERSONAL_TOKEN }}
-      - if: ${{ fromJSON(steps.get-labels.outputs.isDownstream) && github.event.pull_request.head.ref != 'development' }}
-        name: Merging manual downstream PR
+          github-token: ${{ steps.app-token.outputs.token }}
+      - if: ${{ (fromJSON(steps.get-labels.outputs.isDownstream) && github.event.pull_request.head.ref != 'development') || fromJSON(steps.get-labels.outputs.isUpstream) }}
+        name: Merging Manual Downstream or Upstream PR
         uses: plm9606/automerge_actions@1.2.2
         with:
           # The label name to automatically merge. Default is "automerge".
@@ -42,9 +54,9 @@ jobs:
           # The merge method ("merge", "squash", "rebase"). Default is "merge"
           merge-method: merge
           # Let the bot delete the merged branch. true or false.
-          auto-delete: false
+          auto-delete: true
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.SECRET_PERSONAL_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
       - if: ${{ !fromJSON(steps.get-labels.outputs.isDownstream) }}
         name: Automatically Merge PR
         uses: plm9606/automerge_actions@1.2.2
@@ -58,5 +70,4 @@ jobs:
           # Let the bot delete the merged branch. true or false.
           auto-delete: false
           # GitHub WebHook Secret Token
-          github-token: ${{ secrets.SECRET_PERSONAL_TOKEN }}
-      
+          github-token: ${{ steps.app-token.outputs.token }}
