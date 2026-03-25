@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
+import './styles.css';
 
 // eslint-disable-next-line no-restricted-properties
 const root = ReactDOM.createRoot(document.getElementById('app'));

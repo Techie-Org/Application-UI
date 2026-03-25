@@ -3,6 +3,7 @@ import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import compose from 'lodash/fp/compose';
 import SignIn from 'components/SignIn';
+import AuthSignIn from 'components/AuthSignIn';
 import { signInUser as signInUserAction } from './actions';
 import { makeSelectSignInUserLoading, makeSelectSignInUserLoaded } from './selectors';
 
@@ -18,6 +19,7 @@ export const mapDispatchToProps = (dispatch) => ({
 const SignInContainer = compose(
   injectIntl,
   connect(mapStateToProps, mapDispatchToProps)
-)(SignIn);
+// )(SignIn);
+)(AuthSignIn);
 
 export default SignInContainer;

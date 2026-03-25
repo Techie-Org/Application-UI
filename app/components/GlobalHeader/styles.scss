@@ -9,11 +9,14 @@
   z-index: 1;
 }
 
+.headerContainer {
+  max-width: 80rem; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem 1rem; /* py-12 px-4 */
+}
+
 .globalHeaderNavbar {
-  // background-color: rgba(0, 0, 0, 0.4);
-  // height: 100vh;
-  // left: 1;
-  padding-top: 12px;
   position: absolute;
   top: 0;
   width: 80%;  

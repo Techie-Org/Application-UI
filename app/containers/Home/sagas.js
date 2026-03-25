@@ -1,13 +1,14 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { loadHomeSuccess } from './actions';
+import { fetchArtistsSuccess } from './actions';
 import { LOAD_HOME } from './constants';
+import artists from './artists_export.json';
 
-export function* loadHome() {
-  yield put(loadHomeSuccess('Home data loaded'));
+export function* fetchArtistsSaga() {
+  yield put(fetchArtistsSuccess(artists));
 }
 
 export function* loadHomeDaemon() {
-  yield takeLatest(LOAD_HOME, loadHome);
+  yield takeLatest(LOAD_HOME, fetchArtistsSaga);
 }
 
 export default [loadHomeDaemon];

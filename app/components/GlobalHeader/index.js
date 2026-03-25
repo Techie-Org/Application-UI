@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import classNames from 'classnames';
+import { history } from 'utils/browserHistory';
 import TextLink from 'components/_DesignWrappers/TextLink';
 
 // import artistryLogo from './assets/artistryLogo.svg';
@@ -16,6 +17,7 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import config from 'config';
+import Header from './Header';
 import { HOMEPAGE_ROUTE } from './constants';
 // import NavbarItems from './NavbarItems';
 import messages from './messages';
@@ -110,9 +112,18 @@ export const GlobalHeader = (props) => {
     </div>
   );
 
+  const onNavigate = (routePath) => {
+    history.navigate(routePath);
+  };
+
   return (
-    <div className={styles.globalHeaderContainer}>
-      <section className={styles.globalHeaderNavbar}>{renderNavbar()}</section>
+    // <div className={styles.globalHeaderContainer}>
+    // <div className={styles.minHeightScreen}>
+    <div className={styles.headerContainer}>
+      {/* <section className={styles.globalHeaderNavbar}>{renderNavbar()}</section> */}
+      <section className={styles.globalHeaderNavbar}>
+        <Header isAuthenticated={isUserLoggedIn} onNavigate={onNavigate} />
+      </section>
     </div>
   );
 };

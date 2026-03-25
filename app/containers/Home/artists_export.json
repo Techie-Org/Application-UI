@@ -1,0 +1,242 @@
+[
+  {
+    "id": "a480c418-69a4-429e-89ae-6d6b85f82f7d",
+    "name": "Sarah Johnson",
+    "category": "singer",
+    "description": "Professional jazz and soul vocalist with a powerful voice and emotional depth. Perfect for weddings, corporate events, and intimate gatherings.",
+    "hourly_rate": "150",
+    "image_url": "https://images.pexels.com/photos/3738386/pexels-photo-3738386.jpeg",
+    "location": "Los Angeles, CA",
+    "skills": [
+      "Jazz",
+      "Soul",
+      "R&B",
+      "Wedding Songs"
+    ],
+    "experience_years": 8,
+    "available": true,
+    "rating": "4.8",
+    "total_bookings": 127,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "56a0a7cd-5484-43f6-9b84-b68c7dca8c39",
+    "name": "Marcus Rodriguez",
+    "category": "dancer",
+    "description": "Contemporary and hip-hop dancer with high-energy performances. Specializes in choreography for events and music videos.",
+    "hourly_rate": "120",
+    "image_url": "https://images.pexels.com/photos/3621952/pexels-photo-3621952.jpeg",
+    "location": "Miami, FL",
+    "skills": [
+      "Hip-Hop",
+      "Contemporary",
+      "Choreography",
+      "Breaking"
+    ],
+    "experience_years": 6,
+    "available": true,
+    "rating": "4.9",
+    "total_bookings": 89,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "2fa78a19-e50c-4d25-9df5-ad8515d180fa",
+    "name": "Emily Chen",
+    "category": "designer",
+    "description": "Award-winning graphic designer and visual artist. Creates stunning event branding, invitations, and décor concepts.",
+    "hourly_rate": "100",
+    "image_url": "https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg",
+    "location": "New York, NY",
+    "skills": [
+      "Graphic Design",
+      "Event Branding",
+      "Print Design",
+      "Digital Art"
+    ],
+    "experience_years": 10,
+    "available": true,
+    "rating": "4.7",
+    "total_bookings": 203,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "066184dd-f328-4808-a4a1-e2d5393e9758",
+    "name": "David Thompson",
+    "category": "comedian",
+    "description": "Stand-up comedian with clean, family-friendly humor. Perfect for corporate events, parties, and special occasions.",
+    "hourly_rate": "200",
+    "image_url": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg",
+    "location": "Chicago, IL",
+    "skills": [
+      "Stand-up",
+      "Improv",
+      "Hosting",
+      "Corporate Comedy"
+    ],
+    "experience_years": 12,
+    "available": true,
+    "rating": "4.9",
+    "total_bookings": 156,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "aed7457a-6ac1-49fb-a9fe-4683415f3c62",
+    "name": "Isabella Martinez",
+    "category": "singer",
+    "description": "Classical soprano and wedding specialist. Performs opera, classical crossover, and traditional wedding music.",
+    "hourly_rate": "175",
+    "image_url": "https://images.pexels.com/photos/3756766/pexels-photo-3756766.jpeg",
+    "location": "Boston, MA",
+    "skills": [
+      "Classical",
+      "Opera",
+      "Wedding Music",
+      "Religious Songs"
+    ],
+    "experience_years": 15,
+    "available": true,
+    "rating": "5.0",
+    "total_bookings": 234,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "b424d7ec-113f-4237-ba85-439cdf7caaef",
+    "name": "James Wilson",
+    "category": "dancer",
+    "description": "Ballroom and Latin dance instructor. Provides performances and can teach basic steps to guests at events.",
+    "hourly_rate": "130",
+    "image_url": "https://images.pexels.com/photos/3621954/pexels-photo-3621954.jpeg",
+    "location": "Austin, TX",
+    "skills": [
+      "Ballroom",
+      "Latin",
+      "Salsa",
+      "Tango"
+    ],
+    "experience_years": 9,
+    "available": true,
+    "rating": "4.8",
+    "total_bookings": 178,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "203fb85e-c7ed-405e-8e1e-4559152bd825",
+    "name": "Aisha Patel",
+    "category": "designer",
+    "description": "Floral designer and event stylist. Creates breathtaking floral arrangements and complete event aesthetics.",
+    "hourly_rate": "110",
+    "image_url": "https://images.pexels.com/photos/3764119/pexels-photo-3764119.jpeg",
+    "location": "San Francisco, CA",
+    "skills": [
+      "Floral Design",
+      "Event Styling",
+      "Color Theory",
+      "Installations"
+    ],
+    "experience_years": 7,
+    "available": true,
+    "rating": "4.9",
+    "total_bookings": 167,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "9701476b-5d68-43ae-a11c-6a95146d36b8",
+    "name": "Ryan O'Connor",
+    "category": "comedian",
+    "description": "Improvisational comedian and MC. Interactive performances that engage the audience and create memorable experiences.",
+    "hourly_rate": "180",
+    "image_url": "https://images.pexels.com/photos/1708936/pexels-photo-1708936.jpeg",
+    "location": "Seattle, WA",
+    "skills": [
+      "Improv",
+      "MC Services",
+      "Audience Interaction",
+      "Musical Comedy"
+    ],
+    "experience_years": 5,
+    "available": true,
+    "rating": "4.7",
+    "total_bookings": 92,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "8be5ebfd-e399-426a-937f-04b82224a25a",
+    "name": "Nina Kowalski",
+    "category": "singer",
+    "description": "Rock and pop vocalist with band. High-energy performances for parties, festivals, and corporate events.",
+    "hourly_rate": "300",
+    "image_url": "https://images.pexels.com/photos/3769977/pexels-photo-3769977.jpeg",
+    "location": "Nashville, TN",
+    "skills": [
+      "Rock",
+      "Pop",
+      "Band Performance",
+      "Covers"
+    ],
+    "experience_years": 11,
+    "available": false,
+    "rating": "4.8",
+    "total_bookings": 198,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "0ff69e02-8ae1-41cc-a473-d0b868074c3d",
+    "name": "Carlos Santos",
+    "category": "dancer",
+    "description": "Flamenco dancer and instructor. Authentic Spanish performances with traditional costumes and live guitar.",
+    "hourly_rate": "140",
+    "image_url": "https://images.pexels.com/photos/3621951/pexels-photo-3621951.jpeg",
+    "location": "San Diego, CA",
+    "skills": [
+      "Flamenco",
+      "Spanish Dance",
+      "Cultural Performance",
+      "Teaching"
+    ],
+    "experience_years": 13,
+    "available": true,
+    "rating": "5.0",
+    "total_bookings": 145,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "719bcd45-e2ec-45a6-a95b-d08687adae3d",
+    "name": "Olivia Brown",
+    "category": "designer",
+    "description": "Interior designer specializing in event spaces. Transforms venues into stunning themed environments.",
+    "hourly_rate": "125",
+    "image_url": "https://images.pexels.com/photos/3762806/pexels-photo-3762806.jpeg",
+    "location": "Denver, CO",
+    "skills": [
+      "Interior Design",
+      "Event Spaces",
+      "Lighting Design",
+      "Themed Décor"
+    ],
+    "experience_years": 8,
+    "available": true,
+    "rating": "4.6",
+    "total_bookings": 134,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  },
+  {
+    "id": "10791bac-bbec-417b-9a07-b37b1bdeaf62",
+    "name": "Trevor Lee",
+    "category": "comedian",
+    "description": "Observational comedian with storytelling style. Relatable humor perfect for diverse audiences.",
+    "hourly_rate": "160",
+    "image_url": "https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg",
+    "location": "Portland, OR",
+    "skills": [
+      "Stand-up",
+      "Storytelling",
+      "Observational Comedy",
+      "Writing"
+    ],
+    "experience_years": 7,
+    "available": true,
+    "rating": "4.8",
+    "total_bookings": 103,
+    "created_at": "2026-03-24 08:27:07.212798+00"
+  }
+]

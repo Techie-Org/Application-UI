@@ -1,0 +1,109 @@
+/* Header Container */
+.headerContainer {
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.headerContainer .headerContent {
+  max-width: 80rem; 
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Responsive Padding */
+@media (min-width: 640px) {
+  .headerContainer .headerContent {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .headerContainer .headerContent {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.headerContainer .headerContent .headerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+
+/* Logo Section */
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.logoSection .logoIcon {
+  height: 2rem;
+  width: 2rem;
+  color: #2563eb;
+}
+
+.logoSection .logoText {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Navigation Menu */
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navLink.isActive {
+  color: #2563eb;
+}
+
+.navLink.isInactive {
+  color: #4b5563;
+}
+
+.navLink.isInactive:hover {
+  color: #2563eb;
+}
+
+.navLink.withIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink .icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+/* Primary Button */
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  transition: all 150ms ease;
+}

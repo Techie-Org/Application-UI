@@ -13,6 +13,7 @@ import {
   reducerHelper,
   sagaHelper,
 } from './routes';
+import './styles.css';
 
 import english from './translations/en.json';
 
