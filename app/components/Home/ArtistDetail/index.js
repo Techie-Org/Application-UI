@@ -10,7 +10,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
         <button type="button" onClick={onBack} className={styles.backButton}>
-          <ArrowLeft className={styles.statIcon} style={{ marginRight: '0.5rem' }} />
+          <ArrowLeft className={styles.backIcon} />
           Back to Artists
         </button>
 
@@ -35,8 +35,8 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
 
             <div className={styles.statsBar}>
               <div className={styles.statItem}>
-                <Star className={styles.statIcon} style={{ color: '#fbbf24', fill: 'currentColor' }} />
-                <span style={{ fontWeight: 600 }}>{Number(artist.rating).toFixed(1)}</span>
+                <Star className={styles.ratingIcon} />
+                <span className={styles.ratingText}>{Number(artist.rating).toFixed(1)}</span>
               </div>
               <div className={styles.statItem}>
                 <TrendingUp className={styles.statIcon} />
@@ -56,18 +56,18 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
               </div>
             </div>
 
-            <div style={{ marginBottom: '1.5rem' }}>
-              <div className={styles.statItem} style={{ marginBottom: '1rem' }}>
+            <div className={styles.aboutSection}>
+              <div className={styles.locationItem}>
                 <MapPin className={styles.statIcon} />
                 <span>{artist.location}</span>
               </div>
-              <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.75rem' }}>About</h2>
-              <p style={{ color: '#4b5563', lineHeight: 1.6 }}>{artist.description}</p>
+              <h2 className={styles.sectionTitle}>About</h2>
+              <p className={styles.descriptionText}>{artist.description}</p>
             </div>
 
             {artist.skills?.length > 0 && (
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.75rem' }}>Skills & Specialties</h2>
+              <div className={styles.skillsSection}>
+                <h2 className={styles.sectionTitle}>Skills & Specialties</h2>
                 <div className={styles.skillsContainer}>
                   {artist.skills.map((skill, index) => (
                     <span key={index} className={styles.skillBadge}>{skill}</span>
@@ -88,10 +88,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
         </div>
 
         {showBookingForm && (
-          <BookingForm
-            artist={artist}
-            setShowBookingForm={setShowBookingForm}
-          />
+          <BookingForm artist={artist} setShowBookingForm={setShowBookingForm} />
         )}
       </div>
     </div>

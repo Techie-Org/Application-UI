@@ -83,6 +83,17 @@
   margin-bottom: 0.5rem;
 }
 
+.categoryTag {
+  display: inline-block;
+  padding: 4px 16px;           /* px-4 (16px) and py-1 (4px) */
+  background-color: #dbeafe;   /* bg-blue-100 */
+  color: #1d4ed8;              /* text-blue-700 */
+  font-size: 14px;             /* text-sm */
+  font-weight: 600;            /* font-semibold */
+  border-radius: 9999px;       /* rounded-full */
+  text-transform: capitalize;  /* capitalize */
+}
+
 .priceHighlight {
   text-align: right;
   font-size: 1.875rem;
@@ -156,4 +167,47 @@
   background-color: #d1d5db;
   color: #6b7280;
   cursor: not-allowed;
+}
+
+/* Icons */
+.backIcon {
+  margin-right: 8px; /* 0.5rem */
+  width: 20px;
+  height: 20px;
+}
+
+.ratingIcon {
+  color: #fbbf24;
+  fill: #fbbf24;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+/* Typography & Layout */
+.ratingText {
+  font-weight: 600;
+}
+
+.aboutSection, 
+.skillsSection {
+  margin-bottom: 24px; /* 1.5rem */
+}
+
+.locationItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px; /* 1rem */
+}
+
+.sectionTitle {
+  font-size: 18px; /* 1.125rem */
+  font-weight: 600;
+  margin-bottom: 12px; /* 0.75rem */
+  color: #1e293b;
+}
+
+.descriptionText {
+  color: #4b5563;
+  line-height: 1.6;
 }

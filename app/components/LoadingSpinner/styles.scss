@@ -1,0 +1,22 @@
+// Loading Spinner styles
+
+.container {
+  min-height: 100dvh;
+  background-image: linear-gradient(to bottom right, #eff6ff, #ffffff, #eef2ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  height: 3rem; /* h-12 */
+  width: 3rem;  /* w-12 */
+  border-radius: 50%; /* rounded-full */
+  border-bottom: 2px solid #2563eb; /* border-b-2 border-blue-600 */
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  
+  /* The Animation */
+  animation: spin 1s linear infinite;
+}

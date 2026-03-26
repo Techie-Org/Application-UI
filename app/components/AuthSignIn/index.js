@@ -1,80 +1,43 @@
 import React, { useState } from 'react';
 import { Music, Mail, Lock, User as UserIcon } from 'lucide-react';
-// import { supabase } from '../lib/supabase';
-// import {
-//   Button,
-//   LocalForm,
-//   TextField,
-// } from 'components/_DesignWrappers';
-// import {
-//   isBlankValidator,
-//   emailValidator,
-//   lengthCheckValidator,
-// } from 'components/Form/Validators';
-import VerificationModal from './OTPModal';
+import { InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Button,
+  LocalForm,
+  TextField,
+} from 'components/_DesignWrappers';
+import {
+  isBlankValidator,
+  emailValidator,
+  NAME_PATTERN,
+  lengthCheckValidator,
+} from 'components/Form/Validators';
+import { FormattedMessage } from 'react-intl';
+import VerificationModal from './VerificationModal';
 import styles from './styles.scss';
-// import messages from '../SignIn/messages';
+import messages from './messages';
 
-const Auth = ({ onSuccess, signInUser, intl }) => {
+const Auth = (props) => {
+  const { intl, signInUser } = props;
+
   const [isLogin, setIsLogin] = useState(true);
   const [otpModalOpen, setOtpModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-  });
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!isLogin) {
-      setOtpModalOpen(true);
-    }
-    // setLoading(true);
-
-    // try {
-    //   if (isLogin) {
-    //     const { error } = await supabase.auth.signInWithPassword({
-    //       email: formData.email,
-    //       password: formData.password,
-    //     });
-
-    //     if (error) throw error;
-    //     onSuccess();
-    //   } else {
-    //     const { data, error } = await supabase.auth.signUp({
-    //       email: formData.email,
-    //       password: formData.password,
-    //     });
-
-    //     if (error) throw error;
-
-    //     if (data.user) {
-    //       const { error: profileError } = await supabase
-    //         .from('user_profiles')
-    //         .insert({
-    //           id: data.user.id,
-    //           full_name: formData.fullName,
-    //           phone: '',
-    //         });
-
-    //       if (profileError) throw profileError;
-    //     }
-
-    //     onSuccess();
-    //   }
-    // } catch (error) {
-    //   alert(error.message || 'An error occurred');
-    // } finally {
-    //   setLoading(false);
-    // }
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-
-  // const handleSignInSubmit = (formDataSubmitted) => {
-  //   console.log('signinsubmit formdata', formDataSubmitted);
-  //   signInUser(formDataSubmitted);
-  // };
+  const handleSignInSubmit = (formData) => {
+    console.log('signinsubmit formdata', formData);
+    if (!isLogin) {
+      setOtpModalOpen(true);
+      return;
+    }
+    signInUser(formData);
+  };
 
   return (
     <div className={styles.authContainer}>
@@ -95,14 +58,40 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
               : 'Sign up to start booking amazing artists'}
           </p>
 
-          <form onSubmit={handleSubmit} className={styles.authForm}>
-            {/* <LocalForm
-              form="SignInForm"
-              onSubmit={handleSignInSubmit}
-              data-test-id="signInForm"
-            >
+          {/* <form onSubmit={handleSubmit} className={styles.authForm}> */}
+          <LocalForm
+            form="SignInForm"
+            onSubmit={handleSignInSubmit}
+            data-test-id="signInForm"
+            className={styles.authForm}
+          >
+            {!isLogin && (
+              <div>
+                <div className={styles.inputWrapper}>
+                  <TextField
+                    model="name"
+                    fullWidth
+                    label={intl.formatMessage(messages.nameLabel)}
+                    placeholder={intl.formatMessage(messages.namePlaceholder)}
+                    allowPattern={NAME_PATTERN}
+                    validators={[
+                      isBlankValidator(intl.formatMessage(messages.blankNameError)),
+                      lengthCheckValidator(intl.formatMessage(messages.minLengthNameError), 3),
+                    ]}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <UserIcon size={20} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            <div>
               <div className={styles.inputWrapper}>
-                <Mail className={styles.fieldIcon} />
                 <TextField
                   model="email"
                   className={styles.inputField}
@@ -113,9 +102,53 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
                     emailValidator(intl.formatMessage(messages.invalidEmailError)),
                   ]}
                   fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Mail size={20} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-              </div> */}
-            {!isLogin && (
+              </div>
+            </div>
+
+            <div>
+              <div className={styles.inputWrapper}>
+                <TextField
+                  model="password"
+                  className={styles.passwordField}
+                  label={intl.formatMessage(messages.passwordLabel)}
+                  placeholder={intl.formatMessage(messages.passwordPlaceholder)}
+                  validators={[
+                    isBlankValidator(intl.formatMessage(messages.passwordError)),
+                    lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
+                  ]}
+                  isPassword
+                  fullWidth
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Lock size={20} />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleTogglePasswordVisibility}
+                          edge="end"
+                          aria-label={showPassword ? intl.formatMessage(messages.hidePasswordLabel) : intl.formatMessage(messages.showPasswordLabel)}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+            </div>
+            {/* {!isLogin && (
               <div>
                 <label className={styles.label}>Full Name</label>
                 <div className={styles.inputWrapper}>
@@ -130,9 +163,9 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
                   />
                 </div>
               </div>
-            )}
+            )} */}
 
-            <div>
+            {/* <div>
               <label className={styles.label}>Email Address</label>
               <div className={styles.inputWrapper}>
                 <Mail className={styles.fieldIcon} />
@@ -145,9 +178,9 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
                   className={styles.inputField}
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label className={styles.label}>Password</label>
               <div className={styles.inputWrapper}>
                 <Lock className={styles.fieldIcon} />
@@ -164,7 +197,7 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
               {!isLogin && (
                 <p className={styles.hintText}>Must be at least 6 characters</p>
               )}
-            </div>
+            </div> */}
 
             <button
               type="submit"
@@ -173,17 +206,15 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
             >
               {loading ? 'Please wait...' : isLogin ? 'Sign In' : 'Create Account'}
             </button>
-          </form>
-          {/* </LocalForm> */}
+            {/* </form> */}
+          </LocalForm>
 
           <button
             type="button"
             onClick={() => setIsLogin(!isLogin)}
             className={styles.toggleBtn}
           >
-            {isLogin
-              ? "Don't have an account? Sign up"
-              : 'Already have an account? Sign in'}
+            {isLogin ? <FormattedMessage {...messages.accountNotExist} /> : <FormattedMessage {...messages.accountExist} />}
           </button>
         </div>
       </div>
@@ -192,7 +223,7 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
           <VerificationModal
             isOpen={otpModalOpen}
             onClose={() => setOtpModalOpen(false)}
-            email={formData.email}
+            // email={formData.email}
           />
         )}
       </div>
