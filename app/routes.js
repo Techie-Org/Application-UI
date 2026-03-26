@@ -52,7 +52,7 @@ const homeRoutes = {
 
 const accountRoutes = {
   signIn: {
-    path: '/account/signIn',
+    path: '/account',
     name: 'signIn',
     reducers: ['signIn'],
     sagas: ['signIn'],

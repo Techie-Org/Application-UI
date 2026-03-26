@@ -87,7 +87,12 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
           </div>
         </div>
 
-        {showBookingForm && <BookingForm setShowBookingForm={setShowBookingForm} />}
+        {showBookingForm && (
+          <BookingForm
+            artist={artist}
+            setShowBookingForm={setShowBookingForm}
+          />
+        )}
       </div>
     </div>
   );

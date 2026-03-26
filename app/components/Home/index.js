@@ -24,7 +24,7 @@ const Home = ({
   };
 
   const handleLoginRequired = () => {
-    history.navigate('/account/signIn');
+    history.navigate('/account');
   };
 
   return (

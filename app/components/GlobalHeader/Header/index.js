@@ -43,7 +43,7 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
 
           <button
             type="button"
-            onClick={() => onNavigate('/account/signIn')}
+            onClick={() => onNavigate('/account')}
             className={styles.authButton}
           >
             <User className={styles.authIcon} />

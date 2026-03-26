@@ -105,43 +105,129 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
   }
 
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.overlay}>
       <div className={styles.modalContent}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>
-          Book
-          {artist.name}
-        </h2>
-        <form onSubmit={handleBookingSubmit} className={styles.formGrid}>
-          <div className={styles.formGrid}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Event Date *</label>
-              <input type="date" className={styles.formInput} required value={formData.event_date} min={new Date().toISOString().split('T')[0]} onChange={(e) => setFormData({ ...formData, event_date: e.target.value })} />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Start Time *</label>
-              <input type="time" className={styles.formInput} required value={formData.event_time} onChange={(e) => setFormData({ ...formData, event_time: e.target.value })} />
-            </div>
-          </div>
+        <div className={styles.innerPadding}>
+          <h2 className={styles.modalTitle}>
+            Book
+            {artist.name}
+          </h2>
 
-          {/* Other form fields follow the same styles.formInput pattern */}
+          <form onSubmit={handleBookingSubmit}>
+            <div className={styles.twoColumnGrid}>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Event Date *</label>
+                <input
+                  type="date"
+                  required
+                  value={formData.event_date}
+                  onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
+                  min={new Date().toISOString().split('T')[0]}
+                  className={styles.inputField}
+                />
+              </div>
 
-          <div className={styles.summaryBox}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600 }}>
-              <span>Total Cost:</span>
-              <span style={{ color: '#2563eb' }}>
-                $
-                {calculateTotal().toFixed(2)}
-              </span>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Start Time *</label>
+                <input
+                  type="time"
+                  required
+                  value={formData.event_time}
+                  onChange={(e) => setFormData({ ...formData, event_time: e.target.value })}
+                  className={styles.inputField}
+                />
+              </div>
             </div>
-          </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button type="button" onClick={() => setShowBookingForm(false)} className={styles.backButton} style={{ flex: 1, border: '1px solid #d1d5db', padding: '0.75rem', borderRadius: '0.5rem' }}>Cancel</button>
-            <button type="submit" disabled={loading} className={styles.bookActive} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: 'none' }}>
-              {loading ? 'Submitting...' : 'Confirm Booking'}
-            </button>
-          </div>
-        </form>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Duration (hours) *</label>
+              <input
+                type="number"
+                required
+                min="1"
+                step="0.5"
+                value={formData.duration_hours}
+                onChange={(e) => setFormData({ ...formData, duration_hours: e.target.value })}
+                className={styles.inputField}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Event Location *</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter the venue address"
+                value={formData.event_location}
+                onChange={(e) => setFormData({ ...formData, event_location: e.target.value })}
+                className={styles.inputField}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Event Type</label>
+              <select
+                value={formData.event_type}
+                onChange={(e) => setFormData({ ...formData, event_type: e.target.value })}
+                className={styles.inputField}
+              >
+                <option value="">Select event type</option>
+                <option value="Wedding">Wedding</option>
+                <option value="Corporate Event">Corporate Event</option>
+                <option value="Birthday Party">Birthday Party</option>
+                <option value="Concert">Concert</option>
+                <option value="Private Party">Private Party</option>
+                <option value="Festival">Festival</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Additional Notes</label>
+              <textarea
+                rows={4}
+                placeholder="Any special requests or details about your event..."
+                value={formData.notes}
+                onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                className={`${styles.inputField} ${styles.textarea}`}
+              />
+            </div>
+
+            <div className={styles.summaryBox}>
+              <div className={styles.summaryRow}>
+                <span className={styles.totalLabel}>Total Cost:</span>
+                <span className={styles.totalPrice}>
+                  $
+                  {calculateTotal().toFixed(2)}
+                </span>
+              </div>
+              <p className={styles.calculationText}>
+                {formData.duration_hours}
+                {' '}
+                hours × $
+                {artist.hourly_rate}
+                /hour
+              </p>
+            </div>
+
+            <div className={styles.buttonGroup}>
+              <button
+                type="button"
+                onClick={() => setShowBookingForm(false)}
+                className={`${styles.btnBase} ${styles.btnCancel}`}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className={`${styles.btnBase} ${styles.btnSubmit}`}
+              >
+                {loading ? 'Submitting...' : 'Confirm Booking'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

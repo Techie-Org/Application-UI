@@ -68,7 +68,7 @@ const MyBookings = ({
   //   );
   // }
 
-  const getStatusClass = (status) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
         return styles.statusPending;
@@ -115,10 +115,7 @@ const MyBookings = ({
             <Calendar className={styles.emptyIcon} />
             <h3 className={styles.emptyTitle}>No bookings found</h3>
             <p className={styles.subtitle}>
-              No
-              {filter}
-              {' '}
-              bookings at the moment.
+              {`No ${filter} bookings at the moment.`}
             </p>
           </div>
         ) : (
@@ -136,7 +133,7 @@ const MyBookings = ({
                         <h3 className={styles.artistName}>{booking.artist.name}</h3>
                         <span className={styles.categoryTag}>{booking.artist.category}</span>
                       </div>
-                      <span className={`${styles.statusBadge} ${getStatusClass(booking.status)}`}>
+                      <span className={`${styles.statusBadge} ${getStatusColor(booking.status)}`}>
                         {booking.status}
                       </span>
                     </div>
