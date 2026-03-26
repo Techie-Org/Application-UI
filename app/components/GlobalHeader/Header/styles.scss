@@ -96,14 +96,28 @@
   width: 1rem;
 }
 
-/* Primary Button */
-.btnPrimary {
+
+.authButton {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: #2563eb;
-  color: #ffffff;
-  transition: all 150ms ease;
+  gap: 0.25rem; /* Equivalent to space-x-1 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  background-color: #2563eb; /* bg-blue-600 */
+  color: #ffffff; /* text-white */
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem; /* text-sm default for small buttons */
+  font-weight: 500;
+  transition: background-color 0.2s ease; /* transition-colors */
+}
+
+.authButton:hover {
+  background-color: #1d4ed8; /* hover:bg-blue-700 */
+}
+
+/* Icon scaling */
+.authIcon {
+  height: 1rem; /* h-4 */
+  width: 1rem;  /* w-4 */
 }

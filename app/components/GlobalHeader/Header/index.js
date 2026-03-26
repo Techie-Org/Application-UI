@@ -31,7 +31,7 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
           {isAuthenticated && (
             <button
               type="button"
-              onClick={() => onNavigate('bookings')}
+              onClick={() => onNavigate('user/bookings')}
               className={`${styles.navLink} ${styles.withIcon} ${
                 currentView === 'bookings' ? styles.isActive : styles.isInactive
               }`}
@@ -44,9 +44,9 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
           <button
             type="button"
             onClick={() => onNavigate('/account/signIn')}
-            className={styles.btnPrimary}
+            className={styles.authButton}
           >
-            <User className={styles.icon} />
+            <User className={styles.authIcon} />
             <span>{isAuthenticated ? 'Account' : 'Sign In'}</span>
           </button>
         </nav>

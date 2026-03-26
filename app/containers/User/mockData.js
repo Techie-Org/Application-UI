@@ -1,0 +1,37 @@
+
+export const myBookings = [
+  {
+    id: '2eebe34c-af16-4756-92f3-6f1036d350da',
+    artist_id: '0ff69e02-8ae1-41cc-a473-d0b868074c3d',
+    user_id: '53179353-1d92-4bc7-96a0-69829582b9dc',
+    event_date: '2026-03-26',
+    event_time: '00:00:00',
+    duration_hours: '2',
+    event_location: 'India',
+    event_type: 'Wedding',
+    status: 'pending',
+    total_price: '280',
+    notes: '',
+    created_at: '2026-03-25 07:25:45.041889+00',
+    artist: { // added by my manually
+      id: '0ff69e02-8ae1-41cc-a473-d0b868074c3d',
+      name: 'Carlos Santos',
+      category: 'dancer',
+      description: 'Flamenco dancer and instructor. Authentic Spanish performances with traditional costumes and live guitar.',
+      hourly_rate: '140',
+      image_url: 'https://images.pexels.com/photos/3621951/pexels-photo-3621951.jpeg',
+      location: 'San Diego, CA',
+      skills: [
+        'Flamenco',
+        'Spanish Dance',
+        'Cultural Performance',
+        'Teaching',
+      ],
+      experience_years: 13,
+      available: true,
+      rating: '5.0',
+      total_bookings: 145,
+      created_at: '2026-03-24 08:27:07.212798+00',
+    },
+  },
+];

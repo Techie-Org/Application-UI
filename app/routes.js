@@ -5,6 +5,7 @@ export const componentHelper = {
   home: () => import('containers/Home'),
   signIn: () => import('containers/SignIn'),
   signUp: () => import('containers/SignUp'),
+  bookings: () => import('containers/User'),
 };
 
 /*
@@ -15,6 +16,7 @@ export const reducerHelper = {
   globalHeader: () => import('containers/GlobalHeaderContainer/reducer'),
   signIn: () => import('containers/SignIn/reducer'),
   signUp: () => import('containers/SignUp/reducer'),
+  bookings: () => import('containers/User/reducer'),
 };
 
 /*
@@ -25,6 +27,7 @@ export const sagaHelper = {
   globalHeader: () => import('containers/GlobalHeaderContainer/sagas'),
   signIn: () => import('containers/SignIn/sagas'),
   signUp: () => import('containers/SignUp/sagas'),
+  bookings: () => import('containers/User/sagas'),
 };
 
 /*
@@ -34,6 +37,7 @@ export const enabledRoutes = [
   'home',
   'signIn',
   'signUp',
+  'bookings',
 ];
 
 const homeRoutes = {
@@ -46,7 +50,7 @@ const homeRoutes = {
   },
 };
 
-const userAccountRoutes = {
+const accountRoutes = {
   signIn: {
     path: '/account/signIn',
     name: 'signIn',
@@ -63,7 +67,18 @@ const userAccountRoutes = {
   },
 };
 
+const userRoutes = {
+  bookings: {
+    path: '/user/bookings',
+    name: 'bookings',
+    reducers: ['bookings'],
+    sagas: ['bookings'],
+    config: {},
+  },
+};
+
 export const routes = {
   ...homeRoutes,
-  ...userAccountRoutes,
+  ...accountRoutes,
+  ...userRoutes,
 };

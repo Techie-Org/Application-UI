@@ -19,5 +19,5 @@ export const makeSelectUserProfileData = () => createSelector(
 
 export const makeSelectIsUserLoggedIn = () => createSelector(
   globalHeaderState,
-  (state) => state?.get('userLoggedIn') ?? false,
+  (state) => true,
 );

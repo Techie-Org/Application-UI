@@ -1,0 +1,323 @@
+// Loading Spinner styles
+
+.container {
+  min-height: 100dvh;
+  background-image: linear-gradient(to bottom right, #eff6ff, #ffffff, #eef2ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  height: 3rem; /* h-12 */
+  width: 3rem;  /* w-12 */
+  border-radius: 50%; /* rounded-full */
+  border-bottom: 2px solid #2563eb; /* border-b-2 border-blue-600 */
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  
+  /* The Animation */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Booking component styles
+
+.pageContainer {
+  min-height: 100dvh;
+  background-image: linear-gradient(to bottom right, #eff6ff, #ffffff, #eef2ff);
+}
+
+.contentWrapper {
+  max-width: 72rem; /* max-w-6xl */
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.headerSection {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #4b5563;
+}
+
+/* Filter Bar */
+.filterCard {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnActive {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btnInactive {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.btnInactive:hover {
+  background-color: #e5e7eb;
+}
+
+/* Booking Cards */
+.bookingList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bookingCard {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: shadow 0.2s;
+}
+
+.bookingCard:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.cardFlex {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .cardFlex { flex-direction: row; }
+}
+
+.imageContainer {
+  width: 100%;
+  height: 12rem;
+}
+
+@media (min-width: 768px) {
+  .imageContainer { width: 12rem; height: auto; }
+}
+
+.artistImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardContent {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+/* Status Badges */
+.statusBadge {
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  height: 1.25rem;
+}
+
+/* Detail Grid */
+.detailGrid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .detailGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+}
+
+.icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.75rem;
+  color: #9ca3af;
+}
+
+.notesBox {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+// Status Class
+/* Base styles for all status badges */
+.statusBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+/* Specific color states */
+.statusPending {
+  background-color: #fef3c7; /* yellow-100 */
+  color: #92400e;            /* yellow-800 */
+}
+
+.statusConfirmed {
+  background-color: #dcfce7; /* green-100 */
+  color: #166534;            /* green-800 */
+}
+
+.statusCompleted {
+  background-color: #dbeafe; /* blue-100 */
+  color: #1e40af;            /* blue-800 */
+}
+
+.statusCancelled {
+  background-color: #fee2e2; /* red-100 */
+  color: #991b1b;            /* red-800 */
+}
+
+.statusDefault {
+  background-color: #f3f4f6; /* gray-100 */
+  color: #1f2937;            /* gray-800 */
+}
+
+/* Existing classes from previous steps... */
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.emptyIcon {
+  height: 4rem;
+  width: 4rem;
+  margin: 0 auto 1rem;
+  color: #9ca3af;
+}
+
+.emptyTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.artistName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.categoryTag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #dbeafe; /* blue-100 */
+  color: #1e40af; /* blue-800 */
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: capitalize;
+  margin-top: 0.25rem;
+}
+
+.labelSmall {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.valueBold {
+  font-weight: 600;
+}
+
+.priceValue {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.notesLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.notesText {
+  font-size: 0.875rem;
+  margin: 0;
+  color: #374151;
+}
+
+.locationLabel {
+  font-size: 0.875rem; /* text-sm: 14px */
+  color: #6b7280;      /* text-gray-500 */
+}
+
+.costLabel {
+  font-size: 0.875rem; /* Equivalent to text-sm */
+  color: #6b7280;      /* Equivalent to text-gray-500 */
+  line-height: 1.25rem;
+}
+
+.eventTypeRow {
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.labelSecondary {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280;      /* text-gray-500 */
+}
+
+.valuePrimary {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;    /* font-semibold */
+  color: #374151;      /* text-gray-700 */
+}
