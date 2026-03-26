@@ -11,11 +11,13 @@ import { Music, Mail, Lock, User as UserIcon } from 'lucide-react';
 //   emailValidator,
 //   lengthCheckValidator,
 // } from 'components/Form/Validators';
+import VerificationModal from './OTPModal';
 import styles from './styles.scss';
 // import messages from '../SignIn/messages';
 
 const Auth = ({ onSuccess, signInUser, intl }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -25,44 +27,47 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (error) throw error;
-        onSuccess();
-      } else {
-        const { data, error } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (error) throw error;
-
-        if (data.user) {
-          const { error: profileError } = await supabase
-            .from('user_profiles')
-            .insert({
-              id: data.user.id,
-              full_name: formData.fullName,
-              phone: '',
-            });
-
-          if (profileError) throw profileError;
-        }
-
-        onSuccess();
-      }
-    } catch (error) {
-      alert(error.message || 'An error occurred');
-    } finally {
-      setLoading(false);
+    if (!isLogin) {
+      setOtpModalOpen(true);
     }
+    // setLoading(true);
+
+    // try {
+    //   if (isLogin) {
+    //     const { error } = await supabase.auth.signInWithPassword({
+    //       email: formData.email,
+    //       password: formData.password,
+    //     });
+
+    //     if (error) throw error;
+    //     onSuccess();
+    //   } else {
+    //     const { data, error } = await supabase.auth.signUp({
+    //       email: formData.email,
+    //       password: formData.password,
+    //     });
+
+    //     if (error) throw error;
+
+    //     if (data.user) {
+    //       const { error: profileError } = await supabase
+    //         .from('user_profiles')
+    //         .insert({
+    //           id: data.user.id,
+    //           full_name: formData.fullName,
+    //           phone: '',
+    //         });
+
+    //       if (profileError) throw profileError;
+    //     }
+
+    //     onSuccess();
+    //   }
+    // } catch (error) {
+    //   alert(error.message || 'An error occurred');
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
 
@@ -181,6 +186,15 @@ const Auth = ({ onSuccess, signInUser, intl }) => {
               : 'Already have an account? Sign in'}
           </button>
         </div>
+      </div>
+      <div>
+        {otpModalOpen && (
+          <VerificationModal
+            isOpen={otpModalOpen}
+            onClose={() => setOtpModalOpen(false)}
+            email={formData.email}
+          />
+        )}
       </div>
     </div>
   );
