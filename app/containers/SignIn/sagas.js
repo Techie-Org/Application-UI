@@ -2,7 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { history } from 'utils/browserHistory';
-import { signInUserSuccess } from './actions';
+import { signInUserFailed, signInUserSuccess } from './actions';
 import { setUserLogIn } from '../GlobalHeaderContainer/actions';
 import { makeSelectSignInFormData } from './selectors';
 import {
@@ -26,6 +26,7 @@ export function* signInUserSaga() {
     yield put(setUserLogIn(true));
     history.navigate('/');
   } catch (error) {
+    yield put(signInUserFailed(error));
     console.log('signInUser error', error);
   }
 }

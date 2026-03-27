@@ -10,13 +10,15 @@ import {
 import {
   makeSelectRegisterUserLoading,
   makeSelectRegisterUserLoaded,
-  makeSelectOtpValidationSucessLoaded,
+  makeSelectOtpValidationLoading,
+  makeSelectOtpValidationLoaded,
 } from './selectors';
 
 const mapStateToProps = () => createStructuredSelector({
   registerUserLoading: makeSelectRegisterUserLoading(),
   registerUserLoaded: makeSelectRegisterUserLoaded(),
-  otpValidationSuccessLoaded: makeSelectOtpValidationSucessLoaded(),
+  otpValidationLoading: makeSelectOtpValidationLoading(),
+  otpValidationLoaded: makeSelectOtpValidationLoaded(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

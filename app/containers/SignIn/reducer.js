@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { SIGN_IN_USER, SIGN_IN_USER_SUCCESS } from './constants';
+import { SIGN_IN_USER, SIGN_IN_USER_FAILED, SIGN_IN_USER_SUCCESS } from './constants';
 
 // const REDUCER_KEY = 'signIn';
 
@@ -24,6 +24,11 @@ function signIn(state = initialState, action) {
         .setIn(['signInUser', 'loaded'], false)
         .setIn(['signInUser', 'error'], false)
         .set('signInFormData', action.formData);
+    case SIGN_IN_USER_FAILED:
+      return state
+        .setIn(['signInUser', 'loading'], false)
+        .setIn(['signInUser', 'loaded'], false)
+        .setIn(['signInUser', 'error'], true);
     case SIGN_IN_USER_SUCCESS:
       return state
         .setIn(['signInUser', 'loading'], false)

@@ -35,7 +35,7 @@ const SignUp = (props) => {
     registerUser,
     registerUserLoaded,
     validateOtp,
-    otpValidationSuccessLoaded,
+    otpValidationLoaded,
   } = props;
 
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -44,7 +44,7 @@ const SignUp = (props) => {
 
   useEffect(() => {
     if (registerUserLoaded) {
-      if (otpValidationSuccessLoaded) {
+      if (otpValidationLoaded) {
         setOpenOtpModal(false);
       } else {
         setOpenOtpModal(true);
@@ -52,7 +52,7 @@ const SignUp = (props) => {
     } else {
       setOpenOtpModal(false);
     }
-  }, [registerUserLoaded, otpValidationSuccessLoaded]);
+  }, [registerUserLoaded, otpValidationLoaded]);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -240,7 +240,7 @@ SignUp.propTypes = {
   registerUserLoaded: PropTypes.bool,
   validateOtp: PropTypes.func,
   emailId: PropTypes.string,
-  otpValidationSuccessLoaded: PropTypes.bool,
+  otpValidationLoaded: PropTypes.bool,
 };
 
 export default SignUp;

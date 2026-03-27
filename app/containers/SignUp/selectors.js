@@ -27,7 +27,12 @@ export const makeSelectOtpValue = () => createSelector(
   (state) => state?.get('userOtpValue') ?? {},
 );
 
-export const makeSelectOtpValidationSucessLoaded = () => createSelector(
+export const makeSelectOtpValidationLoading = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['validateOtp', 'loading']) ?? false,
+);
+
+export const makeSelectOtpValidationLoaded = () => createSelector(
   signUpState,
   (state) => state?.getIn(['validateOtp', 'loaded']) ?? false,
 );

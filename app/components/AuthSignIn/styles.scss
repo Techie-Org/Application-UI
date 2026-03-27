@@ -83,11 +83,21 @@
 }
 
 .inputField {
-  width: 80%;
+  width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem; /* pl-10 */
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   transition: all 0.2s;
+}
+
+.inputField :global(.MuiOutlinedInput-root) {
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.inputField :global(.MuiInputAdornment-root) svg {
+  color: #9ca3af;
+  margin-right: 4px;
 }
 
 .inputField:focus {
@@ -113,6 +123,10 @@
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* Space between spinner and text */
   transition: all 0.2s;
 }
 
@@ -140,4 +154,18 @@
 
 .toggleBtn:hover {
   color: #1d4ed8;
+}
+
+/* The Spinner Animation */
+.buttonSpinner {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

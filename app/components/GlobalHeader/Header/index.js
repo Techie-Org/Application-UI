@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Music, User, Calendar } from 'lucide-react';
 import styles from './styles.scss';
 
-const Header = ({ onNavigate, currentView, isAuthenticated }) => (
+const Header = ({ onNavigate, isAuthenticated }) => (
   <header className={styles.headerContainer}>
     <div className={styles.headerContent}>
       <div className={styles.headerInner}>
@@ -22,7 +23,7 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
             type="button"
             onClick={() => onNavigate('/')}
             className={`${styles.navLink} ${
-              currentView === 'browse' ? styles.isActive : styles.isInactive
+              'currentView' === 'browse' ? styles.isActive : styles.isInactive
             }`}
           >
             Browse Artists
@@ -33,7 +34,7 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
               type="button"
               onClick={() => onNavigate('user/bookings')}
               className={`${styles.navLink} ${styles.withIcon} ${
-                currentView === 'bookings' ? styles.isActive : styles.isInactive
+                'currentView' === 'bookings' ? styles.isActive : styles.isInactive
               }`}
             >
               <Calendar className={styles.icon} />
@@ -54,5 +55,10 @@ const Header = ({ onNavigate, currentView, isAuthenticated }) => (
     </div>
   </header>
 );
+
+Header.propTypes = {
+  onNavigate: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
+};
 
 export default Header;

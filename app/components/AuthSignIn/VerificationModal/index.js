@@ -1,8 +1,16 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Mail, X, ArrowRight, RefreshCw } from 'lucide-react';
+import ButtonWithSpinner from 'components/_DesignWrappers/ButtonWithSpinner';
 import styles from './styles.scss';
 
-const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
+const VerificationModal = ({
+  isOpen,
+  onClose,
+  validateOtp,
+  otpValidationLoading,
+  email = 'user@example.com',
+}) => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
 
   // 1. Create an array of refs to hold the input elements
@@ -31,6 +39,12 @@ const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
     }
   };
 
+  const handleOtpValidation = (formData) => {
+    console.log('otpvalidation formdata:', { formData });
+    // validateOtp({ ...formData, otp: formData.otp.join('') });
+    validateOtp({ otp: code.join('') });
+  };
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContainer}>
@@ -46,7 +60,8 @@ const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
           <p>
             {"We've sent a 6-digit code to "}
             <strong>{email}</strong>
-            . Please enter it below to confirm your identity.
+            . Please enter it below to confirm your
+            identity.
           </p>
         </div>
 
@@ -55,7 +70,9 @@ const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
             <input
               key={index}
               // 4. Assign the ref to each input
-              ref={(el) => { inputRefs.current[index] = el; }}
+              ref={(el) => {
+                inputRefs.current[index] = el;
+              }}
               type="text"
               maxLength="1"
               value={data}
@@ -66,10 +83,14 @@ const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
           ))}
         </div>
 
-        <button type="button" className={styles.verifyBtn}>
+        <ButtonWithSpinner
+          spinOn={otpValidationLoading}
+          className={styles.verifyBtn}
+          onClick={handleOtpValidation}
+        >
           Verify Account
           <ArrowRight size={18} />
-        </button>
+        </ButtonWithSpinner>
 
         <div className={styles.modalFooter}>
           <p>{'Didn\'t receive the code?'}</p>
@@ -81,6 +102,14 @@ const VerificationModal = ({ isOpen, onClose, email = 'user@example.com' }) => {
       </div>
     </div>
   );
+};
+
+VerificationModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  validateOtp: PropTypes.func.isRequired,
+  otpValidationLoading: PropTypes.bool,
+  email: PropTypes.string,
 };
 
 export default VerificationModal;

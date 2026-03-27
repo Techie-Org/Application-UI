@@ -54,8 +54,8 @@ const accountRoutes = {
   signIn: {
     path: '/account',
     name: 'signIn',
-    reducers: ['signIn'],
-    sagas: ['signIn'],
+    reducers: ['signIn', 'signUp'],
+    sagas: ['signIn', 'signUp'],
     config: {},
   },
   signUp: {

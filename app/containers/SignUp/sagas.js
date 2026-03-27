@@ -2,7 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { history } from 'utils/browserHistory';
-import { registerUserSuccess, validateOtpSuccess } from './actions';
+import { registerUserSuccess, registerUserFailed, validateOtpFailed, validateOtpSuccess } from './actions';
 import { makeSelectSignUpFormData, makeSelectOtpValue } from './selectors';
 import {
   REGISTER_USER_API_URL,
@@ -27,6 +27,7 @@ export function* registerUserSaga() {
 
     yield put(registerUserSuccess(response.data));
   } catch (error) {
+    yield put(registerUserFailed(error));
     console.log('register User error', error);
   }
 }
@@ -46,8 +47,9 @@ export function* validateOtpSaga() {
     console.log('otpValidate response', response);
     yield put(validateOtpSuccess(response.data));
 
-    history.navigate('/account/signIn');
+    history.navigate('/account');
   } catch (error) {
+    yield put(validateOtpFailed(error));
     console.log('otpValidate error', error);
   }
 }

@@ -1,8 +1,10 @@
 import { fromJS } from 'immutable';
 import {
   REGISTER_USER,
+  REGISTER_USER_FAILED,
   REGISTER_USER_SUCCESS,
   VALIDATE_OTP,
+  VALIDATE_OTP_FAILED,
   VALIDATE_OTP_SUCCESS,
 } from './constants';
 
@@ -36,6 +38,11 @@ function signUp(state = initialState, action) {
         .setIn(['registerUser', 'loaded'], false)
         .setIn(['registerUser', 'error'], false)
         .set('formData', action.formData);
+    case REGISTER_USER_FAILED:
+      return state
+        .setIn(['registerUser', 'loading'], false)
+        .setIn(['registerUser', 'loaded'], false)
+        .setIn(['registerUser', 'error'], true);
     case REGISTER_USER_SUCCESS:
       return state
         .setIn(['registerUser', 'loading'], false)
@@ -48,6 +55,11 @@ function signUp(state = initialState, action) {
         .setIn(['validateOtp', 'loaded'], false)
         .setIn(['validateOtp', 'error'], false)
         .set('userOtpValue', action.otpValue);
+    case VALIDATE_OTP_FAILED:
+      return state
+        .setIn(['validateOtp', 'loading'], false)
+        .setIn(['validateOtp', 'loaded'], false)
+        .setIn(['validateOtp', 'error'], true);
     case VALIDATE_OTP_SUCCESS:
       return state
         .setIn(['validateOtp', 'loading'], false)

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Music, Mail, Lock, User as UserIcon } from 'lucide-react';
 import { InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Button,
   LocalForm,
   TextField,
 } from 'components/_DesignWrappers';
@@ -13,18 +13,43 @@ import {
   NAME_PATTERN,
   lengthCheckValidator,
 } from 'components/Form/Validators';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape } from 'react-intl';
 import VerificationModal from './VerificationModal';
 import styles from './styles.scss';
 import messages from './messages';
+import ButtonWithSpinner from '../_DesignWrappers/ButtonWithSpinner';
 
 const Auth = (props) => {
-  const { intl, signInUser } = props;
+  const {
+    intl,
+    signInUser,
+    signInUserLoading,
+    // signInUserLoaded,
+    registerUser,
+    registerUserLoading,
+    registerUserLoaded,
+    validateOtp,
+    otpValidationLoading,
+    otpValidationLoaded,
+  } = props;
 
   const [isLogin, setIsLogin] = useState(true);
-  const [otpModalOpen, setOtpModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [openOtpModal, setOpenOtpModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const loading = registerUserLoading || signInUserLoading;
+
+  useEffect(() => {
+    if (registerUserLoaded) {
+      if (otpValidationLoaded) {
+        setOpenOtpModal(false);
+      } else {
+        setOpenOtpModal(true);
+      }
+    } else {
+      setOpenOtpModal(false);
+    }
+  }, [registerUserLoaded, otpValidationLoaded]);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -33,7 +58,7 @@ const Auth = (props) => {
   const handleSignInSubmit = (formData) => {
     console.log('signinsubmit formdata', formData);
     if (!isLogin) {
-      setOtpModalOpen(true);
+      registerUser(formData);
       return;
     }
     signInUser(formData);
@@ -70,7 +95,7 @@ const Auth = (props) => {
                 <div className={styles.inputWrapper}>
                   <TextField
                     model="name"
-                    fullWidth
+                    className={styles.inputField}
                     label={intl.formatMessage(messages.nameLabel)}
                     placeholder={intl.formatMessage(messages.namePlaceholder)}
                     allowPattern={NAME_PATTERN}
@@ -101,7 +126,6 @@ const Auth = (props) => {
                     isBlankValidator(intl.formatMessage(messages.emailError)),
                     emailValidator(intl.formatMessage(messages.invalidEmailError)),
                   ]}
-                  fullWidth
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -117,7 +141,7 @@ const Auth = (props) => {
               <div className={styles.inputWrapper}>
                 <TextField
                   model="password"
-                  className={styles.passwordField}
+                  className={styles.inputField}
                   label={intl.formatMessage(messages.passwordLabel)}
                   placeholder={intl.formatMessage(messages.passwordPlaceholder)}
                   validators={[
@@ -125,7 +149,6 @@ const Auth = (props) => {
                     lengthCheckValidator(intl.formatMessage(messages.passwordLengthError), 8),
                   ]}
                   isPassword
-                  fullWidth
                   type={showPassword ? 'text' : 'password'}
                   InputProps={{
                     startAdornment: (
@@ -199,13 +222,14 @@ const Auth = (props) => {
               )}
             </div> */}
 
-            <button
+            <ButtonWithSpinner
               type="submit"
               disabled={loading}
               className={styles.submitBtn}
+              spinOn={loading}
             >
-              {loading ? 'Please wait...' : isLogin ? 'Sign In' : 'Create Account'}
-            </button>
+              {isLogin ? 'Sign In' : 'Create Account'}
+            </ButtonWithSpinner>
             {/* </form> */}
           </LocalForm>
 
@@ -219,16 +243,31 @@ const Auth = (props) => {
         </div>
       </div>
       <div>
-        {otpModalOpen && (
+        {openOtpModal && (
           <VerificationModal
-            isOpen={otpModalOpen}
-            onClose={() => setOtpModalOpen(false)}
+            isOpen={openOtpModal}
+            onClose={() => setOpenOtpModal(false)}
+            validateOtp={validateOtp}
+            otpValidationLoading={otpValidationLoading}
             // email={formData.email}
           />
         )}
       </div>
     </div>
   );
+};
+
+Auth.propTypes = {
+  intl: PropTypes.shape(intlShape),
+  signInUser: PropTypes.func,
+  signInUserLoading: PropTypes.bool,
+  // signInUserLoaded: PropTypes.shape(intlShape),
+  registerUser: PropTypes.func,
+  registerUserLoading: PropTypes.bool,
+  registerUserLoaded: PropTypes.bool,
+  validateOtp: PropTypes.func,
+  otpValidationLoading: PropTypes.bool,
+  otpValidationLoaded: PropTypes.bool,
 };
 
 export default Auth;
