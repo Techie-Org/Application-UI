@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { fetchArtistsSuccess } from './actions';
 import { LOAD_HOME } from './constants';
-import artists from './artists_export.json';
+import artists from './tests/mockData/artists.json';
 
 export function* fetchArtistsSaga() {
   yield put(fetchArtistsSuccess(artists));

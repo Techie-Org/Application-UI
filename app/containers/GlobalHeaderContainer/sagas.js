@@ -1,8 +1,13 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { history } from 'utils/browserHistory';
-import { userProfileSuccess, userLogoutSuccess, setUserLogIn } from './actions';
+import {
+  userProfileSuccess,
+  userProfileFailed,
+  userLogoutSuccess,
+  setUserLogIn,
+} from './actions';
 import {
   LOAD_USER_PROFILE,
   USER_PROFILE_API_URL,
@@ -24,7 +29,9 @@ export function* userProfileSaga() {
       yield put(userProfileSuccess(response.data));
       yield put(setUserLogIn(true));
     }
+    yield put(userProfileFailed());
   } catch (error) {
+    yield put(userProfileFailed(error));
     console.log('userProfile error', error);
   }
 }
@@ -49,7 +56,7 @@ export function* userLogoutSaga() {
 }
 
 export function* userProfileDaemon() {
-  yield takeEvery(LOAD_USER_PROFILE, userProfileSaga);
+  yield takeLatest(LOAD_USER_PROFILE, userProfileSaga);
 }
 
 export function* userLogoutDaemon() {

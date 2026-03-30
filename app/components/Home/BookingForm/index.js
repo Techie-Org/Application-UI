@@ -5,11 +5,11 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
   const [loading, setLoading] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    event_date: '',
-    event_time: '',
-    duration_hours: '2',
-    event_location: '',
-    event_type: '',
+    eventDate: '',
+    eventTime: '',
+    durationHours: '2',
+    eventLocation: '',
+    eventType: '',
     notes: '',
   });
 
@@ -30,18 +30,18 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
         return;
       }
 
-      const totalPrice = artist.hourly_rate * parseFloat(formData.duration_hours);
+      const totalPrice = artist.hourlyRate * parseFloat(formData.durationHours);
 
       const { error } = await supabase.from('bookings').insert({
-        artist_id: artist.id,
-        user_id: user.id,
-        event_date: formData.event_date,
-        event_time: formData.event_time,
-        duration_hours: parseFloat(formData.duration_hours),
-        event_location: formData.event_location,
-        event_type: formData.event_type,
+        artistId: artist.id,
+        userId: user.id,
+        eventDate: formData.eventDate,
+        eventTime: formData.eventTime,
+        durationHours: parseFloat(formData.durationHours),
+        eventLocation: formData.eventLocation,
+        eventType: formData.eventType,
         status: 'pending',
-        total_price: totalPrice,
+        totalPrice: totalPrice,
         notes: formData.notes,
       });
 
@@ -52,11 +52,11 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
         setBookingSuccess(false);
         setShowBookingForm(false);
         setFormData({
-          event_date: '',
-          event_time: '',
-          duration_hours: '2',
-          event_location: '',
-          event_type: '',
+          eventDate: '',
+          eventTime: '',
+          durationHours: '2',
+          eventLocation: '',
+          eventType: '',
           notes: '',
         });
       }, 3000);
@@ -68,7 +68,7 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
     }
   };
 
-  const calculateTotal = () => artist.hourly_rate * parseFloat(formData.duration_hours || '0');
+  const calculateTotal = () => artist.hourlyRate * parseFloat(formData.durationHours || '0');
 
   if (bookingSuccess) {
     return (
@@ -120,8 +120,8 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
                 <input
                   type="date"
                   required
-                  value={formData.event_date}
-                  onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
+                  value={formData.eventDate}
+                  onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
                   min={new Date().toISOString().split('T')[0]}
                   className={styles.inputField}
                 />
@@ -132,8 +132,8 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
                 <input
                   type="time"
                   required
-                  value={formData.event_time}
-                  onChange={(e) => setFormData({ ...formData, event_time: e.target.value })}
+                  value={formData.eventTime}
+                  onChange={(e) => setFormData({ ...formData, eventTime: e.target.value })}
                   className={styles.inputField}
                 />
               </div>
@@ -146,8 +146,8 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
                 required
                 min="1"
                 step="0.5"
-                value={formData.duration_hours}
-                onChange={(e) => setFormData({ ...formData, duration_hours: e.target.value })}
+                value={formData.durationHours}
+                onChange={(e) => setFormData({ ...formData, durationHours: e.target.value })}
                 className={styles.inputField}
               />
             </div>
@@ -158,8 +158,8 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
                 type="text"
                 required
                 placeholder="Enter the venue address"
-                value={formData.event_location}
-                onChange={(e) => setFormData({ ...formData, event_location: e.target.value })}
+                value={formData.eventLocation}
+                onChange={(e) => setFormData({ ...formData, eventLocation: e.target.value })}
                 className={styles.inputField}
               />
             </div>
@@ -167,8 +167,8 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
             <div className={styles.formGroup}>
               <label className={styles.label}>Event Type</label>
               <select
-                value={formData.event_type}
-                onChange={(e) => setFormData({ ...formData, event_type: e.target.value })}
+                value={formData.eventType}
+                onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
                 className={styles.inputField}
               >
                 <option value="">Select event type</option>
@@ -202,10 +202,10 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
                 </span>
               </div>
               <p className={styles.calculationText}>
-                {formData.duration_hours}
+                {formData.durationHours}
                 {' '}
                 hours × $
-                {artist.hourly_rate}
+                {artist.hourlyRate}
                 /hour
               </p>
             </div>

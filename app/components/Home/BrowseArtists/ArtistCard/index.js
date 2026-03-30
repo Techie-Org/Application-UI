@@ -14,13 +14,13 @@ const ArtistCard = ({ artist, onSelect }) => (
   >
     <div className={styles.imageWrapper}>
       <img
-        src={artist.image_url}
+        src={artist.imageUrl}
         alt={artist.name}
         className={styles.artistImage}
       />
       <div className={styles.priceBadge}>
         $
-        {artist.hourly_rate}
+        {artist.hourlyRate}
         /hr
       </div>
       {!artist.available && (
@@ -48,7 +48,7 @@ const ArtistCard = ({ artist, onSelect }) => (
           <div className={styles.infoRow}>
             <Clock className={styles.iconSmall} />
             <span>
-              {artist.experience_years}
+              {artist.experienceYears}
               {' '}
               years exp.
             </span>
@@ -57,7 +57,7 @@ const ArtistCard = ({ artist, onSelect }) => (
           <div className={styles.infoRow}>
             <TrendingUp className={styles.iconSmall} />
             <span>
-              {artist.total_bookings}
+              {artist.totalBookings}
               {' '}
               bookings
             </span>

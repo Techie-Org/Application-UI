@@ -1,0 +1,31 @@
+
+[
+  {
+    "userId": "69c9f296146627a8472b9f7a",
+    "artistId": "69c9f2bd691e1a213703edfd",
+    "userEmail": "test@gmail.com",
+    "eventDate": "2026-03-26",
+    "eventTime": "00:00:00",
+    "durationHours": "2",
+    "eventLocation": "India",
+    "eventType": "Wedding",
+    "status": "pending",
+    "totalPrice": "280",
+    "notes": "",
+    "createdAt": "2026-03-25 07:25:45.041889+00"
+  },
+  {
+    "userId": "69c9f296146627a8472b9f7a",
+    "artistId": "69c9f2bd691e1a213703edfe",
+    "userEmail": "test@gmail.com",
+    "eventDate": "2026-03-27",
+    "eventTime": "00:00:00",
+    "durationHours": "2",
+    "eventLocation": "India",
+    "eventType": "Wedding",
+    "status": "pending",
+    "totalPrice": "280",
+    "notes": "",
+    "createdAt": "2026-03-26 07:25:45.041889+00"
+  }
+]

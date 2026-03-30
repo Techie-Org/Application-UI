@@ -16,7 +16,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
 
         <div className={styles.detailCard}>
           <div className={styles.imageSection}>
-            <img src={artist.image_url} alt={artist.name} className={styles.heroImage} />
+            <img src={artist.imageUrl} alt={artist.name} className={styles.heroImage} />
             {!artist.available && <div className={styles.statusBadgeLarge}>Currently Unavailable</div>}
           </div>
 
@@ -28,7 +28,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
               </div>
               <div className={styles.priceHighlight}>
                 $
-                {artist.hourly_rate}
+                {artist.hourlyRate}
                 <div className={styles.priceSubtext}>per hour</div>
               </div>
             </div>
@@ -41,7 +41,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
               <div className={styles.statItem}>
                 <TrendingUp className={styles.statIcon} />
                 <span>
-                  {artist.total_bookings}
+                  {artist.totalBookings}
                   {' '}
                   bookings
                 </span>
@@ -49,7 +49,7 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
               <div className={styles.statItem}>
                 <Clock className={styles.statIcon} />
                 <span>
-                  {artist.experience_years}
+                  {artist.experienceYears}
                   {' '}
                   years
                 </span>

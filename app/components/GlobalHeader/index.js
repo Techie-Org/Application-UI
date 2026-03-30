@@ -29,7 +29,9 @@ export const GlobalHeader = (props) => {
   const { intl, isUserLoggedIn, logoutUser, loadUserProfile } = props;
 
   useEffect(() => {
-    loadUserProfile();
+    if (!isUserLoggedIn) {
+      loadUserProfile();
+    }
   }, [isUserLoggedIn]);
 
   const handleUserLogout = () => {

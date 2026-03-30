@@ -1,4 +1,11 @@
-import { LOAD_USER_PROFILE, USER_PROFILE_SUCCESS, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGGED_IN } from './constants';
+import {
+  LOAD_USER_PROFILE,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAILED,
+  USER_LOGOUT,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGGED_IN,
+} from './constants';
 
 export function loadUserProfile() {
   return {
@@ -9,6 +16,13 @@ export function loadUserProfile() {
 export function userProfileSuccess(data) {
   return {
     type: USER_PROFILE_SUCCESS,
+    data,
+  };
+}
+
+export function userProfileFailed(data) {
+  return {
+    type: USER_PROFILE_FAILED,
     data,
   };
 }

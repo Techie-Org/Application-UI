@@ -7,7 +7,6 @@ export const makeSelectRegisterUserLoading = () => createSelector(
   (state) => state?.getIn(['registerUser', 'loading']) ?? false,
 );
 
-
 export const makeSelectRegisterUserLoaded = () => createSelector(
   signUpState,
   (state) => state?.getIn(['registerUser', 'loaded']) ?? false,

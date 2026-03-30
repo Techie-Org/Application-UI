@@ -41,6 +41,30 @@ function createSagaInjector(runSaga, commonSagas) {
     injectSaga(commonSagaKey, commonSagas[commonSagaKey]);
   });
 
+  // return injectSaga;
+  // // Normalize to an array so we can handle single functions or arrays of functions
+  //   const sagaArray = Array.isArray(sagas) ? sagas : [sagas];
+
+  //   // Store all tasks for this key in an array
+  //   const tasks = sagaArray.map((saga) => {
+  //     if (typeof saga === 'function') {
+  //       return runSaga(saga);
+  //     }
+  //     return null;
+  //   }).filter(task => task !== null);
+
+  //   if (tasks.length > 0) {
+  //     injectedSagas.set(key, tasks);
+  //     console.log(`✅ Injected ${tasks.length} saga(s) for key: ${key}`);
+  //   }
+  // };
+
+  // console.log('DEBUG: rootSaga content is:', rootSaga);
+  // Inject the static root sagas
+  // Object.keys(commonSagas).forEach((key) => {
+  //   injectSaga(key, commonSagas[key]);
+  // });
+
   return injectSaga;
 }
 

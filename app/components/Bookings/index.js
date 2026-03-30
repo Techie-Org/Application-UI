@@ -1,72 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, MapPin, Clock, DollarSign } from 'lucide-react';
+import PropTypes from 'prop-types';
+import { history } from 'utils/browserHistory';
 import styles from './styles.scss';
 
 const MyBookings = ({
+  fetchBookings,
   bookings = [],
+  isUserLoggedIn = false,
+  isUserProfileLoaded,
+  userProfile,
 }) => {
-  // const [bookings, setBookings] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    // fetchBookings();
-  }, []);
-
-  // const fetchBookings = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const { data: { user } } = await supabase.auth.getUser();
-
-  //     if (!user) return;
-
-  //     const { data, error } = await supabase
-  //       .from('bookings')
-  //       .select(`
-  //         *,
-  //         artist:artists(*)
-  //       `)
-  //       .eq('user_id', user.id)
-  //       .order('event_date', { ascending: false });
-
-  //     if (error) throw error;
-
-  //     setBookings(data);
-  //   } catch (error) {
-  //     console.error('Error fetching bookings:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  console.log('bookings: ', { bookings });
+    if (isUserProfileLoaded) {
+      if (!isUserLoggedIn) {
+        history.navigate('/account');
+      }
+      fetchBookings({ userEmail: userProfile?.email }); // need to use dynamic property to fetch user bookings --> userProfile?.email
+    }
+  }, [isUserLoggedIn, isUserProfileLoaded]);
 
   const filteredBookings = filter === 'all'
     ? bookings
     : bookings.filter((booking) => booking.status === filter);
-
-  // const getStatusColor = (status) => {
-  //   switch (status) {
-  //     case 'pending':
-  //       return 'bg-yellow-100 text-yellow-800';
-  //     case 'confirmed':
-  //       return 'bg-green-100 text-green-800';
-  //     case 'completed':
-  //       return 'bg-blue-100 text-blue-800';
-  //     case 'cancelled':
-  //       return 'bg-red-100 text-red-800';
-  //     default:
-  //       return 'bg-gray-100 text-gray-800';
-  //   }
-  // };
-
-  // if (loading) {
-  //   return (
-  //     <div className={styles.container}>
-  //       <div className={styles.spinner}></div>
-  //     </div>
-  //   );
-  // }
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -121,10 +79,10 @@ const MyBookings = ({
         ) : (
           <div className={styles.bookingList}>
             {filteredBookings.map((booking) => (
-              <div key={booking.id} className={styles.bookingCard}>
+              <div key={booking.bookingId} className={styles.bookingCard}>
                 <div className={styles.cardFlex}>
                   <div className={styles.imageContainer}>
-                    <img src={booking.artist.image_url} alt={booking.artist.name} className={styles.artistImg} />
+                    <img src={booking.artist.imageUrl} alt={booking.artist.name} className={styles.artistImg} />
                   </div>
 
                   <div className={styles.cardContent}>
@@ -144,7 +102,7 @@ const MyBookings = ({
                         <div>
                           <div className={styles.labelSmall}>Event Date</div>
                           <div className={styles.valueBold}>
-                            {new Date(booking.event_date).toLocaleDateString()}
+                            {new Date(booking.eventDate).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
@@ -153,10 +111,10 @@ const MyBookings = ({
                         <div>
                           <div className={styles.labelSmall}>Time & Duration</div>
                           <div className={styles.valueBold}>
-                            {booking.event_time}
+                            {booking.eventTime}
                             {' '}
                             (
-                            {booking.duration_hours}
+                            {booking.durationHours}
                             h)
                           </div>
                         </div>
@@ -165,7 +123,7 @@ const MyBookings = ({
                         <MapPin className={styles.icon} />
                         <div>
                           <div className={styles.locationLabel}>Location</div>
-                          <div className={styles.valueBold}>{booking.event_location}</div>
+                          <div className={styles.valueBold}>{booking.eventLocation}</div>
                         </div>
                       </div>
                       <div className={styles.detailItem}>
@@ -174,17 +132,17 @@ const MyBookings = ({
                           <div className={styles.costLabel}>Total Cost</div>
                           <div className={styles.priceValue}>
                             $
-                            {Number(booking.total_price).toFixed(2)}
+                            {Number(booking.totalPrice).toFixed(2)}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {booking.event_type && (
+                    {booking.eventType && (
                       <div className={styles.eventTypeRow}>
                         <span className={styles.labelSecondary}>Event Type: </span>
                         <span className={styles.valuePrimary}>
-                          {booking.event_type}
+                          {booking.eventType}
                         </span>
                       </div>
                     )}
@@ -204,6 +162,14 @@ const MyBookings = ({
       </div>
     </div>
   );
+};
+
+MyBookings.propTypes = {
+  fetchBookings: PropTypes.func.isRequired,
+  bookings: PropTypes.array.isRequired,
+  isUserLoggedIn: PropTypes.bool,
+  isUserProfileLoaded: PropTypes.bool,
+  userProfile: PropTypes.object,
 };
 
 export default MyBookings;

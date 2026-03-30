@@ -1,5 +1,12 @@
 import { fromJS } from 'immutable';
-import { LOAD_USER_PROFILE, USER_PROFILE_SUCCESS, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGGED_IN } from './constants';
+import {
+  LOAD_USER_PROFILE,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAILED,
+  USER_LOGOUT,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGGED_IN,
+} from './constants';
 
 // const REDUCER_KEY = 'globalHeader';
 
@@ -32,6 +39,12 @@ function globalHeaderReducer(state = initialState, action) {
         .setIn(['userProfile', 'loaded'], true)
         .setIn(['userProfile', 'error'], false)
         .setIn(['userProfile', 'data'], action.data);
+    case USER_PROFILE_FAILED:
+      return state
+        .setIn(['userProfile', 'loading'], false)
+        .setIn(['userProfile', 'loaded'], true)
+        .setIn(['userProfile', 'error'], true)
+        .setIn(['userProfile', 'data'], action.data);
     case USER_LOGOUT:
       return state
         .setIn(['userLogout', 'loading'], true)
@@ -44,8 +57,7 @@ function globalHeaderReducer(state = initialState, action) {
         .setIn(['userLogout', 'error'], false)
         .setIn(['userLogout', 'data'], {});
     case USER_LOGGED_IN:
-      return state
-        .set('userLoggedIn', action.payload);
+      return state.set('userLoggedIn', action.payload);
     default:
       return state;
   }
