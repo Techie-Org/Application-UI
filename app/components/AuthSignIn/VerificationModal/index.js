@@ -12,6 +12,7 @@ const VerificationModal = ({
   otpValidationLoading,
   otpValidationSuccess,
   email = 'user@example.com',
+  handleResendOtp,
 }) => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
 
@@ -102,7 +103,7 @@ const VerificationModal = ({
 
         <div className={styles.modalFooter}>
           <p>{'Didn\'t receive the code?'}</p>
-          <button type="button" className={styles.resendLink}>
+          <button type="button" className={styles.resendLink} onClick={handleResendOtp}>
             <RefreshCw size={14} />
             Resend Code
           </button>
@@ -117,6 +118,7 @@ VerificationModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   validateOtp: PropTypes.func.isRequired,
   setIsLogin: PropTypes.func,
+  handleResendOtp: PropTypes.func,
   otpValidationLoading: PropTypes.bool,
   otpValidationSuccess: PropTypes.bool,
   email: PropTypes.string,

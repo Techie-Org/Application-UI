@@ -11,6 +11,7 @@ import {
 import {
   registerUser as registerUserAction,
   validateOtp as validateOtpAction,
+  resendOtp as resendOtpAction,
 } from 'containers/SignUp/actions';
 import {
   makeSelectRegisterUserLoading,
@@ -39,6 +40,7 @@ export const mapDispatchToProps = (dispatch) => ({
   signInUser: (request) => dispatch(signInUserAction(request)),
   registerUser: (requestData) => dispatch(registerUserAction(requestData)),
   validateOtp: (request) => dispatch(validateOtpAction(request)),
+  resendOtp: () => dispatch(resendOtpAction()),
 });
 
 const SignInContainer = compose(

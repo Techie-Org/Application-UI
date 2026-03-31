@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Star, MapPin, Clock, TrendingUp } from 'lucide-react';
+import PropTypes from 'prop-types';
+import BookingForm from 'containers/Home/BookingForm';
 import styles from './styles.scss';
-import BookingForm from '../BookingForm';
 
-const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired }) => {
+const ArtistDetail = ({
+  artist = {},
+  onBack,
+  isAuthenticated,
+  onLoginRequired,
+}) => {
   const [showBookingForm, setShowBookingForm] = useState(false);
 
   return (
@@ -93,6 +99,13 @@ const ArtistDetail = ({ artist = {}, onBack, isAuthenticated, onLoginRequired })
       </div>
     </div>
   );
+};
+
+ArtistDetail.propTypes = {
+  artist: PropTypes.object,
+  onBack: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
+  onLoginRequired: PropTypes.func,
 };
 
 export default ArtistDetail;

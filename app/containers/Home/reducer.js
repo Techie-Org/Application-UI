@@ -3,10 +3,19 @@ import {
   FETCH_ARTISTS,
   FETCH_ARTISTS_SUCCESS,
   FETCH_ARTISTS_FAILED,
+  CONFIRM_BOOKING,
+  CONFIRM_BOOKING_SUCCESS,
+  CONFIRM_BOOKING_FAILED,
 } from './constants';
 
 const initialState = fromJS({
   artistsData: {
+    data: null,
+    loading: false,
+    loaded: false,
+    error: false,
+  },
+  confirmBooking: {
     data: null,
     loading: false,
     loaded: false,
@@ -31,6 +40,21 @@ function home(state = initialState, action) {
         .setIn(['artistsData', 'loaded'], true)
         .setIn(['artistsData', 'error'], true)
         .setIn(['artistsData', 'data'], action.data);
+    case CONFIRM_BOOKING:
+      return state
+        .setIn(['confirmBooking', 'loading'], true)
+        .setIn(['confirmBooking', 'loaded'], false);
+    case CONFIRM_BOOKING_SUCCESS:
+      return state
+        .setIn(['confirmBooking', 'loading'], false)
+        .setIn(['confirmBooking', 'loaded'], true)
+        .setIn(['confirmBooking', 'data'], action.data);
+    case CONFIRM_BOOKING_FAILED:
+      return state
+        .setIn(['confirmBooking', 'loading'], false)
+        .setIn(['confirmBooking', 'loaded'], true)
+        .setIn(['confirmBooking', 'error'], true)
+        .setIn(['confirmBooking', 'data'], action.data);
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import {
   VALIDATE_OTP,
   VALIDATE_OTP_FAILED,
   VALIDATE_OTP_SUCCESS,
+  RESEND_OTP,
 } from './constants';
 
 export function registerUser(signUpFormData) {
@@ -26,6 +27,12 @@ export function registerUserSuccess(data) {
   return {
     type: REGISTER_USER_SUCCESS,
     data,
+  };
+}
+
+export function resendOtp() {
+  return {
+    type: RESEND_OTP,
   };
 }
 

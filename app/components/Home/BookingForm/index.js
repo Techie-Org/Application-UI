@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import ButtonWithSpinner from 'components/_DesignWrappers/ButtonWithSpinner';
 import styles from './styles.scss';
 
-const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingForm }) => {
-  const [loading, setLoading] = useState(false);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+const BookingForm = ({
+  artist,
+  // isUserLoggedIn,
+  // onLoginRequired,
+  setShowBookingForm,
+  confirmBooking,
+  confirmBookingLoading,
+  // confirmBookingSuccess,
+  userProfile,
+}) => {
   const [formData, setFormData] = useState({
     eventDate: '',
     eventTime: '',
@@ -13,96 +22,88 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
     notes: '',
   });
 
-  const handleBookingSubmit = async (e) => {
+  const handleBookingSubmit = (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated) {
-      onLoginRequired();
-      return;
-    }
+    // if (!isUserLoggedIn) {
+    //   // onLoginRequired();
+    //   return;
+    // }
 
-    try {
-      setLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
+    const totalPrice = artist.hourlyRate * parseFloat(formData.durationHours);
+    const bookingDetails = {
+      artistId: artist.artistId,
+      userEmail: userProfile.email, // Change to userEmail --> To fetch user in the backend
+      eventDate: formData.eventDate,
+      eventTime: formData.eventTime,
+      durationHours: parseFloat(formData.durationHours),
+      eventLocation: formData.eventLocation,
+      eventType: formData.eventType,
+      status: 'pending',
+      totalPrice,
+      notes: formData.notes,
+    };
 
-      if (!user) {
-        onLoginRequired();
-        return;
-      }
+    confirmBooking(bookingDetails);
 
-      const totalPrice = artist.hourlyRate * parseFloat(formData.durationHours);
-
-      const { error } = await supabase.from('bookings').insert({
-        artistId: artist.id,
-        userId: user.id,
-        eventDate: formData.eventDate,
-        eventTime: formData.eventTime,
-        durationHours: parseFloat(formData.durationHours),
-        eventLocation: formData.eventLocation,
-        eventType: formData.eventType,
-        status: 'pending',
-        totalPrice: totalPrice,
-        notes: formData.notes,
-      });
-
-      if (error) throw error;
-
-      setBookingSuccess(true);
-      setTimeout(() => {
-        setBookingSuccess(false);
-        setShowBookingForm(false);
-        setFormData({
-          eventDate: '',
-          eventTime: '',
-          durationHours: '2',
-          eventLocation: '',
-          eventType: '',
-          notes: '',
-        });
-      }, 3000);
-    } catch (error) {
-      console.error('Error creating booking:', error);
-      alert('Failed to create booking. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    // setBookingSuccess(true);
+    //   setTimeout(() => {
+    //     setBookingSuccess(false);
+    //     setShowBookingForm(false);
+    //     setFormData({
+    //       eventDate: '',
+    //       eventTime: '',
+    //       durationHours: '2',
+    //       eventLocation: '',
+    //       eventType: '',
+    //       notes: '',
+    //     });
+    //   }, 3000);
+    // } catch (error) {
+    //   console.error('Error creating booking:', error);
+    //   alert('Failed to create booking. Please try again.');
+    // } finally {
+    // setLoading(false);
+    // }
   };
 
   const calculateTotal = () => artist.hourlyRate * parseFloat(formData.durationHours || '0');
 
-  if (bookingSuccess) {
-    return (
-      <div className={styles.successWrapper}>
-        <div className={styles.successCard}>
-          <div className={styles.iconCircle}>
-            <svg
-              className={styles.checkIcon}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
+  // if (confirmBookingSuccess) {
+  //   return (
+  //     <div className={styles.successWrapper}>
+  //       <div className={styles.successCard}>
+  //         <div className={styles.iconCircle}>
+  //           <svg
+  //             className={styles.checkIcon}
+  //             fill="none"
+  //             stroke="currentColor"
+  //             viewBox="0 0 24 24"
+  //           >
+  //             <path
+  //               strokeLinecap="round"
+  //               strokeLinejoin="round"
+  //               strokeWidth={2}
+  //               d="M5 13l4 4L19 7"
+  //             />
+  //           </svg>
+  //         </div>
 
-          <h2 className={styles.title}>Booking Submitted!</h2>
+  //         <h2 className={styles.title}>Booking Submitted!</h2>
 
-          <p className={styles.message}>
-            Your booking request has been sent to
-            {' '}
-            <strong>{artist.name}</strong>
-            .
-            You'll receive a confirmation shortly.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  //         <p className={styles.message}>
+  //           {`Your booking request has been sent to ${
+  //             <strong>
+  //               {' '}
+  //               $
+  //               {artist.name}
+  //             </strong>}
+  //           . You'll receive a confirmation shortly.`}
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={styles.overlay}>
@@ -218,19 +219,31 @@ const BookingForm = ({ artist, isAuthenticated, onLoginRequired, setShowBookingF
               >
                 Cancel
               </button>
-              <button
+              <ButtonWithSpinner
                 type="submit"
-                disabled={loading}
+                spinOn={confirmBookingLoading}
+                disabled={confirmBookingLoading}
                 className={`${styles.btnBase} ${styles.btnSubmit}`}
               >
-                {loading ? 'Submitting...' : 'Confirm Booking'}
-              </button>
+                {confirmBookingLoading ? 'Submitting...' : 'Confirm Booking'}
+              </ButtonWithSpinner>
             </div>
           </form>
         </div>
       </div>
     </div>
   );
+};
+
+BookingForm.propTypes = {
+  artist: PropTypes.object,
+  // isUserLoggedIn: PropTypes.bool,
+  // onLoginRequired: PropTypes.func,
+  setShowBookingForm: PropTypes.func,
+  confirmBooking: PropTypes.func,
+  confirmBookingLoading: PropTypes.func,
+  // confirmBookingSuccess: PropTypes.func,
+  userProfile: PropTypes.func,
 };
 
 export default BookingForm;

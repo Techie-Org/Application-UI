@@ -10,3 +10,5 @@ export const TIMEOUT = 30000;
 export const VALIDATE_OTP = 'artistry/SignIn/VALIDATE_OTP';
 export const VALIDATE_OTP_FAILED = 'artistry/SignIn/VALIDATE_OTP_FAILED';
 export const VALIDATE_OTP_SUCCESS = 'artistry/SignIn/VALIDATE_OTP_SUCCESS';
+
+export const RESEND_OTP = 'artistry/SignIn/RESEND_OTP';

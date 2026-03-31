@@ -33,6 +33,7 @@ const Auth = (props) => {
     otpValidationLoading,
     otpValidationSuccess,
     isUserLoggedIn = false,
+    resendOtp,
   } = props;
 
   const [isLogin, setIsLogin] = useState(true);
@@ -263,6 +264,7 @@ const Auth = (props) => {
             email={userEmail}
             setIsLogin={setIsLogin}
             otpValidationSuccess={otpValidationSuccess}
+            handleResendOtp={resendOtp}
           />
         )}
       </div>
@@ -278,6 +280,7 @@ Auth.propTypes = {
   registerUserLoading: PropTypes.bool,
   registerUserLoaded: PropTypes.bool,
   validateOtp: PropTypes.func,
+  resendOtp: PropTypes.func,
   otpValidationLoading: PropTypes.bool,
   otpValidationSuccess: PropTypes.bool,
   isUserLoggedIn: PropTypes.bool,

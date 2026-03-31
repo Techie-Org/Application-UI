@@ -10,6 +10,7 @@ import {
   TIMEOUT,
   VALIDATE_OTP,
   VALIDATE_OTP_API_URL,
+  RESEND_OTP,
 } from './constants';
 import { transformvalidateOtpData } from './utils';
 
@@ -25,7 +26,7 @@ export function* registerUserSaga() {
       headers: getHeaders(),
     });
 
-    yield put(registerUserSuccess(response.data));
+    yield put(registerUserSuccess(response));
   } catch (error) {
     yield put(registerUserFailed(error));
     console.log('register User error', error);
@@ -55,7 +56,7 @@ export function* validateOtpSaga() {
 }
 
 export function* registerUserDaemon() {
-  yield takeLatest(REGISTER_USER, registerUserSaga);
+  yield takeLatest([REGISTER_USER, RESEND_OTP], registerUserSaga); // TODO: Need to create a separate API and saga to resend OTP
 }
 export function* validateOtpDaemon() {
   yield takeLatest(VALIDATE_OTP, validateOtpSaga);
