@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Search, Filter } from 'lucide-react';
+import PropTypes from 'prop-types';
 import ArtistCard from './ArtistCard';
 import styles from './styles.scss';
 
@@ -162,13 +163,18 @@ const BrowseArtists = ({
         ) : (
           <div className={styles.artistGrid}>
             {filteredArtists.map((artist) => (
-              <ArtistCard key={artist.id} artist={artist} onSelect={onSelectArtist} />
+              <ArtistCard key={artist.artistId} artist={artist} onSelect={onSelectArtist} />
             ))}
           </div>
         )}
       </div>
     </div>
   );
+};
+
+BrowseArtists.propTypes = {
+  artists: PropTypes.array.isRequired,
+  onSelectArtist: PropTypes.func.isRequired,
 };
 
 export default BrowseArtists;

@@ -2,8 +2,8 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import getHeaders from 'utils/web';
 import { history } from 'utils/browserHistory';
+import { setUserLogIn, loadUserProfile } from 'containers/GlobalHeaderContainer/actions';
 import { signInUserFailed, signInUserSuccess } from './actions';
-import { setUserLogIn } from '../GlobalHeaderContainer/actions';
 import { makeSelectSignInFormData } from './selectors';
 import {
   SIGN_IN_USER, SIGN_IN_USER_API_URL,
@@ -24,6 +24,7 @@ export function* signInUserSaga() {
 
     yield put(signInUserSuccess(response.data));
     yield put(setUserLogIn(true));
+    yield put(loadUserProfile());
     history.navigate('/');
   } catch (error) {
     yield put(signInUserFailed(error));

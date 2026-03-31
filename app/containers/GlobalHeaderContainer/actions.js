@@ -33,6 +33,7 @@ export function logoutUser() {
   };
 }
 
+// TODO: Need to combine userLogoutSuccess and setUserLogin actions
 export function userLogoutSuccess() {
   return {
     type: USER_LOGOUT_SUCCESS,

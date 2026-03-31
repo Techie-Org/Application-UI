@@ -25,11 +25,13 @@ export function* userProfileSaga() {
       headers: getHeaders(),
     });
 
-    if (response.success) {
-      yield put(userProfileSuccess(response.data));
-      yield put(setUserLogIn(true));
+    if (!response.success) {
+      yield put(userProfileFailed());
+      return;
     }
-    yield put(userProfileFailed());
+
+    yield put(userProfileSuccess(response.data));
+    yield put(setUserLogIn(true));
   } catch (error) {
     yield put(userProfileFailed(error));
     console.log('userProfile error', error);

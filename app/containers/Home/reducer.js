@@ -1,25 +1,36 @@
 import { fromJS } from 'immutable';
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import {
+  FETCH_ARTISTS,
+  FETCH_ARTISTS_SUCCESS,
+  FETCH_ARTISTS_FAILED,
+} from './constants';
 
 const initialState = fromJS({
-  homeResponse: {
+  artistsData: {
     data: null,
-    loading: null,
-    loaded: null,
+    loading: false,
+    loaded: false,
+    error: false,
   },
 });
 
 function home(state = initialState, action) {
   switch (action.type) {
-    case LOAD_HOME:
+    case FETCH_ARTISTS:
       return state
-        .setIn(['homeResponse', 'loading'], true)
-        .setIn(['homeResponse', 'loaded'], false);
-    case LOAD_HOME_SUCCESS:
+        .setIn(['artistsData', 'loading'], true)
+        .setIn(['artistsData', 'loaded'], false);
+    case FETCH_ARTISTS_SUCCESS:
       return state
-        .setIn(['homeResponse', 'loading'], false)
-        .setIn(['homeResponse', 'loaded'], true)
-        .setIn(['homeResponse', 'data'], action.data);
+        .setIn(['artistsData', 'loading'], false)
+        .setIn(['artistsData', 'loaded'], true)
+        .setIn(['artistsData', 'data'], action.data);
+    case FETCH_ARTISTS_FAILED:
+      return state
+        .setIn(['artistsData', 'loading'], false)
+        .setIn(['artistsData', 'loaded'], true)
+        .setIn(['artistsData', 'error'], true)
+        .setIn(['artistsData', 'data'], action.data);
     default:
       return state;
   }

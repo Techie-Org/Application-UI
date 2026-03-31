@@ -1,14 +1,25 @@
-import { LOAD_HOME, LOAD_HOME_SUCCESS } from './constants';
+import {
+  FETCH_ARTISTS,
+  FETCH_ARTISTS_FAILED,
+  FETCH_ARTISTS_SUCCESS,
+} from './constants';
 
 export function fetchArtists() {
   return {
-    type: LOAD_HOME,
+    type: FETCH_ARTISTS,
   };
 }
 
 export function fetchArtistsSuccess(data) {
   return {
-    type: LOAD_HOME_SUCCESS,
+    type: FETCH_ARTISTS_SUCCESS,
+    data,
+  };
+}
+
+export function fetchArtistsFailed(data) {
+  return {
+    type: FETCH_ARTISTS_FAILED,
     data,
   };
 }

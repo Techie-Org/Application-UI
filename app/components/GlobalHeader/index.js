@@ -26,7 +26,7 @@ import styles from './styles.scss';
 export const GlobalHeader = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [menuAnchorElement, setMenuAnchorElement] = useState(null);
-  const { intl, isUserLoggedIn, logoutUser, loadUserProfile } = props;
+  const { intl, isUserLoggedIn, logoutUser, loadUserProfile, userProfileData } = props;
 
   useEffect(() => {
     if (!isUserLoggedIn) {
@@ -103,6 +103,7 @@ export const GlobalHeader = (props) => {
     </Toolbar>
   );
 
+  // eslint-disable-next-line no-unused-vars
   const renderNavbar = () => (
     <div className={styles.navbarContainer}>
       {renderLogo()}
@@ -124,7 +125,12 @@ export const GlobalHeader = (props) => {
     <div className={styles.headerContainer}>
       {/* <section className={styles.globalHeaderNavbar}>{renderNavbar()}</section> */}
       <section className={styles.globalHeaderNavbar}>
-        <Header isAuthenticated={isUserLoggedIn} onNavigate={onNavigate} />
+        <Header
+          isAuthenticated={isUserLoggedIn}
+          onNavigate={onNavigate}
+          logoutUser={logoutUser}
+          userProfileData={userProfileData}
+        />
       </section>
     </div>
   );
@@ -133,6 +139,7 @@ export const GlobalHeader = (props) => {
 GlobalHeader.propTypes = {
   intl: PropTypes.shape(intlShape),
   loadUserProfile: PropTypes.func,
+  userProfileData: PropTypes.object,
   logoutUser: PropTypes.func,
   loading: PropTypes.bool,
   isUserLoggedIn: PropTypes.bool,

@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { reduxForm, Form } from 'redux-form/immutable';
+import { useDispatch } from 'react-redux';
+import { reduxForm, Form, destroy as destroyForm } from 'redux-form/immutable';
 
 const LocalForm = (props) => {
   const { className, children, onSubmit, form, handleSubmit } = props;
 
+  const dispatch = useDispatch();
   const componentClassName = classnames(className, {});
+
+  useEffect(() => () => { // This part runs on Mount (do nothing)
+    // This part runs on Unmount
+    // We manually tell Redux Form to kill the state for this specific form ID
+    if (form) {
+      dispatch(destroyForm(form));
+      console.log(`🧹 Form ${form} has been cleared from Redux.`);
+    }
+  },
+  [form, dispatch]); // Dependency on 'form' ensures we clear the right ID
 
   const handleLocalSubmit = (formData) => {
     onSubmit(formData.toJS());

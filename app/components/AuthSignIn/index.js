@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Music, Mail, Lock, User as UserIcon } from 'lucide-react';
 import { InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { history } from 'utils/browserHistory';
 import {
   LocalForm,
   TextField,
@@ -30,18 +31,20 @@ const Auth = (props) => {
     registerUserLoaded,
     validateOtp,
     otpValidationLoading,
-    otpValidationLoaded,
+    otpValidationSuccess,
+    isUserLoggedIn = false,
   } = props;
 
   const [isLogin, setIsLogin] = useState(true);
   const [openOtpModal, setOpenOtpModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   const loading = registerUserLoading || signInUserLoading;
 
   useEffect(() => {
     if (registerUserLoaded) {
-      if (otpValidationLoaded) {
+      if (otpValidationSuccess) {
         setOpenOtpModal(false);
       } else {
         setOpenOtpModal(true);
@@ -49,7 +52,14 @@ const Auth = (props) => {
     } else {
       setOpenOtpModal(false);
     }
-  }, [registerUserLoaded, otpValidationLoaded]);
+  }, [registerUserLoaded, otpValidationSuccess]);
+
+  // Redirecting user to homepage if already logged in
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      history.navigate('/'); // TODO: Need to redirect user to the profile page once that is ready
+    }
+  }, [isUserLoggedIn]);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -58,6 +68,7 @@ const Auth = (props) => {
   const handleSignInSubmit = (formData) => {
     console.log('signinsubmit formdata', formData);
     if (!isLogin) {
+      setUserEmail(formData.email);
       registerUser(formData);
       return;
     }
@@ -249,7 +260,9 @@ const Auth = (props) => {
             onClose={() => setOpenOtpModal(false)}
             validateOtp={validateOtp}
             otpValidationLoading={otpValidationLoading}
-            // email={formData.email}
+            email={userEmail}
+            setIsLogin={setIsLogin}
+            otpValidationSuccess={otpValidationSuccess}
           />
         )}
       </div>
@@ -261,13 +274,13 @@ Auth.propTypes = {
   intl: PropTypes.shape(intlShape),
   signInUser: PropTypes.func,
   signInUserLoading: PropTypes.bool,
-  // signInUserLoaded: PropTypes.shape(intlShape),
   registerUser: PropTypes.func,
   registerUserLoading: PropTypes.bool,
   registerUserLoaded: PropTypes.bool,
   validateOtp: PropTypes.func,
   otpValidationLoading: PropTypes.bool,
-  otpValidationLoaded: PropTypes.bool,
+  otpValidationSuccess: PropTypes.bool,
+  isUserLoggedIn: PropTypes.bool,
 };
 
 export default Auth;

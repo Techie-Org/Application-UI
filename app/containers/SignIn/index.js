@@ -4,17 +4,25 @@ import { connect } from 'react-redux';
 import compose from 'lodash/fp/compose';
 // import SignIn from 'components/SignIn';
 import AuthSignIn from 'components/AuthSignIn';
-import { signInUser as signInUserAction } from './actions';
-import { makeSelectSignInUserLoading, makeSelectSignInUserLoaded } from './selectors';
+import {
+  makeSelectIsUserLoggedIn,
+  makeSelectUserProfileLoaded,
+} from 'containers/GlobalHeaderContainer/selectors';
 import {
   registerUser as registerUserAction,
   validateOtp as validateOtpAction,
-} from '../SignUp/actions';
+} from 'containers/SignUp/actions';
 import {
   makeSelectRegisterUserLoading,
   makeSelectRegisterUserLoaded,
   makeSelectOtpValidationLoaded,
-} from '../SignUp/selectors';
+  makeSelectOtpValidationSuccess,
+} from 'containers/SignUp/selectors';
+import {
+  makeSelectSignInUserLoading,
+  makeSelectSignInUserLoaded,
+} from './selectors';
+import { signInUser as signInUserAction } from './actions';
 
 const mapStateToProps = () => createStructuredSelector({
   signInUserLoading: makeSelectSignInUserLoading(),
@@ -22,6 +30,9 @@ const mapStateToProps = () => createStructuredSelector({
   registerUserLoading: makeSelectRegisterUserLoading(),
   registerUserLoaded: makeSelectRegisterUserLoaded(),
   otpValidationLoaded: makeSelectOtpValidationLoaded(),
+  otpValidationSuccess: makeSelectOtpValidationSuccess(),
+  isUserProfileLoaded: makeSelectUserProfileLoaded(),
+  isUserLoggedIn: makeSelectIsUserLoggedIn(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -32,8 +43,8 @@ export const mapDispatchToProps = (dispatch) => ({
 
 const SignInContainer = compose(
   injectIntl,
-  connect(mapStateToProps, mapDispatchToProps)
-// )(SignIn);
+  connect(mapStateToProps, mapDispatchToProps),
+  // )(SignIn);
 )(AuthSignIn);
 
 export default SignInContainer;

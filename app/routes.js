@@ -4,7 +4,7 @@
 export const componentHelper = {
   home: () => import('containers/Home'),
   signIn: () => import('containers/SignIn'),
-  signUp: () => import('containers/SignUp'),
+  // signUp: () => import('containers/SignUp'),
   userBookings: () => import('containers/User/Bookings'),
 };
 
@@ -36,7 +36,7 @@ export const sagaHelper = {
 export const enabledRoutes = [
   'home',
   'signIn',
-  'signUp',
+  // 'signUp',
   'userBookings',
 ];
 
@@ -58,13 +58,13 @@ const accountRoutes = {
     sagas: ['signIn', 'signUp'],
     config: {},
   },
-  signUp: {
-    path: '/account/signUp',
-    name: 'signUp',
-    reducers: ['signUp'],
-    sagas: ['signUp'],
-    config: {},
-  },
+  // signUp: {
+  //   path: '/account/signUp',
+  //   name: 'signUp',
+  //   reducers: ['signUp'],
+  //   sagas: ['signUp'],
+  //   config: {},
+  // },
 };
 
 const userRoutes = {

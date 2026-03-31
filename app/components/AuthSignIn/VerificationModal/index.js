@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Mail, X, ArrowRight, RefreshCw } from 'lucide-react';
 import ButtonWithSpinner from 'components/_DesignWrappers/ButtonWithSpinner';
@@ -7,11 +7,19 @@ import styles from './styles.scss';
 const VerificationModal = ({
   isOpen,
   onClose,
+  setIsLogin,
   validateOtp,
   otpValidationLoading,
+  otpValidationSuccess,
   email = 'user@example.com',
 }) => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
+
+  useEffect(() => {
+    if (otpValidationSuccess) {
+      setIsLogin(true);
+    }
+  }, [otpValidationSuccess]);
 
   // 1. Create an array of refs to hold the input elements
   const inputRefs = useRef([]);
@@ -108,7 +116,9 @@ VerificationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   validateOtp: PropTypes.func.isRequired,
+  setIsLogin: PropTypes.func,
   otpValidationLoading: PropTypes.bool,
+  otpValidationSuccess: PropTypes.bool,
   email: PropTypes.string,
 };
 

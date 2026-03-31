@@ -35,3 +35,14 @@ export const makeSelectOtpValidationLoaded = () => createSelector(
   signUpState,
   (state) => state?.getIn(['validateOtp', 'loaded']) ?? false,
 );
+
+export const makeSelectOtpValidationFailed = () => createSelector(
+  signUpState,
+  (state) => state?.getIn(['validateOtp', 'error']) ?? false,
+);
+
+export const makeSelectOtpValidationSuccess = () => createSelector(
+  makeSelectOtpValidationLoaded(),
+  makeSelectOtpValidationFailed(),
+  (otpValidated, otpValidationFailed) => otpValidated && !otpValidationFailed,
+);

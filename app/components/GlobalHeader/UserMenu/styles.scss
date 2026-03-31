@@ -1,0 +1,120 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem 0.75rem 0rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navLogo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #2563eb;
+}
+
+.userMenuWrapper {
+  position: relative;
+}
+
+.userTrigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 6px 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover, &.active {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+  }
+}
+
+.avatarCircle {
+  background-color: #2563eb;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomeText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.chevron {
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+  
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdownCard {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 200px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  // Ensure this is higher than the backdrop
+  z-index: 100;
+}
+
+.dropdownList {
+  list-style: none;
+  padding: 6px;
+  margin: 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: #4b5563;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: #f3f4f6;
+  margin: 6px 0;
+}
+
+.logoutItem {
+  color: #dc2626;
+  &:hover {
+    background-color: #fef2f2;
+    color: #b91c1c;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 90; // Just below the dropdownCard
+}
