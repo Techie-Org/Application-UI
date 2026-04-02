@@ -11,9 +11,7 @@ const BrowseArtists = ({
   // fetchArtists,
   onSelectArtist,
 }) => {
-  // const [artists, setArtists] = useState([]);
   const [filteredArtists, setFilteredArtists] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
@@ -23,23 +21,6 @@ const BrowseArtists = ({
       filterArtists();
     }
   }, [artists, searchTerm, selectedCategory, showAvailableOnly]);
-
-  // const fetchArtists = async () => {
-  //   try {
-  //     setLoading(true);
-  //     // const { data, error } = await supabase
-  //     //   .from('artists')
-  //     //   .select('*')
-  //     //   .order('rating', { ascending: false });
-
-  //     if (error) throw error;
-  //     // setArtists(data || []);
-  //   } catch (error) {
-  //     console.error('Error fetching artists:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const filterArtists = () => {
     let filtered = [...artists];
@@ -64,14 +45,6 @@ const BrowseArtists = ({
 
     setFilteredArtists(filtered);
   };
-
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className={styles.mainContainer}>

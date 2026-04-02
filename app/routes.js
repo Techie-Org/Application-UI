@@ -6,6 +6,7 @@ export const componentHelper = {
   signIn: () => import('containers/SignIn'),
   // signUp: () => import('containers/SignUp'),
   userBookings: () => import('containers/User/Bookings'),
+  userProfile: () => import('containers/User/Profile'),
 };
 
 /*
@@ -37,6 +38,7 @@ export const enabledRoutes = [
   'home',
   'signIn',
   // 'signUp',
+  'userProfile',
   'userBookings',
 ];
 
@@ -73,6 +75,13 @@ const userRoutes = {
     name: 'userBookings',
     reducers: ['user'],
     sagas: ['user'],
+    config: {},
+  },
+  userProfile: {
+    path: '/user/profile',
+    name: 'userProfile',
+    reducers: ['user', 'globalHeader'],
+    sagas: ['user', 'globalHeader'],
     config: {},
   },
 };

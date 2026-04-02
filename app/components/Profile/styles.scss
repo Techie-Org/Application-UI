@@ -1,0 +1,245 @@
+.profilePageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  background: transparent; // Let the App.js background show through
+}
+
+.profileCard {
+  width: 100%;
+  max-width: 550px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  :global(.dark-mode) & {
+    background: rgba(30, 30, 30, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    color: #fff;
+  }
+}
+
+.profileBanner {
+  height: 140px;
+  // background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.avatarWrapper {
+  position: absolute;
+  bottom: -50px;
+}
+
+.avatarContainer {
+  position: relative;
+  
+  .profileAvatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 30px; // Modern "Squircle" look
+    // border-radius: 50%; // Round look
+    border: 6px solid #fff;
+    object-fit: cover;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    :global(.dark-mode) & {
+      border-color: #1e1e1e;
+    }
+  }
+
+  .cameraBtn {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    background: #fff;
+    color: #6366f1;
+    border: none;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover { transform: scale(1.1); background: #f8fafc; }
+  }
+}
+
+.profileContent {
+  padding: 4rem 2rem 2.5rem;
+}
+
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+
+  .titleInfo {
+    h1 { font-size: 1.5rem; font-weight: 800; margin: 0; }
+    .userRole { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+  }
+}
+
+.editActionBtn {
+  background: rgba(99, 102, 241, 0.1);
+  // color: #6366f1;
+  color: #2563eb;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  
+  &:hover { background: rgba(99, 102, 241, 0.2); }
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.infoTile {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+
+  :global(.dark-mode) & { background: #2a2a2a; border-color: #333; } // for dark mode
+
+  .tileLabel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tileValue {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    .verifiedBadge { color: #10b981; }
+  }
+}
+
+.interactiveTile {
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover { border-color: #6366f1; }
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  
+  .iconBox {
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+
+    :global(.dark-mode) & { background: #333; color: #94a3b8; }
+  }
+
+  .textStack {
+    display: flex;
+    flex-direction: column;
+    .rowLabel { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
+    .rowValue { font-size: 1rem; font-weight: 500; }
+  }
+}
+
+// Form Elements
+.inputField {
+  margin-bottom: 16px;
+  label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+  input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    font-family: inherit;
+    transition: 0.2s;
+    &:focus { outline: none; border-color: #6366f1; }
+
+    :global(.dark-mode) & { background: #333; border-color: #444; color: #fff; }
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  
+  button {
+    flex: 1;
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  // .saveBtn { background: #6366f1; color: #fff; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+  .saveBtn { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+  // .cancelBtn { background: transparent; color: #ef4444; border: 2px solid #fee2e2; }
+  .cancelBtn {
+    background: transparent;
+    color: #dc2626;
+    border: 2px solid #fee2e2;
+    &:hover {
+      background-color: #fef2f2;
+      color: #b91c1c;
+    }
+  }
+}
+
+.placeholderText {
+  color: #94a3b8; // Muted gray color
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+
+  :global(.dark-mode) & {
+    color: #64748b;
+  }
+}
+
+/* Ensure the DetailRow values have enough space for the placeholders */
+.rowValue {
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}

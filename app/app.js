@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 import AppHeader from 'containers/App/AppHeader';
 import GlobalHeaderContainer from 'containers/GlobalHeaderContainer';
 import browserHistory, { history } from 'utils/browserHistory';
+import LoadingSpinner from 'components/LoadingSpinner';
 import configureStore from './store';
 import {
   routes as routeList,
@@ -70,7 +71,7 @@ export const App = () => {
           <GlobalHeaderContainer />
         </AppHeader>
         <div className="relativePosition">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div><LoadingSpinner /></div>}>
             <Routes>
               {routes?.map((route) => createRoute(route))}
               <Route path="*" element={<div><p>No Route</p></div>} />

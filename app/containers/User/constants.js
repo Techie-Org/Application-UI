@@ -1,7 +1,12 @@
 // Users API URLs
 export const FETCH_USER_BOOKINGS_API_URL = '/api/user/myBookings';
+export const UPDATE_USER_PROFILE_API_URL = '/api/account/updateUserProfile';
 
 // Users Actions
+export const UPDATE_USER_PROFILE = 'artistry/User/UPDATE_USER_PROFILE';
+export const UPDATE_USER_PROFILE_FAILED = 'artistry/User/UPDATE_USER_PROFILE_FAILED';
+export const UPDATE_USER_PROFILE_SUCCESS = 'artistry/User/UPDATE_USER_PROFILE_SUCCESS';
+
 
 // Fetch Bookings action
 export const FETCH_BOOKINGS = 'artistry/User/FETCH_BOOKINGS';

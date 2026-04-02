@@ -10,11 +10,6 @@ const UserMenu = ({ onNavigate, logoutUser, userProfileData }) => {
   const toggleDropdown = () => setIsOpen(!isOpen);
   const closeDropdown = () => setIsOpen(false);
 
-  const handleItemClick = (action) => {
-    console.log(`Navigating to: ${action}`);
-    closeDropdown();
-  };
-
   return (
     <nav className={styles.navbar}>
       {/* <div className={styles.navLogo}>TravelEase</div> */}
@@ -49,14 +44,20 @@ const UserMenu = ({ onNavigate, logoutUser, userProfileData }) => {
               <ul className={styles.dropdownList}>
                 <li
                   className={styles.dropdownItem}
-                  onClick={() => onNavigate('user/bookings')}
+                  onClick={() => {
+                    onNavigate('user/bookings');
+                    closeDropdown();
+                  }}
                 >
                   <Calendar size={16} />
                   <span>My Bookings</span>
                 </li>
                 <li
                   className={styles.dropdownItem}
-                  onClick={() => handleItemClick('profile')}
+                  onClick={() => {
+                    onNavigate('user/profile');
+                    closeDropdown();
+                  }}
                 >
                   <Settings size={16} />
                   <span>Profile</span>
