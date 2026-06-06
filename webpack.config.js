@@ -55,7 +55,7 @@ module.exports = {
             options: {
               sassOptions: {
                 quietDeps: true,
-                includePaths: ['src/styles'],
+                includePaths: ['app/styles'],
               },
             },
           },

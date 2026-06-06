@@ -7,8 +7,8 @@
     "node": ">=20.17.0"
   },
   "scripts": {
-    "build": "webpack",
-    "build:clean": "npm run test:clean && rimraf ./build",
+    "build": "webpack --config webpack.prod.config.cjs",
+    "build:clean": "npm run test:clean && rimraf ./dist",
     "clean:all": "npm run test:clean && npm run build:clean",
     "clear-jest-cache": "rimraf ./.jest-cache ./.eslintcache ./.stylelintcache node_modules/.cache",
     "eject": "react-scripts eject",
@@ -20,6 +20,7 @@
     "lint:staged": "lint-staged",
     "prepare": "husky",
     "pretest": "npm run test:clean && npm run lint",
+    "preview": "npm run build:clean && npm run build && cross-env NODE_ENV=production npm start",
     "start": "node server",
     "test": "npm run test:default -- --coverage",
     "test:clean": "npm run clear-jest-cache && rimraf ./coverage",
@@ -72,6 +73,7 @@
     "@cfaester/enzyme-adapter-react-18": "^0.8.0",
     "autoprefixer": "^10.4.18",
     "cheerio": "^1.0.0-rc.12",
+    "cross-env": "^10.1.0",
     "css-loader": "^7.1.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",

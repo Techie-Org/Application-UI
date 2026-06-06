@@ -1,13 +1,14 @@
-const express = require('express');
-const path = require('path');
-const webpack = require('webpack');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
+// ESM equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const webpackConfig = require('../webpack.config');
-const compiler = webpack(webpackConfig);
+const isProduction = process.env.NODE_ENV === 'production';
 
 // const pxhost = process.env.npm_config_pxhost || 'http://localhost:5000';
 const pxhost = process.env.npm_config_pxhost || 'https://dev-kalakaar.onrender.com';
@@ -18,41 +19,64 @@ app.use(
     target: `${pxhost}/api`, // Added api with base as pathRewrite not working in proxy middleware
     changeOrigin: true,
     secure: true,
-    // pathRewrite: { '^/api': '/api' }, // pathRewrite is not working in latest node version, http-proxy hasn't updated dependency
   })
 );
 
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js file as base
-const middleware = webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  stats: 'errors-only',
-});
+// CONDITIONAL MIDDLEWARE
+if (!isProduction) {
+  // DEVELOPMENT: Dynamic imports for dev-only dependencies
+  console.log('🛠️ Running in Development Mode...');
+  const webpack = (await import('webpack')).default;
+  const webpackDevMiddleware = (await import('webpack-dev-middleware')).default;
+  const webpackHotMiddleware = (await import('webpack-hot-middleware')).default;
+  // eslint-disable-next-line import/extensions
+  const webpackConfig = (await import('../webpack.config.js')).default;
 
-app.use(middleware);
+  const compiler = webpack(webpackConfig);
 
-app.use(
-  webpackHotMiddleware(compiler, {
-    ignoreUnaccepted: false,
-  })
-);
-
-app.use(express.static(path.join(__dirname, '../dist'))); // TODO: need to modify the path
-
-// Since webpackDevMiddleware uses memory-fs internally to store build artifacts, we use it instead
-const fs = middleware.context.outputFileSystem;
-
-app.get('*', (req, res) => {
-  fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-    if (err) {
-      res.sendStatus(404);
-    } else {
-      res.send(file.toString());
-    }
+  // Save the middleware instance to a variable so we can access its virtual file system
+  const middleware = webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
   });
-});
 
-// Start the server
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+
+  // This catch-all route serves index.html from Webpack's memory on refresh
+  app.get('*', (req, res, next) => {
+    // Avoid intercepting API calls or webpack hot reload updates
+    if (req.url.startsWith('/api') || req.url.includes('webpack')) {
+      next();
+    }
+
+    const fs = middleware.context.outputFileSystem;
+    const fallbackPath = path.join(compiler.outputPath, 'index.html');
+
+    fs.readFile(fallbackPath, (err, file) => {
+      if (err) {
+        next(err); // Pass error to express handling
+      }
+      res.set('content-type', 'text/html');
+      res.send(file);
+      res.end();
+    });
+  });
+} else {
+  console.log('🚀 Running in Production Mode...');
+  const distPath = path.resolve(__dirname, '../dist');
+  console.log(`📂 Serving static files from: ${distPath}`);
+
+  app.use(express.static(distPath));
+
+  app.get('*', (req, res) => {
+    // In production, the file actually exists on disk, so res.sendFile works perfectly
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
+// START SERVER
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+// We listen on 0.0.0.0 to ensure Render can detect the port
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server is live on port ${PORT}`);
 });

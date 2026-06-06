@@ -37,7 +37,7 @@ const BrowseArtists = ({
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(
         (artist) => artist.name.toLowerCase().includes(term)
-          || artist.description.toLowerCase().includes(term)
+          || artist.description?.toLowerCase().includes(term)
           || artist.location.toLowerCase().includes(term)
           || artist.skills.some((skill) => skill.toLowerCase().includes(term))
       );

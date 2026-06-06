@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, MapPin, Clock, DollarSign } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { history } from 'utils/browserHistory';
+import LoadingSpinner from 'components/LoadingSpinner';
 import styles from './styles.scss';
 
 const MyBookings = ({
   fetchBookings,
   bookings = [],
+  bookingsLoaded,
   isUserLoggedIn = false,
   isUserProfileLoaded,
   userProfile,
@@ -24,7 +26,7 @@ const MyBookings = ({
 
   const filteredBookings = filter === 'all'
     ? bookings
-    : bookings.filter((booking) => booking.status === filter);
+    : bookings.filter((booking) => booking?.status === filter);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -40,6 +42,10 @@ const MyBookings = ({
         return styles.statusDefault;
     }
   };
+
+  if (!bookingsLoaded) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className={styles.pageContainer}>
@@ -79,20 +85,20 @@ const MyBookings = ({
         ) : (
           <div className={styles.bookingList}>
             {filteredBookings.map((booking) => (
-              <div key={booking.bookingId} className={styles.bookingCard}>
+              <div key={booking?.bookingId} className={styles.bookingCard}>
                 <div className={styles.cardFlex}>
                   <div className={styles.imageContainer}>
-                    <img src={booking.artist.imageUrl} alt={booking.artist.name} className={styles.artistImg} />
+                    <img src={booking?.artist?.imageUrl} alt={booking?.artist?.name} className={styles.artistImg} />
                   </div>
 
                   <div className={styles.cardContent}>
                     <div className={styles.cardHeader}>
                       <div>
-                        <h3 className={styles.artistName}>{booking.artist.name}</h3>
-                        <span className={styles.categoryTag}>{booking.artist.category}</span>
+                        <h3 className={styles.artistName}>{booking?.artist?.name}</h3>
+                        <span className={styles.categoryTag}>{booking?.artist?.category}</span>
                       </div>
-                      <span className={`${styles.statusBadge} ${getStatusColor(booking.status)}`}>
-                        {booking.status}
+                      <span className={`${styles.statusBadge} ${getStatusColor(booking?.status)}`}>
+                        {booking?.status}
                       </span>
                     </div>
 
@@ -102,7 +108,7 @@ const MyBookings = ({
                         <div>
                           <div className={styles.labelSmall}>Event Date</div>
                           <div className={styles.valueBold}>
-                            {new Date(booking.eventDate).toLocaleDateString()}
+                            {new Date(booking?.eventDate).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
@@ -111,10 +117,10 @@ const MyBookings = ({
                         <div>
                           <div className={styles.labelSmall}>Time & Duration</div>
                           <div className={styles.valueBold}>
-                            {booking.eventTime}
+                            {booking?.eventTime}
                             {' '}
                             (
-                            {booking.durationHours}
+                            {booking?.durationHours}
                             h)
                           </div>
                         </div>
@@ -123,7 +129,7 @@ const MyBookings = ({
                         <MapPin className={styles.icon} />
                         <div>
                           <div className={styles.locationLabel}>Location</div>
-                          <div className={styles.valueBold}>{booking.eventLocation}</div>
+                          <div className={styles.valueBold}>{booking?.eventLocation}</div>
                         </div>
                       </div>
                       <div className={styles.detailItem}>
@@ -132,25 +138,25 @@ const MyBookings = ({
                           <div className={styles.costLabel}>Total Cost</div>
                           <div className={styles.priceValue}>
                             $
-                            {Number(booking.totalPrice).toFixed(2)}
+                            {Number(booking?.totalPrice).toFixed(2)}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {booking.eventType && (
+                    {booking?.eventType && (
                       <div className={styles.eventTypeRow}>
                         <span className={styles.labelSecondary}>Event Type: </span>
                         <span className={styles.valuePrimary}>
-                          {booking.eventType}
+                          {booking?.eventType}
                         </span>
                       </div>
                     )}
 
-                    {booking.notes && (
+                    {booking?.notes && (
                       <div className={styles.notesBox}>
                         <div className={styles.notesLabel}>Notes:</div>
-                        <p className={styles.notesText}>{booking.notes}</p>
+                        <p className={styles.notesText}>{booking?.notes}</p>
                       </div>
                     )}
                   </div>
@@ -167,6 +173,7 @@ const MyBookings = ({
 MyBookings.propTypes = {
   fetchBookings: PropTypes.func.isRequired,
   bookings: PropTypes.array.isRequired,
+  bookingsLoaded: PropTypes.bool,
   isUserLoggedIn: PropTypes.bool,
   isUserProfileLoaded: PropTypes.bool,
   userProfile: PropTypes.object,

@@ -9,10 +9,14 @@ import {
   makeSelectUserProfileLoaded,
 } from 'containers/GlobalHeaderContainer/selectors';
 import { fetchUserBookings } from '../actions';
-import { makeSelectUserBookingsData } from './selectors';
+import {
+  makeSelectUserBookingsData,
+  makeSelectUserBookingsLoaded,
+} from './selectors';
 
 const mapStateToProps = () => createStructuredSelector({
   bookings: makeSelectUserBookingsData(),
+  bookingsLoaded: makeSelectUserBookingsLoaded(),
   isUserProfileLoaded: makeSelectUserProfileLoaded(),
   userProfile: makeSelectUserProfileData(),
   isUserLoggedIn: makeSelectIsUserLoggedIn(),
